@@ -48,11 +48,11 @@ header img {
     margin: auto;
     padding: 8px;
 }
-.addInv #roomButtons {
+.addInv #roomsWrapper, .addInv #locWrapper {
     display: inline-block;
 }
-.addInv #roomButtons input {
-    width: 55px !important;
+.addInv #roomsWrapper input, .addInv #locWrapper input {
+    width: auto !important;
 }
 /* -----ADD/UPDATE----- */
 .addInv#add p {

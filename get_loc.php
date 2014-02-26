@@ -1,6 +1,15 @@
 <?php
-$array = array("bar","cabinet","locker","fridge","other");
-for($i=0; $i<count($array); $i++) {
-	echo "<input type='button' class='locBut' value='$array[$i]'>";
-}
+require('admin/AcidRainDBLogin.php');
+$room = $_GET['room'];
+//Query for locations based on $room
+$query = $db->prepare("SELECT DISTINCT Location FROM inventory WHERE Room=?");
+	$query->bind_param('s', $room);
+	$query->execute();
+	if ($result = $query->get_result()) {
+		#Create buttons for each room
+		while ($row = $result->fetch_row()) {
+			echo "<input type='button' class='locBut' value='$row[0]'>";
+		}
+		$result->close();
+	}
 ?>

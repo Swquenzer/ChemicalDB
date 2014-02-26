@@ -1,5 +1,5 @@
 <?php
-include('admin/AcidRainDBLogin.php');
+require('admin/AcidRainDBLogin.php');
 session_start();
 date_default_timezone_set("America/New_York");
 ###Form Levels###
@@ -60,29 +60,6 @@ $message = "";
 			//Why can't 'quant' be used here? 
 			document.getElementById('quant').value = temp.toString(); 
         }
-		/* 
-        function getLocations(room) {
-            //Returns array of locations based on room argument
-            var locations = new Array();
-            switch(room) {
-            case "35": locations.push("Stains Shelf","Organics","Front Room","Inorganic","Dangerous When Wet","Oxidizers Shelf","Highly Flammable");
-                break;
-            case "35b": locations.push("Concrete Shelf","Refrigerator","Flammable Liquid Cabinet");
-                break;
-            case "25a": locations.push("Cabinet","Freezer","Refrigerator");
-                break;  
-            case "26/36": locations.push("Freezer","Cabinet","Shelf");
-                break;
-            case "54": locations.push("Flammable Cabinet","Wall Shelf","Chemical Cabinet");
-                break;
-            case "39": locations.push("Shelf","Freezer","Chemical Cabinet");
-                break;
-            case "41a": locations.push("Shelf 2","Shelf 3","Shelf 5");
-            }
-            if(locations.length == 0) console.log("Error returning location array");
-            return locations;
-        }
-		*/
 		function getLocations(room) {
 			var request;
 			if (window.XMLHttpRequest) {
@@ -92,16 +69,20 @@ $message = "";
 				//IE5 & 6
 				request = new ActiveXObject("Microsoft.XMLHTTP");
 			}
+			var locWrapper = document.getElementById('locWrapper');
+			locWrapper.innerHTML="<img src='gfx/loader.gif'>";
 			request.onreadystatechange = function() {
+				//If process is processed successfully
 				if(request.readyState == 4 && request.status == 200) {
-					//Change to return location array
-					document.getElementById('locWrapper').innerHTML=request.responseText;
+					locWrapper.innerHTML=request.responseText;
 				}
 			}
 			request.open("GET","get_loc.php?room="+room,"true");
 			request.send();
 		}
         function createLocations(room) {
+			//Add selected room to text input
+			document.getElementById('room').value = room;
             var locations = getLocations(room);
             var roomsWrapper = document.getElementById('roomsWrapper');
 			roomsWrapper.style.display="none";
@@ -188,7 +169,7 @@ $message = "";
 					<span><input list="manufacturers" name="manufacturer" tabinex="1" placeholder="Sigma" required /></span>
 					</label>
 					<label id="roomLbl">Room
-					<span><input list="rooms" name="room tabinex="2" placeholder="35b" required /></span>
+					<span><input list="rooms" name="room" id="room" tabinex="2" placeholder="35b" required /></span>
 					</label>
 					<span id="roomsWrapper">
 						<?php
@@ -201,7 +182,7 @@ $message = "";
 						?>
 					</span>
 					<label id="locationLbl">Location
-					<span><input list="location" name="location" tabinex="3" placeholder="Storeroom Front"  required /></span>
+					<span><input list="location" name="location" id="loc" tabinex="3" placeholder="Storeroom Front"  required /></span>
 					</label>
 					<span id="locWrapper">
 					</span>
