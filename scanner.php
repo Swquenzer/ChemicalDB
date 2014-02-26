@@ -70,9 +70,10 @@ $message = "";
 				request = new ActiveXObject("Microsoft.XMLHTTP");
 			}
 			var locWrapper = document.getElementById('locWrapper');
+			//Pre-load indicator
 			locWrapper.innerHTML="<img src='gfx/loader.gif'>";
+			//If process is processed successfully
 			request.onreadystatechange = function() {
-				//If process is processed successfully
 				if(request.readyState == 4 && request.status == 200) {
 					locWrapper.innerHTML=request.responseText;
 				}
@@ -83,32 +84,15 @@ $message = "";
         function createLocations(room) {
 			//Add selected room to text input
 			document.getElementById('room').value = room;
-            var locations = getLocations(room);
+            getLocations(room);
             var roomsWrapper = document.getElementById('roomsWrapper');
 			roomsWrapper.style.display="none";
 			var locationsWrapper = document.getElementById('locWrapper');
-			<?php
-				#Get all rooms from database
-				$query = $db->prepare("SELECT DISTINCT Location FROM inventory WHERE Room=(?)");
-				$query->bind_param('s', $room);
-				$query->execute();
-				if ($result = $query->get_result()) {
-					#Create buttons for each room
-					while ($row = $result->fetch_row()) {
-						echo "<input type='button' value='$row[0]' class='locBut'";
-					}
-					$result->close();
-				}
-			?>
-			for(var i=0; i<locations.length; i++) {
-				var loc = document.createElement('input');
-				loc.type="button";
-				loc.class="locBut";
-				loc.value=locations[i];
-				locationsWrapper.appendChild(loc);
-			}
-			locations.style.display="auto";
         }
+		function addLocation(loc) {
+			document.getElementById('loc').value=loc;
+			locWrapper.style.display="none";
+		}
 	</script>
 </head>
 <body>
@@ -208,45 +192,6 @@ $message = "";
 				<datalist id="manufacturers">
 					<?php
 					if ($result = $db->query("SELECT DISTINCT Name FROM manufacturer")) {
-						while ($row = $result->fetch_row()) {
-							echo '<option value="' . $row[0] . '" label=" ' . $row[0] . '">';
-						}
-						$result->close();
-					}
-					?>
-				</datalist>
-				<datalist id="chemicals">
-					<?php
-					//if ($result = $db->query("SELECT DISTINCT Name FROM chemical")) {
-					if($result = $db->query("SELECT DISTINCT chemical.name
-											FROM chemical
-											INNER JOIN inventory
-											ON chemical.ID=inventory.ChemicalID
-											WHERE chemical.CAS='" . $_GET['cas'] . "'
-											ORDER BY inventory.LastUpdated DESC
-											LIMIT 5")) {
-						while ($row = $result->fetch_row()) {
-							echo '<option value="' . $row[0] . '" label=" ' . $row[0] . '">';
-						}
-						$result->close();
-					}
-					?>
-				</datalist>
-				<datalist id="rooms">
-					<?php
-					if ($result = $db->query("SELECT DISTINCT Room FROM inventory")) {
-						while ($row = $result->fetch_row()) {
-							echo '<option value="' . $row[0] . '" label=" ' . $row[0] . '">';
-						}
-						$result->close();
-					}
-					?>
-				</datalist>
-				<datalist id="quantity">
-				</datalist>
-				<datalist id="location">
-					<?php
-					if ($result = $db->query("SELECT DISTINCT Location FROM inventory")) {
 						while ($row = $result->fetch_row()) {
 							echo '<option value="' . $row[0] . '" label=" ' . $row[0] . '">';
 						}
