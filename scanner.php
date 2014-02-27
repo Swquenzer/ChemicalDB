@@ -32,6 +32,19 @@ $message = "";
   <meta name="author" content="Chemical Database">
   <link rel="stylesheet" href="css/scanner.css">
   <script>
+		var request;
+		function ajaxRequest(url, callback) {
+			if (window.XMLHttpRequest) {
+				//Modern Browsers
+				request = new XMLHttpRequest();
+			} else {
+				//IE5 & 6
+				request = new ActiveXObject("Microsoft.XMLHTTP");
+			}
+			request.onreadystatechange=callback;
+			request.open("GET",url,true);
+			request.send();
+		}
 		function verifyCAS() {
 			var cas = new RegExp("^[0-9]{2,6}-[0-9]{2}-[0-9]$"); //CAS regular expression
 			var input = document.getElementById('cas').value;
@@ -61,25 +74,15 @@ $message = "";
 			document.getElementById('quant').value = temp.toString(); 
         }
 		function getLocations(room) {
-			var request;
-			if (window.XMLHttpRequest) {
-				//Modern Browsers
-				request = new XMLHttpRequest();
-			} else {
-				//IE5 & 6
-				request = new ActiveXObject("Microsoft.XMLHTTP");
-			}
 			var locWrapper = document.getElementById('locWrapper');
 			//Pre-load indicator
 			locWrapper.innerHTML="<img src='gfx/loader.gif'>";
 			//If process is processed successfully
-			request.onreadystatechange = function() {
+			ajaxRequest("get_loc.php?room="+room, function() {
 				if(request.readyState == 4 && request.status == 200) {
 					locWrapper.innerHTML=request.responseText;
 				}
-			}
-			request.open("GET","get_loc.php?room="+room,"true");
-			request.send();
+			});
 		}
         function createLocations(room) {
 			//Add selected room to text input
@@ -211,3 +214,4 @@ $message = "";
 	</footer>
 </body>
 </html>
+<?php $db->close(); ?>
