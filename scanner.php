@@ -69,7 +69,9 @@ $message = "";
 			//var field = document.getElementById(field);
 			ajaxRequest("verify_new_data.php?field="+field+"&table="+table+"&value="+value, function() {
 				if(request.readyState == 4 && request.status == 200) {
-					locWrapper.innerHTML=request.responseText;
+					var response = request.responseText;
+					locWrapper.innerHTML=response;
+					console.log(response);
 				}
 			});
 		}

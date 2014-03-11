@@ -3,23 +3,23 @@
 	$field = $_GET['field'];
 	$table = $_GET['table'];
 	$value = $_GET['value'];
+	$match = true;
 	//Query for locations based on $room
-	$query = "SELECT DISTINCT ? FROM ? WHERE ?=?";
+	$query = "SELECT DISTINCT $field FROM $table WHERE $field=?";
 	$stmt = $db->stmt_init();
-	$match=true;
 	if(!$stmt->prepare($query)) {
-		echo("get_loc.php: Error preparing query");
+		echo("verify_new_data.php: Error preparing query");
 	} else {
-		$stmt->bind_param('ssss', $field, $table, $field, $value);
+		$stmt->bind_param('s', $value);
 		$stmt->execute();
 		$numRows = $stmt->num_rows;
 		if($numRows == 0) {
-			$match = false;
-		} else $match = true;
+			//If entry is currently NOT in database
+			$match = true;
+		} else $match = false;
 	}
 	if ($match) {
-		//Are you sure you want to add item?
-		echo "<p>ARE YOU SURE YOU WANT TO ADD ITEM?</p>";
+		echo "<p style='color: red;'>ARE YOU SURE YOU WANT TO ADD LOCATION '$value'?</p>";
 	}
 	$db->close();
 ?>
