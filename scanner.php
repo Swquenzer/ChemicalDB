@@ -32,19 +32,7 @@ $message = "";
   <meta name="author" content="Chemical Database">
   <link rel="stylesheet" href="css/scanner.css">
   <script>
-		var request;
-		function ajaxRequest(url, callback) {
-			if (window.XMLHttpRequest) {
-				//Modern Browsers
-				request = new XMLHttpRequest();
-			} else {
-				//IE5 & 6
-				request = new ActiveXObject("Microsoft.XMLHTTP");
-			}
-			request.onreadystatechange=callback;
-			request.open("GET",url,true);
-			request.send();
-		}
+		//Verifies that CAS number is of correct form
 		function verifyCAS() {
 			var cas = new RegExp("^[0-9]{2,6}-[0-9]{2}-[0-9]$"); //CAS regular expression
 			var input = document.getElementById('cas').value;
@@ -61,6 +49,31 @@ $message = "";
 			}
 			return true;
 		}
+		//A general purpose ajax request callback function
+		var request;
+		function ajaxRequest(url, callback) {
+			if (window.XMLHttpRequest) {
+				//Modern Browsers
+				request = new XMLHttpRequest();
+			} else {
+				//IE5 & 6
+				request = new ActiveXObject("Microsoft.XMLHTTP");
+			}
+			request.onreadystatechange=callback;
+			request.open("GET",url,true);
+			request.send();
+		}
+		//Verifies that the user wants to add new data to the DB
+		//field & table parameters refer to database, value is the input
+		function verifyNewData(field, table, value) {
+			//var field = document.getElementById(field);
+			ajaxRequest("verify_new_data.php?field="+field+"&table="+table+"&value="+value, function() {
+				if(request.readyState == 4 && request.status == 200) {
+					locWrapper.innerHTML=request.responseText;
+				}
+			});
+		}
+		
 		function incQuantity(amount) {
 			amount.substr(1); //Remove the '+' from the number
 			var quant = document.getElementById('quant').value;
@@ -147,7 +160,7 @@ $message = "";
 					<label class="center">Chemical Abstract Registry Number</label>
 					<input type="text" name="cas" id="cas" value="<?php echo $_GET['cas']; ?>" placeholder="Example CAS: 9000-01-5" required>
 				</p>
-				<img src="barcode.php?codetype=code128&height=40&cas=<?php echo $_GET['cas']; ?>" style="display: block; margin: auto;" alt="<?php echo $_GET['cas']; ?>">
+				<img src="barcode.php?codetype=code25&height=40&cas=<?php echo $_GET['cas']; ?>" style="display: block; margin: auto;" alt="<?php echo $_GET['cas']; ?>">
 				<p>
 					<label id="chemicalsLbl">Chemical Name
 					<span><input list="chemicals" name="chemical" placeholder="Acetone" required autofocus/></span>
@@ -169,7 +182,7 @@ $message = "";
 						?>
 					</span>
 					<label id="locationLbl">Location
-					<span><input list="location" name="location" id="loc" tabinex="3" placeholder="Storeroom Front"  required /></span>
+					<span><input list="location" name="location" id="loc" tabinex="3" placeholder="Storeroom Front" onblur="verifyNewData('location', 'inventory', this.value)"  required /></span>
 					</label>
 					<span id="locWrapper">
 					</span>

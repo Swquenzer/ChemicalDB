@@ -3,7 +3,7 @@
 #################
 
 *.stackdump
-barcodes/*
+barcodes\*
 
 #################
 ## Eclipse

@@ -11,7 +11,7 @@
 
 // Get pararameters that are passed in through $_GET or set to the default value
 $text = (isset($_GET["cas"])?$_GET["cas"]:"TESTING");
-$size = (isset($_GET["height"])?$_GET["height"]:"40");
+$size = (isset($_GET["height"])?$_GET["height"]:"20");
 $orientation = (isset($_GET["orientation"])?$_GET["orientation"]:"horizontal");
 $code_type = (isset($_GET["codetype"])?$_GET["codetype"]:"code128");
 $code_string = "";
