@@ -255,6 +255,31 @@ input.submitButton {
     -moz-box-shadow:    0px 0px 2px 0px #165416;
     box-shadow:         0px 0px 2px 0px #165416;
 }
+/* -----POPUP----- */
+#popupBG {display: none}
+#popupBG.active {
+	display: block;
+	position: fixed;
+	height: 100%;
+	width: 100%;
+	left: 0;
+	top: 0;
+	background: black;
+    opacity: .5;
+}
+#popup {display: none}
+#popup.active {
+    display: inline-block;
+    width: 400px;
+    margin: 0px -200px;
+    position: fixed;
+    left: 50%;
+    top: 20%;
+	padding: 20px;
+    color: black;
+    background: white;
+    border-radius: 5px;
+}
 /* -----FOOTER----- */
 #barcode {
     display: block;
