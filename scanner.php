@@ -47,7 +47,8 @@ $message = "";
 					<label>Chemical Abstract Registry Number</label>
 					<span id="error" style="display: block; color: red; padding: 6px; text-align: center;"></span>
 					<input type="text" name="cas" id="cas" placeholder="Example CAS: 9000-01-5" required autofocus>
-				</p><p id="bottom_wrapper">
+				</p>
+				<p id="bottom_wrapper">
 				    <label class="switch">
 					  <input type="checkbox" name="chemAction" class="switch-input">
 					  <span class="switch-label" data-on="Add New" data-off="Update"></span>
@@ -60,84 +61,151 @@ $message = "";
 		<?php
 		} elseif($_SESSION['formLevel'] == 2) {
 		?>
-			<form class="addInv" id="update" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="GET">
-				<label>UPDATE CHEMICAL</label>
-			</form>
+		<script>
+		function getData(cas) {
+			ajaxRequest("get_data.php?cas="+cas, function() {
+				if(request.readyState == 4 && request.status == 200) {
+					var response = request.responseText;
+				}
+			});
+		}
+		</script>
+		
+		    <form class="addInv" id="add" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="GET">
+			    <p>
+				    <label class="center">Chemical Abstract Registry Number</label>
+				    <input type="text" name="cas" id="cas" value="<?php echo $_GET['cas']; ?>" placeholder="Example CAS: 9000-01-5" required>
+			    </p>
+			    <p>
+				    <label id="chemicalsLbl">Chemical Name
+				    <span><input list="chemicals" name="chemical" placeholder="Acetone" required autofocus/></span>
+				    </label>
+				    <label id="manufacturerLbl">Manufacturer
+				    <span><input list="manufacturers" name="manufacturer" tabinex="1" placeholder="Sigma" required /></span>
+				    </label>
+				    <label id="roomLbl">Room
+				    <span><input list="rooms" name="room" id="room" tabinex="2" placeholder="35b" required /></span>
+				    </label>
+				    <span id="roomsWrapper">
+					    <?php
+						    if ($result = $db->query("SELECT DISTINCT Room FROM inventory")) {
+							    while ($row = $result->fetch_row()) {
+								    echo "<input type='button' value='$row[0]' class='roomBut' onclick='createLocations(this.value)'>";
+							    }
+							    $result->close();
+						    }
+					    ?>
+				    </span>
+				    <label id="locationLbl">Location
+				    <span><input list="location" name="location" id="loc" tabinex="3" placeholder="Storeroom Front" onblur="verifyNewData('location', 'inventory', this.value)"  required /></span>
+				    </label>
+				    <span id="locWrapper">
+				    </span>
+				    <label id="quantLbl">Quantity
+				    <span><input type="number" name="quant" id="quant" tabinex="4" placeholder="4" value="0" required /></span>
+				    </label>
+				    <input type="button" class="incQuant" value="+1" onclick="incQuantity(this.value)">
+				    <input type="button" class="incQuant" value="+5" onclick="incQuantity(this.value)">
+				    <input type="button" class="incQuant" value="+10" onclick="incQuantity(this.value)">
+				    <input type="button" class="incQuant" value="+50" onclick="incQuantity(this.value)">
+				    <input type="button" class="incQuant" value="Clear" onclick="document.getElementById('quant').value='0'">
+				    <label id="unitSizeLbl">Unit Size
+				    <span id="unitSize"><input type="number" name="unitSize" tabinex="5" placeholder="200" required />
+				    <input type="text" name="unit" tabinex="6" placeholder="mg" required ></span>
+				    </label>
+				    <!-- <label id="unitLbl">Unit of Measure
+				    <span></span>
+				    </label> -->
+				    <input type="submit" name="submit" class="submitButton" value="Add Chemical">
+			    </p>
+		    
+			    <!--these will be filled by javascript when the page loads-->
+			    <datalist id="manufacturers">
+				    <?php
+				    if ($result = $db->query("SELECT DISTINCT Name FROM manufacturer")) {
+					    while ($row = $result->fetch_row()) {
+						    echo '<option value="' . $row[0] . '" label=" ' . $row[0] . '">';
+					    }
+					    $result->close();
+				    }
+				    ?>
+			    </datalist>
+		    </form>
 		<?php
 		} else { 
 		### Else formLevel == 3 ###
 		?>
-			<p style="text-align: center;"><?php echo $message; ?></p>
-			<form class="addInv" id="add" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="GET">
-				<?php
-				if (!empty($errors)) {
-					echo "<span class='errMsg'><h3 style='margin-left: 20px;'>Errors:</h3><ul>";
-					foreach ($errors as $e) {
-						echo "<li>$e</li>";
-					}
-					echo "</ul></span>";
-				}
-				?>
-				<p>
-					<label class="center">Chemical Abstract Registry Number</label>
-					<input type="text" name="cas" id="cas" value="<?php echo $_GET['cas']; ?>" placeholder="Example CAS: 9000-01-5" required>
-				</p>
-				<img src="barcode.php?codetype=code25&height=40&cas=<?php echo $_GET['cas']; ?>" style="display: block; margin: auto;" alt="<?php echo $_GET['cas']; ?>">
-				<p>
-					<label id="chemicalsLbl">Chemical Name
-					<span><input list="chemicals" name="chemical" placeholder="Acetone" required autofocus/></span>
-					</label>
-					<label id="manufacturerLbl">Manufacturer
-					<span><input list="manufacturers" name="manufacturer" tabinex="1" placeholder="Sigma" required /></span>
-					</label>
-					<label id="roomLbl">Room
-					<span><input list="rooms" name="room" id="room" tabinex="2" placeholder="35b" required /></span>
-					</label>
-					<span id="roomsWrapper">
-						<?php
-							if ($result = $db->query("SELECT DISTINCT Room FROM inventory")) {
-								while ($row = $result->fetch_row()) {
-									echo "<input type='button' value='$row[0]' class='roomBut' onclick='createLocations(this.value)'>";
-								}
-								$result->close();
-							}
-						?>
-					</span>
-					<label id="locationLbl">Location
-					<span><input list="location" name="location" id="loc" tabinex="3" placeholder="Storeroom Front" onblur="verifyNewData('location', 'inventory', this.value)"  required /></span>
-					</label>
-					<span id="locWrapper">
-					</span>
-					<label id="quantLbl">Quantity
-					<span><input type="number" name="quant" id="quant" tabinex="4" placeholder="4" value="0" required /></span>
-					</label>
-					<input type="button" class="incQuant" value="+1" onclick="incQuantity(this.value)">
-					<input type="button" class="incQuant" value="+5" onclick="incQuantity(this.value)">
-					<input type="button" class="incQuant" value="+10" onclick="incQuantity(this.value)">
-					<input type="button" class="incQuant" value="+50" onclick="incQuantity(this.value)">
-					<input type="button" class="incQuant" value="Clear" onclick="document.getElementById('quant').value='0'">
-					<label id="unitSizeLbl">Unit Size
-					<span id="unitSize"><input type="number" name="unitSize" tabinex="5" placeholder="200" required />
-					<input type="text" name="unit" tabinex="6" placeholder="mg" required ></span>
-					</label>
-					<!-- <label id="unitLbl">Unit of Measure
-					<span></span>
-					</label> -->
-					<input type="submit" name="submit" class="submitButton" value="Add Chemical">
-				</p>
-			
-				<!--these will be filled by javascript when the page loads-->
-				<datalist id="manufacturers">
-					<?php
-					if ($result = $db->query("SELECT DISTINCT Name FROM manufacturer")) {
-						while ($row = $result->fetch_row()) {
-							echo '<option value="' . $row[0] . '" label=" ' . $row[0] . '">';
-						}
-						$result->close();
-					}
-					?>
-				</datalist>
-			</form>
+		    <p class="center"><?php echo $message; ?></p>
+		    <form class="addInv" id="add" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="GET">
+			    <?php
+			    if (!empty($errors)) {
+				    echo "<span class='errMsg'><h3 style='margin-left: 20px;'>Errors:</h3><ul>";
+				    foreach ($errors as $e) {
+					    echo "<li>$e</li>";
+				    }
+				    echo "</ul></span>";
+			    }
+			    ?>
+			    <p>
+				    <label class="center">Chemical Abstract Registry Number</label>
+				    <input type="text" name="cas" id="cas" value="<?php echo $_GET['cas']; ?>" placeholder="Example CAS: 9000-01-5" required>
+			    </p>
+			    <img src="barcode.php?codetype=code25&height=40&cas=<?php echo $_GET['cas']; ?>" style="display: block; margin: auto;" alt="<?php echo $_GET['cas']; ?>">
+			    <p>
+				    <label id="chemicalsLbl">Chemical Name
+				    <span><input list="chemicals" name="chemical" placeholder="Acetone" required autofocus/></span>
+				    </label>
+				    <label id="manufacturerLbl">Manufacturer
+				    <span><input list="manufacturers" name="manufacturer" tabinex="1" placeholder="Sigma" required /></span>
+				    </label>
+				    <label id="roomLbl">Room
+				    <span><input list="rooms" name="room" id="room" tabinex="2" placeholder="35b" required /></span>
+				    </label>
+				    <span id="roomsWrapper">
+					    <?php
+						    if ($result = $db->query("SELECT DISTINCT Room FROM inventory")) {
+							    while ($row = $result->fetch_row()) {
+								    echo "<input type='button' value='$row[0]' class='roomBut' onclick='createLocations(this.value)'>";
+							    }
+							    $result->close();
+						    }
+					    ?>
+				    </span>
+				    <label id="locationLbl">Location
+				    <span><input list="location" name="location" id="loc" tabinex="3" placeholder="Storeroom Front" onblur="verifyNewData('location', 'inventory', this.value)"  required /></span>
+				    </label>
+				    <span id="locWrapper">
+				    </span>
+				    <label id="quantLbl">Quantity
+				    <span><input type="number" name="quant" id="quant" tabinex="4" placeholder="4" value="0" required /></span>
+				    </label>
+				    <input type="button" class="incQuant" value="+1" onclick="incQuantity(this.value)">
+				    <input type="button" class="incQuant" value="+5" onclick="incQuantity(this.value)">
+				    <input type="button" class="incQuant" value="+10" onclick="incQuantity(this.value)">
+				    <input type="button" class="incQuant" value="+50" onclick="incQuantity(this.value)">
+				    <input type="button" class="incQuant" value="Clear" onclick="document.getElementById('quant').value='0'">
+				    <label id="unitSizeLbl">Unit Size
+				    <span id="unitSize"><input type="number" name="unitSize" tabinex="5" placeholder="200" required />
+				    <input type="text" name="unit" tabinex="6" placeholder="mg" required ></span>
+				    </label>
+				    <!-- <label id="unitLbl">Unit of Measure
+				    <span></span>
+				    </label> -->
+				    <input type="submit" name="submit" class="submitButton" value="Add Chemical">
+			    </p>
+		    
+			    <!--these will be filled by javascript when the page loads-->
+			    <datalist id="manufacturers">
+				    <?php
+				    if ($result = $db->query("SELECT DISTINCT Name FROM manufacturer")) {
+					    while ($row = $result->fetch_row()) {
+						    echo '<option value="' . $row[0] . '" label=" ' . $row[0] . '">';
+					    }
+					    $result->close();
+				    }
+				    ?>
+			    </datalist>
+		    </form>
 		<?php
 		}
 		?>
