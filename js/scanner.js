@@ -36,7 +36,6 @@ function verifyNewData(field, table, value) {
 	ajaxRequest("verify_new_data.php?field="+field+"&table="+table+"&value="+value, function() {
 		if(request.readyState == 4 && request.status == 200) {
 			var response = request.responseText;
-			locWrapper.innerHTML=response;
 			activatePopup(response);
 		}
 	});
@@ -81,11 +80,33 @@ function activatePopup(message) {
 	popupBG.className="active";
 	var popup = document.getElementById('popup');
 	popup.className="active";
-	popup.innerHTML+=message;
+	popup.innerHTML+="<span id='confirmation'>"+message+"</span>";
 }
 function deactivatePopup() {
 	var popupBG = document.getElementById('popupBG');
 	var popup = document.getElementById('popup');
 	popupBG.className='';
 	popup.className='';
+}
+function popupConfirm() {
+	
+}
+function getData(cas) {
+	//Pre-load indicator
+	var chems = document.getElementById("chems");
+	console.log("CHEMS: " + chems);
+	chems.innerHTML+="<img src='gfx/loader.gif'>";
+	ajaxRequest("get_data.php?cas="+cas, function() {
+		if(request.readyState == 4 && request.status == 200) {
+			var loader = chems.getElementsByTagName("img")[0];
+			chems.removeChild(loader);
+			var response = request.responseText;
+			console.log(response);
+			chems.getElementsByTagName("select")[0].innerHTML=response;
+		}
+	});
+}
+function chemSelect(chem) {
+	var chemical = document.getElementById('chemical');
+	chemical.value=chem;
 }

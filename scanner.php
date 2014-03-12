@@ -61,15 +61,6 @@ $message = "";
 		<?php
 		} elseif($_SESSION['formLevel'] == 2) {
 		?>
-		<script>
-		function getData(cas) {
-			ajaxRequest("get_data.php?cas="+cas, function() {
-				if(request.readyState == 4 && request.status == 200) {
-					var response = request.responseText;
-				}
-			});
-		}
-		</script>
 		
 		    <form class="addInv" id="add" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="GET">
 			    <p>
@@ -78,8 +69,13 @@ $message = "";
 			    </p>
 			    <p>
 				    <label id="chemicalsLbl">Chemical Name
-				    <span><input list="chemicals" name="chemical" placeholder="Acetone" required autofocus/></span>
+				    <span><input list="chemicals" id="chemical" name="chemical" placeholder="Acetone" required autofocus/></span>
 				    </label>
+					<span id="chems">
+						<select name="chems" multiple>
+							
+						</select>
+					</span>
 				    <label id="manufacturerLbl">Manufacturer
 				    <span><input list="manufacturers" name="manufacturer" tabinex="1" placeholder="Sigma" required /></span>
 				    </label>
@@ -131,6 +127,9 @@ $message = "";
 				    ?>
 			    </datalist>
 		    </form>
+		<script>
+			getData(<?php echo ("'" . $_GET['cas'] . "'") ?>);
+		</script>
 		<?php
 		} else { 
 		### Else formLevel == 3 ###

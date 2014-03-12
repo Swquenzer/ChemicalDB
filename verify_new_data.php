@@ -19,7 +19,12 @@
 		} else $match = false;
 	}
 	if ($match) {
-		echo "<p style='color: red;'>ARE YOU SURE YOU WANT TO ADD LOCATION '$value'?</p>";
+		echo "<p style='color: red;'>Are you sure you want to add $field '$value'?</p>";
+		echo "
+				<form>
+					<input type='button' value='Yes' onclick='javascriptfunction()'>
+				</form>
+			 ";
 	}
 	$db->close();
 ?>
