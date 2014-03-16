@@ -80,33 +80,71 @@ function activatePopup(message) {
 	popupBG.className="active";
 	var popup = document.getElementById('popup');
 	popup.className="active";
-	popup.innerHTML+="<span id='confirmation'>"+message+"</span>";
+	popup.innerHTML+="<span id='popupMessage'>"+message+"</span>";
 }
 function deactivatePopup() {
 	var popupBG = document.getElementById('popupBG');
 	var popup = document.getElementById('popup');
 	popupBG.className='';
 	popup.className='';
+	popup.innerHTML="";
 }
 function popupConfirm() {
 	
 }
 function getData(cas) {
-	//Pre-load indicator
 	var chems = document.getElementById("chems");
-	console.log("CHEMS: " + chems);
+	//Pre-load indicator
 	chems.innerHTML+="<img src='gfx/loader.gif'>";
-	ajaxRequest("get_data.php?cas="+cas, function() {
+	ajaxRequest("get_data.php?option=getChemList&cas="+cas, function() {
 		if(request.readyState == 4 && request.status == 200) {
 			var loader = chems.getElementsByTagName("img")[0];
 			chems.removeChild(loader);
 			var response = request.responseText;
-			console.log(response);
 			chems.getElementsByTagName("select")[0].innerHTML=response;
 		}
 	});
 }
-function chemSelect(chem) {
+function chemSelect(index) {
+	//console.log("index = " + index);
+	var rowNodes = document.getElementById(index).childNodes;
+	var chem = rowNodes[0].innerHTML;
+	var room = rowNodes[1].innerHTML;
+	var loc = rowNodes[2].innerHTML;
+	var quant = rowNodes[3].innerHTML;
+	var unitSize = rowNodes[4].innerHTML;
+	var unit =rowNodes[5].innerHTML;
+	var mftr = rowNodes[6].innerHTML;
+	document.getElementById('chemical').value = chem;
+	document.getElementById('room').value = room;
+	document.getElementById('loc').value = loc;
+	document.getElementById('quant').value = quant;
+	document.getElementById('size').value = unitSize;
+	document.getElementById('unit').value=unit;
+	document.getElementById('manufacturer').value=mftr;
+	deactivatePopup();
+}
+function chemList(chem) {
 	var chemical = document.getElementById('chemical');
 	chemical.value=chem;
+	//Get data information
+	ajaxRequest("get_data.php?option=getDistinctChemList&chemical="+chem, function() {
+		if(request.readyState == 4 && request.status == 200) {
+			var response = request.responseText;
+			//"|" is separator between arrays (in JSON format)
+			var splitArr = response.split("|");
+			//Loop through each array - each array is a query result
+			var queryArr = new Array();
+			var returnMessage = "<h3>Choose chemical to update</h3><table><tr><th>Chemical</th><th>Room</th><th>Location</th><th>Quantity</th><th>Size</th><th>Unit</th><th>Mftr</th></tr>";
+			var popup = document.getElementById('popup');
+			for (var i=0; i<splitArr.length-1; i++) {
+				queryArr = JSON.parse(splitArr[i]);
+				//queryArr now holds a single array with individual query results
+				returnMessage = returnMessage + "<tr onclick='chemSelect(this.id)' id='chem"+[i]+"'><td>"+queryArr[0]+"</td><td>"+queryArr[1]+"</td><td>"+queryArr[2]+"</td><td>"+queryArr[3]+"</td><td>"+queryArr[4]+"</td><td>"+queryArr[5]+"</td><td>"+queryArr[6]+"</td></tr>";
+			}
+			returnMessage = returnMessage + "</table>";
+			activatePopup(returnMessage);
+		}
+	});
+	
 }

@@ -280,6 +280,29 @@ input.submitButton {
     background: white;
     border-radius: 5px;
 }
+#popup table {
+    width: 100%;
+    background: beige;
+    border-collapse: separate;
+    border-spacing: 0;
+    border: 1px solid green;
+}
+#popup tr {
+    text-align: left;
+    cursor: pointer;
+    padding: 0 !important;
+}
+#popup tr:hover {
+    background: white;
+}
+#popup th {
+    padding: 10px;
+    cursor: default;
+    background: green;
+}
+#popup td {
+    padding: 10px;
+}
 /* -----FOOTER----- */
 #barcode {
     display: block;

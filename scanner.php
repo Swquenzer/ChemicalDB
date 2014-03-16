@@ -62,7 +62,7 @@ $message = "";
 		} elseif($_SESSION['formLevel'] == 2) {
 		?>
 		
-		    <form class="addInv" id="add" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="GET">
+		    <form class="addInv" id="add" action="scanner_update.php" method="GET">
 			    <p>
 				    <label class="center">Chemical Abstract Registry Number</label>
 				    <input type="text" name="cas" id="cas" value="<?php echo $_GET['cas']; ?>" placeholder="Example CAS: 9000-01-5" required>
@@ -77,7 +77,7 @@ $message = "";
 						</select>
 					</span>
 				    <label id="manufacturerLbl">Manufacturer
-				    <span><input list="manufacturers" name="manufacturer" tabinex="1" placeholder="Sigma" required /></span>
+				    <span><input list="manufacturers" id="manufacturer" name="manufacturer" tabinex="1" placeholder="Sigma" required /></span>
 				    </label>
 				    <label id="roomLbl">Room
 				    <span><input list="rooms" name="room" id="room" tabinex="2" placeholder="35b" required /></span>
@@ -106,8 +106,8 @@ $message = "";
 				    <input type="button" class="incQuant" value="+50" onclick="incQuantity(this.value)">
 				    <input type="button" class="incQuant" value="Clear" onclick="document.getElementById('quant').value='0'">
 				    <label id="unitSizeLbl">Unit Size
-				    <span id="unitSize"><input type="number" name="unitSize" tabinex="5" placeholder="200" required />
-				    <input type="text" name="unit" tabinex="6" placeholder="mg" required ></span>
+				    <span id="unitSize"><input type="number" id="size" name="unitSize" tabinex="5" placeholder="200" required />
+				    <input type="text" id="unit" name="unit" tabinex="6" placeholder="mg" required ></span>
 				    </label>
 				    <!-- <label id="unitLbl">Unit of Measure
 				    <span></span>
@@ -184,8 +184,8 @@ $message = "";
 				    <input type="button" class="incQuant" value="+50" onclick="incQuantity(this.value)">
 				    <input type="button" class="incQuant" value="Clear" onclick="document.getElementById('quant').value='0'">
 				    <label id="unitSizeLbl">Unit Size
-				    <span id="unitSize"><input type="number" name="unitSize" tabinex="5" placeholder="200" required />
-				    <input type="text" name="unit" tabinex="6" placeholder="mg" required ></span>
+				    <span id="unitSize"><input type="number" id="size" name="unitSize" tabinex="5" placeholder="200" required />
+				    <input type="text" id="unit" name="unit" tabinex="6" placeholder="mg" required ></span>
 				    </label>
 				    <!-- <label id="unitLbl">Unit of Measure
 				    <span></span>
