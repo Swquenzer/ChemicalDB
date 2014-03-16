@@ -107,14 +107,29 @@ function getData(cas) {
 }
 function chemSelect(index) {
 	//console.log("index = " + index);
-	var rowNodes = document.getElementById(index).childNodes;
-	var chem = rowNodes[0].innerHTML;
-	var room = rowNodes[1].innerHTML;
-	var loc = rowNodes[2].innerHTML;
-	var quant = rowNodes[3].innerHTML;
-	var unitSize = rowNodes[4].innerHTML;
-	var unit =rowNodes[5].innerHTML;
-	var mftr = rowNodes[6].innerHTML;
+	var arr = document.getElementById(index).childNodes;
+	autofill(arr, true);
+}
+function autofill(arr, multiple) {
+	if(multiple) {
+		//When multiple options to choose from
+		var chem	= arr[0].innerHTML;
+		var room 	= arr[1].innerHTML;
+		var loc 	= arr[2].innerHTML;
+		var quant 	= arr[3].innerHTML;
+		var unitSize = arr[4].innerHTML;
+		var unit 	= arr[5].innerHTML;
+		var mftr 	= arr[6].innerHTML;
+	} else {
+		//When only one option to choose from
+		var chem 	= arr[0];
+		var room 	= arr[1];
+		var loc 	= arr[2];
+		var quant 	= arr[3];
+		var unitSize = arr[4];
+		var unit 	= arr[5];
+		var mftr 	= arr[6];
+	}
 	document.getElementById('chemical').value = chem;
 	document.getElementById('room').value = room;
 	document.getElementById('loc').value = loc;
@@ -123,6 +138,8 @@ function chemSelect(index) {
 	document.getElementById('unit').value=unit;
 	document.getElementById('manufacturer').value=mftr;
 	deactivatePopup();
+	//Display filled fields
+	document.getElementById('lowerFieldsWrapper').style="display: auto;";
 }
 function chemList(chem) {
 	var chemical = document.getElementById('chemical');
@@ -137,13 +154,19 @@ function chemList(chem) {
 			var queryArr = new Array();
 			var returnMessage = "<h3>Choose chemical to update</h3><table><tr><th>Chemical</th><th>Room</th><th>Location</th><th>Quantity</th><th>Size</th><th>Unit</th><th>Mftr</th></tr>";
 			var popup = document.getElementById('popup');
-			for (var i=0; i<splitArr.length-1; i++) {
-				queryArr = JSON.parse(splitArr[i]);
-				//queryArr now holds a single array with individual query results
-				returnMessage = returnMessage + "<tr onclick='chemSelect(this.id)' id='chem"+[i]+"'><td>"+queryArr[0]+"</td><td>"+queryArr[1]+"</td><td>"+queryArr[2]+"</td><td>"+queryArr[3]+"</td><td>"+queryArr[4]+"</td><td>"+queryArr[5]+"</td><td>"+queryArr[6]+"</td></tr>";
+			if(splitArr.length == 2) {
+					//One option
+					queryArr = JSON.parse(splitArr[0]);
+					autofill(queryArr, false);
+			} else {
+				for (var i=0; i<splitArr.length-1; i++) {
+					queryArr = JSON.parse(splitArr[i]);
+					//queryArr now holds a single array with individual query results
+					returnMessage = returnMessage + "<tr onclick='chemSelect(this.id)' id='chem"+[i]+"'><td>"+queryArr[0]+"</td><td>"+queryArr[1]+"</td><td>"+queryArr[2]+"</td><td>"+queryArr[3]+"</td><td>"+queryArr[4]+"</td><td>"+queryArr[5]+"</td><td>"+queryArr[6]+"</td></tr>";
+				}
+				returnMessage = returnMessage + "</table>";
+				activatePopup(returnMessage);
 			}
-			returnMessage = returnMessage + "</table>";
-			activatePopup(returnMessage);
 		}
 	});
 	

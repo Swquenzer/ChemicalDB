@@ -76,43 +76,45 @@ $message = "";
 							
 						</select>
 					</span>
-				    <label id="manufacturerLbl">Manufacturer
-				    <span><input list="manufacturers" id="manufacturer" name="manufacturer" tabinex="1" placeholder="Sigma" required /></span>
-				    </label>
-				    <label id="roomLbl">Room
-				    <span><input list="rooms" name="room" id="room" tabinex="2" placeholder="35b" required /></span>
-				    </label>
-				    <span id="roomsWrapper">
-					    <?php
-						    if ($result = $db->query("SELECT DISTINCT Room FROM inventory")) {
-							    while ($row = $result->fetch_row()) {
-								    echo "<input type='button' value='$row[0]' class='roomBut' onclick='createLocations(this.value)'>";
-							    }
-							    $result->close();
-						    }
-					    ?>
-				    </span>
-				    <label id="locationLbl">Location
-				    <span><input list="location" name="location" id="loc" tabinex="3" placeholder="Storeroom Front" onblur="verifyNewData('location', 'inventory', this.value)"  required /></span>
-				    </label>
-				    <span id="locWrapper">
-				    </span>
-				    <label id="quantLbl">Quantity
-				    <span><input type="number" name="quant" id="quant" tabinex="4" placeholder="4" value="0" required /></span>
-				    </label>
-				    <input type="button" class="incQuant" value="+1" onclick="incQuantity(this.value)">
-				    <input type="button" class="incQuant" value="+5" onclick="incQuantity(this.value)">
-				    <input type="button" class="incQuant" value="+10" onclick="incQuantity(this.value)">
-				    <input type="button" class="incQuant" value="+50" onclick="incQuantity(this.value)">
-				    <input type="button" class="incQuant" value="Clear" onclick="document.getElementById('quant').value='0'">
-				    <label id="unitSizeLbl">Unit Size
-				    <span id="unitSize"><input type="number" id="size" name="unitSize" tabinex="5" placeholder="200" required />
-				    <input type="text" id="unit" name="unit" tabinex="6" placeholder="mg" required ></span>
-				    </label>
-				    <!-- <label id="unitLbl">Unit of Measure
-				    <span></span>
-				    </label> -->
-				    <input type="submit" name="submit" class="submitButton" value="Add Chemical">
+					<div id="lowerFieldsWrapper" style="display:none;">
+						<label id="manufacturerLbl">Manufacturer
+						<span><input list="manufacturers" id="manufacturer" name="manufacturer" tabinex="1" placeholder="Sigma" required /></span>
+						</label>
+						<label id="roomLbl">Room
+						<span><input list="rooms" name="room" id="room" tabinex="2" placeholder="35b" required /></span>
+						</label>
+						<span id="roomsWrapper">
+							<?php
+								if ($result = $db->query("SELECT DISTINCT Room FROM inventory")) {
+									while ($row = $result->fetch_row()) {
+										echo "<input type='button' value='$row[0]' class='roomBut' onclick='createLocations(this.value)'>";
+									}
+									$result->close();
+								}
+							?>
+						</span>
+						<label id="locationLbl">Location
+						<span><input list="location" name="location" id="loc" tabinex="3" placeholder="Storeroom Front" onblur="verifyNewData('location', 'inventory', this.value)"  required /></span>
+						</label>
+						<span id="locWrapper">
+						</span>
+						<label id="quantLbl">Quantity
+						<span><input type="number" name="quant" id="quant" tabinex="4" placeholder="4" value="0" required /></span>
+						</label>
+						<input type="button" class="incQuant" value="+1" onclick="incQuantity(this.value)">
+						<input type="button" class="incQuant" value="+5" onclick="incQuantity(this.value)">
+						<input type="button" class="incQuant" value="+10" onclick="incQuantity(this.value)">
+						<input type="button" class="incQuant" value="+50" onclick="incQuantity(this.value)">
+						<input type="button" class="incQuant" value="Clear" onclick="document.getElementById('quant').value='0'">
+						<label id="unitSizeLbl">Unit Size
+						<span id="unitSize"><input type="number" id="size" name="unitSize" tabinex="5" placeholder="200" required />
+						<input type="text" id="unit" name="unit" tabinex="6" placeholder="mg" required ></span>
+						</label>
+						<!-- <label id="unitLbl">Unit of Measure
+						<span></span>
+						</label> -->
+						<input type="submit" name="submit" class="submitButton" value="Add Chemical">
+					</div><!--lowerFieldsWrapper-->
 			    </p>
 		    
 			    <!--these will be filled by javascript when the page loads-->
