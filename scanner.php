@@ -43,6 +43,7 @@ $message = "";
 		if($_SESSION['formLevel'] == 1) {
 		?>
 			<form class="addInv" id="splash" onsubmit="return verifyCAS();" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="GET">
+				<span class="message"><?php if(isset($_GET['message'])) echo $_GET['message']; ?></span>
 				<p>
 					<label>Chemical Abstract Registry Number</label>
 					<span id="error" style="display: block; color: red; padding: 6px; text-align: center;"></span>
@@ -61,22 +62,21 @@ $message = "";
 		<?php
 		} elseif($_SESSION['formLevel'] == 2) {
 		?>
-		
 		    <form class="addInv" id="add" action="scanner_update.php" method="GET">
 			    <p>
 				    <label class="center">Chemical Abstract Registry Number</label>
 				    <input type="text" name="cas" id="cas" value="<?php echo $_GET['cas']; ?>" placeholder="Example CAS: 9000-01-5" required>
 			    </p>
 			    <p>
-				    <label id="chemicalsLbl">Chemical Name
-				    <span><input list="chemicals" id="chemical" name="chemical" placeholder="Acetone" required autofocus/></span>
-				    </label>
 					<span id="chems">
 						<select name="chems" multiple>
 							
 						</select>
 					</span>
 					<div id="lowerFieldsWrapper" style="display:none;">
+						<label id="chemicalsLbl">Chemical Name
+						<span><input list="chemicals" id="chemical" name="chemical" placeholder="Acetone" required autofocus/></span>
+						</label>
 						<label id="manufacturerLbl">Manufacturer
 						<span><input list="manufacturers" id="manufacturer" name="manufacturer" tabinex="1" placeholder="Sigma" required /></span>
 						</label>

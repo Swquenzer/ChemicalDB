@@ -336,3 +336,8 @@ footer {
 .center {
     text-align: center !important;
 }
+.message {
+    display: block;
+    text-align: center;
+    color: red !important;
+}
