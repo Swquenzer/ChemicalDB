@@ -105,10 +105,22 @@ function getData(cas) {
 		}
 	});
 }
-function chemSelect(index) {
-	//console.log("index = " + index);
-	var arr = document.getElementById(index).childNodes;
-	autofill(arr, true);
+function removeHiddenInput(form) {
+	var inputArr = form.childNodes;
+	console.log(inputArr[0].nodeType);
+	for (var i=0; i<inputArr.length; i++) {
+		if(inputArr[0].nodeName=="input") {
+			console.log("INPUT");
+		}
+	}
+}
+function hiddenInput(form, name, value) {
+	removeHiddenInput(form);
+	var input = document.createElement('input');
+	input.type="hidden";
+	input.name=name;
+	input.value=value;
+	form.appendChild(input);
 }
 function autofill(arr, multiple) {
 	if(multiple) {
@@ -140,6 +152,18 @@ function autofill(arr, multiple) {
 	deactivatePopup();
 	//Display filled fields
 	document.getElementById('lowerFieldsWrapper').style="display: auto;";
+	//Add session variables for original values
+	ajaxRequest("get_data.php?option=saveOrigValues&chem="+chem+"&room="+room+"&loc="+loc+"&quant="+quant+"&size="+unitSize+"&unit="+unit+"&mftr="+mftr, function() {
+		if(request.readyState == 4 && request.status == 200) {
+			var response = request.responseText;
+			console.log(response);
+		}
+	});
+}
+function chemSelect(index) {
+	//console.log("index = " + index);
+	var arr = document.getElementById(index).childNodes;
+	autofill(arr, true);
 }
 function chemList(chem) {
 	var chemical = document.getElementById('chemical');
@@ -169,5 +193,4 @@ function chemList(chem) {
 			}
 		}
 	});
-	
 }

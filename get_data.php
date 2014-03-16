@@ -1,5 +1,6 @@
 <?php
 	require('admin/AcidRainDBLogin.php');
+	session_start();
 	switch ($_GET['option']) {
 		case "getChemList":
 			$cas = $_GET['cas'];
@@ -53,6 +54,18 @@
 					echo("get_loc.php: getDistinctChemList: Error getting result");
 				}
 			}
+			break;
+		case "saveOrigValues":
+			$_SESSION['chem'] = $_GET['chem'];
+			$_SESSION['room'] = $_GET['room'];
+			$_SESSION['loc'] = $_GET['loc'];
+			$_SESSION['quant'] = $_GET['quant'];
+			$_SESSION['size'] = $_GET['size'];
+			$_SESSION['unit'] = $_GET['unit'];
+			$_SESSION['mftr'] = $_GET['mftr'];
+			echo "<pre>";
+			print_r($_SESSION);
+			echo "</pre>";
 			break;
 	}
 	
