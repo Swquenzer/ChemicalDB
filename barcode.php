@@ -2,6 +2,7 @@
 
 /*
 * Author: David S. Tufts
+* Modified by Stephen Quenzer: March 17, 2014
 * Company: Rocketwood.LLC
 * www.rocketwood.com
 * Date: 05/25/2003
@@ -86,8 +87,8 @@ $code_length = $code_length + (integer)(substr($code_string,($i-1),1));
 
 if ( strtolower($orientation) == "horizontal" ) {
 $img_width = $code_length;
-$img_height = $size;
-} else {
+$img_height = $size + 20;	//+20 for chemical name at bottom of barcode
+} else {	
 $img_width = $size;
 $img_height = $code_length;
 }
@@ -107,6 +108,27 @@ else
 imagefilledrectangle( $image, 0, $location, $img_width, $cur_size, ($position % 2 == 0 ? $white : $black) );
 $location = $cur_size;
 }
+
+### Insert string below barcode
+// imageCenterString created by Epidemiah: http://www.php.net/manual/en/function.imagestring.php
+// Modified by Stephen Quenzer 3/17/14
+function imageCenterString(&$img, $font, $text, $color) {
+    if($font < 0 || $font > 5){ $font = 0; }
+    $num = array(array(4.6, 6),
+                 array(4.6, 6),
+                 array(5.6, 12),
+                 array(6.5, 12),
+                 array(7.6, 16),
+                 array(8.5, 16));
+    $width = ceil(strlen($text) * $num[$font][0]);
+    $x     = imagesx($img) - $width - 8;
+    $y     = Imagesy($img) - ($num[$font][1] + 2);
+    imagestring($img, $font, $x/2, 43, $text, $color);
+}
+$textcolor = imagecolorallocate($image, 0, 0, 0);
+imageCenterString($image, 5, "Ascetamethine", $textcolor);
+#imagestring($image, 5, 5, 43, 'Ascemetaphine', $textcolor);
+
 // Draw barcode to the screen
 header ('Content-type: image/png');
 imagepng($image, "barcodes/" . $_GET["cas"] . ".png", 0, NULL);
