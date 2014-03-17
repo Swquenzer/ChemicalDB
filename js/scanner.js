@@ -51,15 +51,21 @@ function verifyNewData(field, table, value) {
 		}
 	});
 }
-function incQuantity(amount) {
-	amount.substr(1); //Remove the '+' from the number
+function changeQuantity(amount) {
 	var quant = document.getElementById('quant').value;
 	//If no value in input, make value=0
 	if(isNaN(parseInt(quant))) {
 		document.getElementById('quant').value = "0";
 	}
 	quant = document.getElementById('quant').value;
-	var temp = parseInt(quant) + parseInt(amount);
+	// substr(0,1) grabs sign from front of value
+	// substr(1) removes sign from front of value 
+	if (amount.substr(0,1) == "+") {
+		var temp = parseInt(quant) + parseInt(amount.substr(1));
+	} else {
+		var temp = parseInt(quant) - parseInt(amount.substr(1));
+	}
+	
 	//Why can't 'quant' be used here? 
 	document.getElementById('quant').value = temp.toString(); 
 }
