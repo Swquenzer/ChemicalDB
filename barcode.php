@@ -87,13 +87,22 @@ $code_length = $code_length + (integer)(substr($code_string,($i-1),1));
 
 if ( strtolower($orientation) == "horizontal" ) {
 $img_width = $code_length;
-$img_height = $size + 20;	//+20 for chemical name at bottom of barcode
+$img_height = $size;
 } else {	
 $img_width = $size;
 $img_height = $code_length;
 }
 
-$image = imagecreate($img_width, $img_height);
+//Set label text and height
+$height_offset = 0;
+if(isset($_GET['label'])) {
+	$labelText = $_GET['label'];
+	$height_offset = 20; //If label, add 20px to height
+} else {
+	$labelText = "";
+}
+
+$image = imagecreate($img_width, $img_height + $height_offset);
 $black = imagecolorallocate ($image, 0, 0, 0);
 $white = imagecolorallocate ($image, 255, 255, 255);
 
@@ -109,7 +118,7 @@ imagefilledrectangle( $image, 0, $location, $img_width, $cur_size, ($position % 
 $location = $cur_size;
 }
 
-### Insert string below barcode
+### Insert string below barcode ###
 // imageCenterString created by Epidemiah: http://www.php.net/manual/en/function.imagestring.php
 // Modified by Stephen Quenzer 3/17/14
 function imageCenterString(&$img, $font, $text, $color) {
@@ -126,8 +135,7 @@ function imageCenterString(&$img, $font, $text, $color) {
     imagestring($img, $font, $x/2, 43, $text, $color);
 }
 $textcolor = imagecolorallocate($image, 0, 0, 0);
-imageCenterString($image, 5, "Ascetamethine", $textcolor);
-#imagestring($image, 5, 5, 43, 'Ascemetaphine', $textcolor);
+imageCenterString($image, 4, $labelText, $textcolor);
 
 // Draw barcode to the screen
 header ('Content-type: image/png');

@@ -152,10 +152,10 @@ $message = "";
 				    <label class="center">Chemical Abstract Registry Number</label>
 				    <input type="text" name="cas" id="cas" value="<?php echo $_GET['cas']; ?>" placeholder="Example CAS: 9000-01-5" required>
 			    </p>
-			    <img src="barcode.php?codetype=code128&height=40&cas=<?php echo $_GET['cas']; ?>" style="display: block; margin: auto;" alt="<?php echo $_GET['cas']; ?>">
+			    <img id="barcodeLabel" src="barcode.php?codetype=code128&height=40&cas=<?php echo $_GET['cas']; ?>" style="display: block; margin: auto;" alt="<?php echo $_GET['cas']; ?>">
 			    <p>
 				    <label id="chemicalsLbl">Chemical Name
-				    <span><input list="chemicals" name="chemical" placeholder="Acetone" required autofocus/></span>
+				    <span><input list="chemicals" name="chemical" placeholder="Acetone" onblur="updateLabelName(this.value)" required autofocus/></span>
 				    </label>
 				    <label id="manufacturerLbl">Manufacturer
 				    <span><input list="manufacturers" name="manufacturer" tabinex="1" placeholder="Sigma" required /></span>
