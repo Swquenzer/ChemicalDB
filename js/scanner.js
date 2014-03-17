@@ -151,7 +151,9 @@ function autofill(arr, multiple) {
 	document.getElementById('manufacturer').value=mftr;
 	deactivatePopup();
 	//Display filled fields
-	document.getElementById('lowerFieldsWrapper').style="display: auto;";
+	console.log("Change Display: ");
+	document.getElementById('lowerFieldsWrapper').style.display = "";
+	console.log("Display Changed");
 	//Add session variables for original values
 	ajaxRequest("get_data.php?option=saveOrigValues&chem="+chem+"&room="+room+"&loc="+loc+"&quant="+quant+"&size="+unitSize+"&unit="+unit+"&mftr="+mftr, function() {
 		if(request.readyState == 4 && request.status == 200) {

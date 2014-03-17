@@ -113,7 +113,7 @@ $message = "";
 						<!-- <label id="unitLbl">Unit of Measure
 						<span></span>
 						</label> -->
-						<input type="submit" name="submit" class="submitButton" value="Add Chemical">
+						<input type="submit" name="submit" class="submitButton" value="Update Chemical">
 					</div><!--lowerFieldsWrapper-->
 			    </p>
 		    
