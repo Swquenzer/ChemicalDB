@@ -94,15 +94,8 @@ $img_height = $code_length;
 }
 
 //Set label text and height
-$height_offset = 0;
-if(isset($_GET['label'])) {
-	$labelText = $_GET['label'];
-	$height_offset = 20; //If label, add 20px to height
-} else {
-	$labelText = "";
-}
-
-$image = imagecreate($img_width, $img_height + $height_offset);
+$HEIGHT_OFFSET = 20; //Add 20px to height for barcode label
+$image = imagecreate($img_width, $img_height + $HEIGHT_OFFSET);
 $black = imagecolorallocate ($image, 0, 0, 0);
 $white = imagecolorallocate ($image, 255, 255, 255);
 
@@ -135,7 +128,7 @@ function imageCenterString(&$img, $font, $text, $color) {
     imagestring($img, $font, $x/2, 43, $text, $color);
 }
 $textcolor = imagecolorallocate($image, 0, 0, 0);
-imageCenterString($image, 4, $labelText, $textcolor);
+imageCenterString($image, 5, $_GET['cas'], $textcolor);
 
 // Draw barcode to the screen
 header ('Content-type: image/png');

@@ -155,7 +155,7 @@ $message = "";
 			    <img id="barcodeLabel" src="barcode.php?codetype=code128&height=40&cas=<?php echo $_GET['cas']; ?>" style="display: block; margin: auto;" alt="<?php echo $_GET['cas']; ?>">
 			    <p>
 				    <label id="chemicalsLbl">Chemical Name
-				    <span><input list="chemicals" name="chemical" placeholder="Acetone" onblur="updateLabelName(this.value)" required autofocus/></span>
+				    <span><input list="chemicals" name="chemical" placeholder="Acetone" required autofocus/></span>
 				    </label>
 				    <label id="manufacturerLbl">Manufacturer
 				    <span><input list="manufacturers" name="manufacturer" tabinex="1" placeholder="Sigma" required /></span>

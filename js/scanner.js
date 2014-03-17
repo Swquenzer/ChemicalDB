@@ -29,6 +29,8 @@ function ajaxRequest(url, callback) {
 	request.open("GET",url,true);
 	request.send();
 }
+
+/*
 //Updates label to include chemical name
 function updateLabelName(chemName) {
 	if(chemName != "") {
@@ -36,6 +38,8 @@ function updateLabelName(chemName) {
 		label.src = label.src + "&label=" + chemName;
 	}
 }
+*/
+
 //Verifies that the user wants to add new data to the DB
 //field & table parameters refer to database, value is the input
 function verifyNewData(field, table, value) {
