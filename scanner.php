@@ -62,6 +62,7 @@ $message = "";
 		<?php
 		} elseif($_SESSION['formLevel'] == 2) {
 		?>
+			<p class="center"><?php echo $message; ?></p>
 		    <form class="addInv" id="add" action="scanner_update.php" method="GET">
 			    <p>
 				    <label class="center">Chemical Abstract Registry Number</label>
@@ -73,7 +74,7 @@ $message = "";
 							
 						</select>
 					</span>
-					<div id="lowerFieldsWrapper" style="display:none;">
+					<div id="lowerFieldsWrapper" class="center" style="display:none;">
 						<label id="chemicalsLbl">Chemical Name
 						<span><input list="chemicals" id="chemical" name="chemical" placeholder="Acetone" required autofocus/></span>
 						</label>
@@ -151,7 +152,7 @@ $message = "";
 				    <label class="center">Chemical Abstract Registry Number</label>
 				    <input type="text" name="cas" id="cas" value="<?php echo $_GET['cas']; ?>" placeholder="Example CAS: 9000-01-5" required>
 			    </p>
-			    <img src="barcode.php?codetype=code25&height=40&cas=<?php echo $_GET['cas']; ?>" style="display: block; margin: auto;" alt="<?php echo $_GET['cas']; ?>">
+			    <img src="barcode.php?codetype=code128&height=40&cas=<?php echo $_GET['cas']; ?>" style="display: block; margin: auto;" alt="<?php echo $_GET['cas']; ?>">
 			    <p>
 				    <label id="chemicalsLbl">Chemical Name
 				    <span><input list="chemicals" name="chemical" placeholder="Acetone" required autofocus/></span>
