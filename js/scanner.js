@@ -42,9 +42,10 @@ function updateLabelName(chemName) {
 
 //Verifies that the user wants to add new data to the DB
 //field & table parameters refer to database, value is the input
-function verifyNewData(field, table, value) {
-	//var field = document.getElementById(field);
-	ajaxRequest("verify_new_data.php?field="+field+"&table="+table+"&value="+value, function() {
+function verifyNewData(field, table, value, input) {
+	//input parameter is optional: Default value does nothing, otherwise verify_new_data.php receives $_GET['input']=input
+	input = typeof input !== 'undefined' ? "&input="+input : "";
+	ajaxRequest("verify_new_data.php?field="+field+"&table="+table+"&value="+value+input, function() {
 		if(request.readyState == 4 && request.status == 200) {
 			var response = request.responseText;
 			//If response returns text, put in popup, otherwise do nothing
@@ -213,4 +214,19 @@ function chemList(chem) {
 			}
 		}
 	});
+}
+function addMftr(mftr, exist) {
+	if(!exist) {
+		//Add manufacturer to database
+		ajaxRequest("add_manufacturer.php?mftr="+mftr, function() {
+			if(request.readyState == 4 && request.status == 200) {
+				var mftr = request.responseText;
+				console.log(mftr);
+			}
+		});
+	}
+	//Add manufacturer to input
+	var manu = document.getElementById('manufacturer');
+	manu.value = mftr;
+	deactivatePopup();
 }

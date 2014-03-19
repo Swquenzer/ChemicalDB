@@ -13,31 +13,47 @@
 		$stmt->execute();
 		$results = $stmt->get_result();
 		$numRows = $results->num_rows;
-		echo "<br> Query: $query";
-		echo "<br> Value: $value";
 		if($numRows == 0) {
 			//If entry is currently NOT in database
-			echo "<br>is not in: $numRows</br>";
 			$match = false;
 		} else {
 			//Entry IS currently in the database
-			echo "<br>is in: $numRows</br>";
 			$match = true;
 		}
 	}
 	if (!$match) {
 		// The entry being checked is NOT already in the database
 		if($field == "Location") {
-			echo "<p class='message'>Are you sure you want to add $field '$value'?</p>";
+			echo "	<p class='message'>Are you sure you want to add $field '$value'?</p>";
 			echo "
 					<form>
 						<input type='button' value='Yes' onclick='javascriptfunction()'>
 					</form>
 				 ";
-		} 
-	} elseif ($field == "Name") {
-			//The chemical being added IS already in the database
-			echo <<<HERE
+		} elseif(isset($_GET['input']) && $_GET['input'] == "mftr") {
+			echo "	<form>
+					<p class='message'>The manufacturer you entered is already in the database. 
+					If '$value' is a new manufacturer you want add to the database, 
+					<input type='button' value='continue' name='$value' onclick='addMftr(this.name, false)'>
+					otherwise, 
+					please select an existing manufacturer:
+					<select multiple>
+					";
+			if ($result = $db->query("SELECT DISTINCT Name FROM manufacturer")) {
+				while ($row = $result->fetch_row()) {
+					echo "<option value='$row[0]' onclick='addMftr(this.value, true)'>$row[0]</option>";
+				}
+				$result->close();
+			}
+			echo "	</select>
+					</p>
+					</form>
+				 ";
+		}
+	} elseif(isset($_GET['input']) && $_GET['input'] == "chem") {
+		//The chemical being added IS already in the database
+		// <<< indicates a HEREDOC string
+		echo <<<HERE
 <form>
 <p class='message'>The chemical entered is already in the database. 
 If you are adding a duplicate chemical to a new location, 
@@ -47,6 +63,6 @@ please enter a new chemical name.</p>
 <input type="text" value="$value" name="newChem">
 </form>
 HERE;
-		}
+	}
 	$db->close();
 ?>
