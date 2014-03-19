@@ -47,7 +47,8 @@ function verifyNewData(field, table, value) {
 	ajaxRequest("verify_new_data.php?field="+field+"&table="+table+"&value="+value, function() {
 		if(request.readyState == 4 && request.status == 200) {
 			var response = request.responseText;
-			activatePopup(response);
+			//If response returns text, put in popup, otherwise do nothing
+			if(response != "") activatePopup(response);
 		}
 	});
 }

@@ -95,7 +95,7 @@ $message = "";
 							?>
 						</span>
 						<label id="locationLbl">Location
-						<span><input list="location" name="location" id="loc" tabinex="3" placeholder="Storeroom Front" onblur="verifyNewData('location', 'inventory', this.value)"  required /></span>
+						<span><input list="location" name="location" id="loc" tabinex="3" placeholder="Storeroom Front" onblur="verifyNewData('Location', 'inventory', this.value)"  required /></span>
 						</label>
 						<span id="locWrapper">
 						</span>
@@ -155,7 +155,7 @@ $message = "";
 			    <img id="barcodeLabel" src="barcode.php?codetype=code128&height=40&cas=<?php echo $_GET['cas']; ?>" style="display: block; margin: auto;" alt="<?php echo $_GET['cas']; ?>">
 			    <p>
 				    <label id="chemicalsLbl">Chemical Name
-				    <span><input list="chemicals" name="chemical" placeholder="Acetone" required autofocus/></span>
+				    <span><input list="chemicals" name="chemical" placeholder="Acetone" onblur="verifyNewData('Name', 'chemical', this.value)" required autofocus/></span>
 				    </label>
 				    <label id="manufacturerLbl">Manufacturer
 				    <span><input list="manufacturers" name="manufacturer" tabinex="1" placeholder="Sigma" required /></span>
@@ -174,7 +174,7 @@ $message = "";
 					    ?>
 				    </span>
 				    <label id="locationLbl">Location
-				    <span><input list="location" name="location" id="loc" tabinex="3" placeholder="Storeroom Front" onblur="verifyNewData('location', 'inventory', this.value)"  required /></span>
+				    <span><input list="location" name="location" id="loc" tabinex="3" placeholder="Storeroom Front" onblur="verifyNewData('Location', 'inventory', this.value)"  required /></span>
 				    </label>
 				    <span id="locWrapper">
 				    </span>
