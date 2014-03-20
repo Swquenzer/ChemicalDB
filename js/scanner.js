@@ -45,6 +45,9 @@ function updateLabelName(chemName) {
 function verifyNewData(field, table, value, input) {
 	//input parameter is optional: Default value does nothing, otherwise verify_new_data.php receives $_GET['input']=input
 	input = typeof input !== 'undefined' ? "&input="+input : "";
+	//if value is "", return
+	console.log(value);
+	if(value === "") return;
 	ajaxRequest("verify_new_data.php?field="+field+"&table="+table+"&value="+value+input, function() {
 		if(request.readyState == 4 && request.status == 200) {
 			var response = request.responseText;
