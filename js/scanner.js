@@ -224,7 +224,6 @@ function addMftr(mftr, exist) {
 		ajaxRequest("add_manufacturer.php?mftr="+mftr, function() {
 			if(request.readyState == 4 && request.status == 200) {
 				var mftr = request.responseText;
-				console.log(mftr);
 			}
 		});
 	}

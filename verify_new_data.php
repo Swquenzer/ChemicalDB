@@ -31,14 +31,13 @@
 					</form>
 				 ";
 		} elseif(isset($_GET['input']) && $_GET['input'] == "mftr") {
-			echo "	<form>
-					<p class='message'>The manufacturer you entered is already in the database. 
-					If '$value' is a new manufacturer you want add to the database, 
+			echo "	<span id='innerPopupWrapper'><h1>Wait!</h1>";
+			echo "	<p class='popupMsg'>The manufacturer you entered is already in the database. If '$value' is a new manufacturer you would like to add to the database, click continue. Otherwise, select an existing manufacturer:
+					<form>
 					<input type='button' value='continue' name='$value' onclick='addMftr(this.name, false)'>
-					otherwise, 
-					please select an existing manufacturer:
 					<select multiple>
 					";
+			#Create list of options
 			if ($result = $db->query("SELECT DISTINCT Name FROM manufacturer")) {
 				while ($row = $result->fetch_row()) {
 					echo "<option value='$row[0]' onclick='addMftr(this.value, true)'>$row[0]</option>";
@@ -46,8 +45,9 @@
 				$result->close();
 			}
 			echo "	</select>
-					</p>
+					</p><!--popupMsg-->
 					</form>
+					</span><!--innerPopupWrapper-->
 				 ";
 		}
 	} elseif(isset($_GET['input']) && $_GET['input'] == "chem") {

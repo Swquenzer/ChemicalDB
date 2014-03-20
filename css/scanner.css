@@ -43,6 +43,13 @@ header img {
     text-align: left;
     font-size: 16px;
 }
+.addInv legend {
+    font-family: "Trebuchet MS", Helvetica, sans-serif;
+    color: #11224F;
+    text-align: left;
+    font-size: 16px;
+    cursor: default;
+}
 .addInv input {
     display: block;
     margin: auto;
@@ -64,6 +71,15 @@ header img {
 	margin: 5px 20px;
 }
 .addInv#add label span {
+    display: inline-block;
+    float: right;
+}
+.addInv#add legend {
+    display: inline-block;
+    width: 400px;
+	margin: 5px 20px;
+}
+.addInv#add legend span {
     display: inline-block;
     float: right;
 }
@@ -302,6 +318,35 @@ input.submitButton {
 }
 #popup td {
     padding: 10px;
+}
+#popup h1 {
+    margin: 0;
+    padding: 5px;
+    font-family: Impact, Charcoal, sans-serif;
+    font-size: 40px;
+    font-weight: 100;
+    color: #2A2B2F;
+}
+p.popupMsg {
+    margin: auto;
+    padding: 15px;
+    font-family: Copperplate / Copperplate Gothic Light, sans-serif;
+    font-size: 20px;
+    font-weight: 200;
+    text-align: center;
+    color: #2A2B2F;
+}
+#popup input[type="button"] {
+    padding: 5px;
+}
+#popup #innerPopupWrapper {
+    display: block;
+    padding: 10px;
+    border: 1px solid #5E8AA0;
+    border-radius: 5px;
+    -webkit-box-shadow: 0px 0px 10px 0px #E4F4FC;
+    -moz-box-shadow:    0px 0px 10px 0px #E4F4FC;
+    box-shadow:         inset 0px 0px 10px 0px #E4F4FC;
 }
 /* -----FOOTER----- */
 #barcode {

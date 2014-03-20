@@ -79,7 +79,7 @@ $message = "";
 						<span><input list="chemicals" id="chemical" name="chemical" placeholder="Acetone" required autofocus/></span>
 						</label>
 						<label id="manufacturerLbl">Manufacturer
-						<span><input list="manufacturers" id="manufacturer" name="manufacturer" tabinex="1" placeholder="Sigma" /></span>
+						<span><input list="manufacturers" name="manufacturer" id="manufacturer" tabinex="1" placeholder="Sigma" onblur="verifyNewData('Name', 'manufacturer', this.value, 'mftr')" /></span>
 						</label>
 						<label id="roomLbl">Room
 						<span><input list="rooms" name="room" id="room" tabinex="2" placeholder="35b" required /></span>
@@ -107,10 +107,10 @@ $message = "";
 						<input type="button" class="changeQuant" value="-10" onclick="changeQuantity(this.value)">
 						<input type="button" class="changeQuant" value="-50" onclick="changeQuantity(this.value)">
 						<input type="button" class="changeQuant" value="Clear" onclick="document.getElementById('quant').value='0'">
-						<label id="unitSizeLbl">Unit Size
+						<legend id="unitSizeLbl">Unit Size
 						<span id="unitSize"><input type="number" id="size" name="unitSize" tabinex="5" placeholder="200" required />
 						<input type="text" id="unit" name="unit" tabinex="6" placeholder="mg" required ></span>
-						</label>
+						</legend>
 						<!-- <label id="unitLbl">Unit of Measure
 						<span></span>
 						</label> -->
@@ -186,10 +186,10 @@ $message = "";
 				    <input type="button" class="changeQuant" value="+10" onclick="changeQuantity(this.value)">
 				    <input type="button" class="changeQuant" value="+50" onclick="changeQuantity(this.value)">
 				    <input type="button" class="changeQuant" value="Clear" onclick="document.getElementById('quant').value='0'">
-				    <label id="unitSizeLbl">Unit Size
+				    <legend id="unitSizeLbl">Unit Size
 				    <span id="unitSize"><input type="number" id="size" name="unitSize" tabinex="5" placeholder="200" required />
 				    <input type="text" id="unit" name="unit" tabinex="6" placeholder="mg" required ></span>
-				    </label>
+				    </legend>
 				    <!-- <label id="unitLbl">Unit of Measure
 				    <span></span>
 				    </label> -->
