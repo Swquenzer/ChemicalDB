@@ -138,7 +138,7 @@ $message = "";
 		### Else formLevel == 3 ###
 		?>
 		    <p class="center"><?php echo $message; ?></p>
-		    <form class="addInv" id="add" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="GET">
+		    <form class="addInv" id="add" action="scanner_add.php" method="GET">
 			    <?php
 			    if (!empty($errors)) {
 				    echo "<span class='errMsg'><h3 style='margin-left: 20px;'>Errors:</h3><ul>";
