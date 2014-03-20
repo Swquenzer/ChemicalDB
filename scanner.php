@@ -79,7 +79,7 @@ $message = "";
 						<span><input list="chemicals" id="chemical" name="chemical" placeholder="Acetone" required autofocus/></span>
 						</label>
 						<label id="manufacturerLbl">Manufacturer
-						<span><input list="manufacturers" id="manufacturer" name="manufacturer" tabinex="1" placeholder="Sigma" required /></span>
+						<span><input list="manufacturers" id="manufacturer" name="manufacturer" tabinex="1" placeholder="Sigma" /></span>
 						</label>
 						<label id="roomLbl">Room
 						<span><input list="rooms" name="room" id="room" tabinex="2" placeholder="35b" required /></span>
@@ -158,7 +158,7 @@ $message = "";
 				    <span><input list="chemicals" name="chemical" placeholder="Acetone" onblur="verifyNewData('Name', 'chemical', this.value, 'chem')" required autofocus/></span>
 				    </label>
 				    <label id="manufacturerLbl">Manufacturer
-				    <span><input list="manufacturers" name="manufacturer" id="manufacturer" tabinex="1" placeholder="Sigma" onblur="verifyNewData('Name', 'manufacturer', this.value, 'mftr')" required /></span>
+				    <span><input list="manufacturers" name="manufacturer" id="manufacturer" tabinex="1" placeholder="Sigma" onblur="verifyNewData('Name', 'manufacturer', this.value, 'mftr')" /></span>
 				    </label>
 				    <label id="roomLbl">Room
 				    <span><input list="rooms" name="room" id="room" tabinex="2" placeholder="35b" required /></span>

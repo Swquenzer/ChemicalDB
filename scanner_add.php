@@ -21,38 +21,46 @@ $unit		= $_GET['unit'];
 #Get chemical id ( need to create better query with join later )
 #----- QUICKFIX: add manufacturer, chemical if not present ----#
 #Authors: Stephen Quenzer, Isaac Tice, Josiah Driver
-$query = $db->prepare("SELECT ID FROM manufacturer WHERE Name=?");
-$query->bind_param('s', $_POST['manufacturer']);
-$query->execute();
-$query->store_result();
-#If manufacturer not in database insert it
-if($query->num_rows() < 1 ) {
-	$query->close();
-	$query = $db->prepare("INSERT INTO manufacturer (Name) VALUES (?)");
-	$query->bind_param('s', $_POST['manufacturer']);
-	if ( !$query->execute() )
-		error_log($query->error);
-	$query->close();
-					
-	#Now fetch manufacturer ID 
+#Only add and get manufacturerID if chemical has a manufacturer!
+if(isset($mftr)) {
 	$query = $db->prepare("SELECT ID FROM manufacturer WHERE Name=?");
-	$query->bind_param('s', $_POST['manufacturer']);
+	$query->bind_param('s', $mftr);
 	$query->execute();
+	$query->store_result();
+	/*
+	#If manufacturer not in database insert it
+	#Do we need this? Mftr check in scanner.js should do it for us
+	if($query->num_rows() < 1 ) {
+		$query->close();
+		$query = $db->prepare("INSERT INTO manufacturer (Name) VALUES (?)");
+		$query->bind_param('s', $_POST['manufacturer']);
+		if ( !$query->execute() )
+			error_log($query->error);
+		$query->close();
+						
+		#Now fetch manufacturer ID 
+		$query = $db->prepare("SELECT ID FROM manufacturer WHERE Name=?");
+		$query->bind_param('s', $_POST['manufacturer']);
+		$query->execute();
+	}
+	*/
+	$query->bind_result($manufacturerID);
+	$query->fetch();
+	# $manufacturerID now holds the manufacturer ID
+	$query->close();
 }
-$query->bind_result($manufacturerID);
-$query->fetch();
-$query->close();
 
 #Now, if chemical not in database insert it
 $query = $db->prepare("SELECT ID FROM chemical WHERE Name=?");
-$query->bind_param('s', $_POST['chemical']);
+$query->bind_param('s', $chemical);
 $query->execute();
 $query->store_result();
 #If chemical not in database insert it
 if ($query->num_rows() < 1 ) {
 	$query->close();
-	$query = $db->prepare("INSERT INTO chemical (Name, MfrID) VALUES (?, ?)");
-	$query->bind_param('ss', $_POST['chemical'], $manufacturerID);
+	tlog("manufacturerID, int or string: $manufacturerID");
+	$query = $db->prepare("INSERT INTO chemical (CAS, Name, MfrID) VALUES (?, ?, ?)");
+	$query->bind_param('sss', $cas, $chemical, $manufacturerID);
 	if( !$query->execute() )
 		error_log($query->error);
 	$query->close();
