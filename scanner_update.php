@@ -41,6 +41,6 @@
 		$_SESSION['size'] = (int) $_SESSION['size'];
 		$stmt->bind_param('ssiisssiiss', $room, $loc, $quant, $unitSize, $unit, $_SESSION['room'], $_SESSION['loc'], $_SESSION['quant'], $_SESSION['size'], $_SESSION['unit'], $_SESSION['chem']);
 		$stmt->execute();
-		header ("Location: scanner.php?message=Chemical_updated_successfully!");
+		header ("Location: scanner.php?message=Chemical updated successfully!");
 	}
 ?>

@@ -101,5 +101,5 @@ $query->bind_param('ssiiiss', $room, $loc, $quant, $chemID, $unitSize, $unit, $c
 if (!$query->execute()) 
 	error_log('problem inserting data: ' . $db->error);
 else
-	$message = "Your record has been added.";
+	header ("Location: scanner.php?message=Chemical added successfully!");
 ?>
