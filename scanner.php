@@ -111,10 +111,10 @@ $message = "";
 						<span id="unitSize"><input type="number" id="size" name="unitSize" tabinex="5" placeholder="200" required />
 						<input type="text" id="unit" name="unit" tabinex="6" placeholder="mg" required ></span>
 						</legend>
-						<input type="button" class="changeQuant" value="+1" onclick="changeQuantity(this.value, 'size')">
-						<input type="button" class="changeQuant" value="+5" onclick="changeQuantity(this.value, 'size')">
-						<input type="button" class="changeQuant" value="+10" onclick="changeQuantity(this.value, 'size')">
-						<input type="button" class="changeQuant" value="+50" onclick="changeQuantity(this.value, 'size')">
+						<input type="button" class="changeQuant" value="-1" onclick="changeQuantity(this.value, 'size')">
+						<input type="button" class="changeQuant" value="-5" onclick="changeQuantity(this.value, 'size')">
+						<input type="button" class="changeQuant" value="-10" onclick="changeQuantity(this.value, 'size')">
+						<input type="button" class="changeQuant" value="-50" onclick="changeQuantity(this.value, 'size')">
 						<input type="button" class="changeQuant" value="Clear" onclick="document.getElementById('size').value='0'">
 						<input type="submit" name="submit" class="submitButton" value="Update Chemical">
 					</div><!--lowerFieldsWrapper-->
@@ -157,7 +157,7 @@ $message = "";
 			    <img id="barcodeLabel" src="barcode.php?codetype=code128&height=40&cas=<?php echo $_GET['cas']; ?>" style="display: block; margin: auto;" alt="<?php echo $_GET['cas']; ?>">
 			    <p>
 				    <label id="chemicalsLbl">Chemical Name
-				    <span><input list="chemicals" name="chemical" placeholder="Acetone" onblur="verifyNewData('Name', 'chemical', this.value, 'chem')" required autofocus/></span>
+				    <span><input list="chemicals" name="chemical" id="chemical" placeholder="Acetone" onblur="verifyNewData('Name', 'chemical', this.value, 'chem')" required autofocus/></span>
 				    </label>
 				    <label id="manufacturerLbl">Manufacturer
 				    <span><input list="manufacturers" name="manufacturer" id="manufacturer" tabinex="1" placeholder="Sigma" onblur="verifyNewData('Name', 'manufacturer', this.value, 'mftr')" /></span>

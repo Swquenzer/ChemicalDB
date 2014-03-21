@@ -58,6 +58,7 @@
 					<p><label>Add different manufacturer <br>
 					<input type='text' id='newMftr'>
 					<input type='button' value='Add' onclick='addMftr(document.getElementById(\"newMftr\").value, false)'>
+					</label></p>
 					</form>
 					</span><!--innerPopupWrapper-->
 				 ";
@@ -66,13 +67,18 @@
 		//The chemical being added IS already in the database
 		// <<< indicates a HEREDOC string
 		echo <<<HERE
+<h1>Are you sure?</h1>
+<p class='popupMessage'>The chemical entered is already in the database. 
+If you are adding a duplicate chemical to a new location, press continue. 
+Otherwise, enter a new chemical name</p>
 <form>
-<p class='message'>The chemical entered is already in the database. 
-If you are adding a duplicate chemical to a new location, 
-<input type="button" value="continue" name="continue">
-otherwise, 
-please enter a new chemical name.</p>
-<input type="text" value="$value" name="newChem">
+<p><label>Use chemical: '$value'
+<input type="button" value="continue" onclick='deactivatePopup()'>
+</label></p>
+-OR-
+<p><label>Enter new chemical:
+<input type="text" id="newChem">
+<input type="button" value="Add" onclick="document.getElementById('chemical').value=document.getElementById('newChem').value; deactivatePopup()">
 </form>
 HERE;
 	}
