@@ -31,10 +31,16 @@
 					</form>
 				 ";
 		} elseif(isset($_GET['input']) && $_GET['input'] == "mftr") {
-			echo "	<span id='innerPopupWrapper'><h1>Wait!</h1>";
-			echo "	<p class='popupMsg'>The manufacturer you entered is already in the database. If '$value' is a new manufacturer you would like to add to the database, click continue. Otherwise, select an existing manufacturer:
+			echo "	<span id='innerPopupWrapper'><h1>Are you sure?</h1>";
+			echo "	<p class='popupMsg'>The manufacturer you entered is not yet in the database. Are you sure you want to add $value as a new manufacturer?</p><!--popupMsg-->
 					<form>
-					<input type='button' value='continue' name='$value' onclick='addMftr(this.name, false)'>
+					<p>
+						<label>Add new manufacturer '$value':
+						<input type='button' value='Add' name='$value' onclick='addMftr(this.name, false)'>
+						</label>
+					</p>
+					<p>
+					<label>Use an existing manufacturer:
 					<select multiple>
 					";
 			#Create list of options
@@ -44,8 +50,7 @@
 				}
 				$result->close();
 			}
-			echo "	</select>
-					</p><!--popupMsg-->
+			echo "	</select></label></p>
 					</form>
 					</span><!--innerPopupWrapper-->
 				 ";

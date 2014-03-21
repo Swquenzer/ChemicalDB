@@ -336,8 +336,29 @@ p.popupMsg {
     text-align: center;
     color: #2A2B2F;
 }
+#popup form {
+    padding: 0 70px;
+}
+#popup form p {
+    padding: 10px;
+    text-align: center;
+    background: #EAF5F7;
+    border: 1px solid #A9C8D8;
+    border-radius: 5px;
+}
+#popup form label {
+    font-family: "Trebuchet MS", Helvetica, sans-serif;
+    color: #11224F;
+    text-align: left;
+    font-size: 14px;
+}
 #popup input[type="button"] {
-    padding: 5px;
+    margin-left: 20px;
+    padding: 7px 30px;
+}
+#popup select {
+    display: block;
+    margin: 10px auto 0;
 }
 #popup #innerPopupWrapper {
     display: block;
