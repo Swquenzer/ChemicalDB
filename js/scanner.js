@@ -1,21 +1,35 @@
-//Verifies that CAS number is of correct form
-function verifyCAS() {
-	var cas = new RegExp("^[0-9]{2,6}-[0-9]{2}-[0-9]$"); //CAS regular expression
-	var input = document.getElementById('cas').value;
-	console.log("Input.value: " + input + ", regex: " + cas);
-	console.log(cas.test(input));
-	if(cas.test(input)) { 
-		//If CAS code is of correct format, do nothing
-		return true;
-	} else {
-		//If CAS code of incorrect format, return error message
-		var errorTag = document.getElementById("error");
-		errorTag.innerHTML = "The input '" + input + "' is an invalid CAS number. Please re-scan.";
-		return false;
-	}
-	return true;
-}
-//A general purpose ajax request callback function
+/******************************************
+ * File: Scanner.js
+ * Description: General purpose javascript methods for scanner.php
+ * Author: Stephen Quenzer
+ * Date Modified: March 21, 2014
+ * List of methods:
+	# ajaxRequest(url, callback)
+	# verifyCAS()
+	# updateLabelName(chemName)
+	# 
+	# 
+	# 
+  ****************************************/
+  
+ /******************************************
+ * Name: 
+ * Description: 
+ * Parameters:
+	# 
+ ******************************************/
+ 
+ //========================================//
+ 
+ /******************************************
+ * Name: ajaxRequest(url, callback)
+ * Description: A general purpose ajax request callback function. 
+ * 				Allows many methods to make ajax requests through 
+ *				the use of 'callback' parameter
+ * Parameters:
+	# url		[string]: Url where data is being sent (and recieved from)
+	# callback	[function]: General callback function that processes results of ajax request
+ ******************************************/
 var request;
 function ajaxRequest(url, callback) {
 	if (window.XMLHttpRequest) {
@@ -30,18 +44,34 @@ function ajaxRequest(url, callback) {
 	request.send();
 }
 
-/*
-//Updates label to include chemical name
-function updateLabelName(chemName) {
-	if(chemName != "") {
-		var label = document.getElementById('barcodeLabel');
-		label.src = label.src + "&label=" + chemName;
+ /******************************************
+ * Name: verifyCAS()
+ * Description: Verifies that CAS number entered is of the proper form
+ ******************************************/
+function verifyCAS() {
+	var cas = new RegExp("^[0-9]{2,6}-[0-9]{2}-[0-9]$"); //CAS regular expression
+	var input = document.getElementById('cas').value;
+	if(cas.test(input)) { 
+		//If CAS code is of correct format, do nothing
+		return true;
+	} else {
+		//If CAS code of incorrect format, return error message
+		var errorTag = document.getElementById("error");
+		errorTag.innerHTML = "The input '" + input + "' is an invalid CAS number. Please re-scan.";
+		return false;
 	}
+	return true;
 }
-*/
 
-//Verifies that the user wants to add new data to the DB
-//field & table parameters refer to database, value is the input
+ /******************************************
+ * Name: verifyNewData(field, table, value, input)
+ * Description: Verifies that user wants to add new data to the DB
+ * Parameters:
+	# field	[string || undefined]: Column name in database to query against
+	# table [string]: Table name in database to query against
+	# value [string]: Value of user input
+	# input [string]: Specifies the type of input
+ ******************************************/
 function verifyNewData(field, table, value, input) {
 	//input parameter is optional: Default value does nothing, otherwise verify_new_data.php receives $_GET['input']=input
 	input = typeof input !== 'undefined' ? "&input="+input : "";
@@ -57,6 +87,31 @@ function verifyNewData(field, table, value, input) {
 		}
 	});
 }
+
+ /******************************************
+ * Name: updateLabelName(chemName)
+ * Description: Adds a chemical name as label under barcode
+				when user inputs new chemical name
+ * Parameters:
+	# chemName	[string]: Name of user-input chemical
+ * Note: Currently unused- now using CAS numbers under barcode
+ ******************************************/
+//Updates label to include chemical name
+//Currently unused
+function updateLabelName(chemName) {
+	if(chemName != "") {
+		var label = document.getElementById('barcodeLabel');
+		label.src = label.src + "&label=" + chemName;
+	}
+}
+
+ /******************************************
+ * Name: changeQuantity(amount, field)
+ * Description: Adds or subtracts a quantity from an input field
+ * Parameters:
+	# amount [string]:  Amount and sign for addition or subtraction
+	# field [string]:	Input field to add or subtract from
+ ******************************************/
 function changeQuantity(amount, field) {
 	var quant = document.getElementById(field).value;
 	//If no value in input, make value=0
@@ -75,14 +130,36 @@ function changeQuantity(amount, field) {
 	//Why can't 'quant' be used here? 
 	document.getElementById(field).value = temp.toString(); 
 }
-function activateButtons(field) {
+
+ /******************************************
+ * Name: activateField(field)
+ * Description: Displays a given field by setting display:auto (inline css)
+ * Parameters:
+	# field [string]:  ID for field to display
+ ******************************************/
+function activateField(field) {
 	var buttonsWrapper = document.getElementsById(field);
 	buttonsWrapper.styles.display="auto";
 }
-function deactivateButtons(field) {
+
+ /******************************************
+ * Name: deactivateField(field)
+ * Description: Hides a given field by setting display:none (inline css)
+ * Parameters:
+	# field [string]: ID for field to hide
+ ******************************************/
+function deactivateField(field) {
 	var buttonsWrapper = document.getElementById(field);
 	buttonsWrapper.style.display="none";
 }
+
+ /******************************************
+ * Name: getLocations(room)
+ * Description: Takes in a room name and returns all locations
+				corresponding to the given room
+ * Parameters:
+	# room [string]: Room name used to find corresponding locations
+ ******************************************/
 function getLocations(room) {
 	var locWrapper = document.getElementById('locWrapper');
 	//Pre-load indicator
@@ -94,17 +171,41 @@ function getLocations(room) {
 		}
 	});
 }
+
+ /******************************************
+ * Name: createLocations(room)
+ * Description: Creates all locations corresponding to the given room name
+ * Parameters:
+	# room [string]: Room name used to find corresponding locations
+ * Notes: Used in conjunction with getLocations(room)
+ ******************************************/
 function createLocations(room) {
 	//Add selected room to text input
 	document.getElementById('room').value = room;
 	getLocations(room);
-	deactivateButtons('roomsWrapper');
+	deactivateField('roomsWrapper');
 	var locationsWrapper = document.getElementById('locWrapper');
 }
+
+ /******************************************
+ * Name: addLocation(loc)
+ * Description: Adds the given location into the location input
+ * Parameters:
+	# loc [string]:	Location name
+ * Notes: Used in conjunction with return values of getLocations(room)
+ ******************************************/
 function addLocation(loc) {
 	document.getElementById('loc').value=loc;
-	deactivateButtons('locWrapper');
+	deactivateField('locWrapper');
 }
+
+ /******************************************
+ * Name: activatePopup(message)
+ * Description: Creates a popup on top of all other elements and inserts
+				'message' into the popup
+ * Parameters:
+	# message [string]:	Message to be inserted into popup
+ ******************************************/
 function activatePopup(message) {
 	var popupBG = document.getElementById('popupBG');
 	popupBG.className="active";
@@ -112,6 +213,11 @@ function activatePopup(message) {
 	popup.className="active";
 	popup.innerHTML+="<span id='popupMessage'>"+message+"</span>";
 }
+
+ /******************************************
+ * Name: deactivatePopup()
+ * Description: Removes popup and all content inside of popup
+ ******************************************/
 function deactivatePopup() {
 	var popupBG = document.getElementById('popupBG');
 	var popup = document.getElementById('popup');
@@ -119,9 +225,13 @@ function deactivatePopup() {
 	popup.className='';
 	popup.innerHTML="";
 }
-function popupConfirm() {
-	
-}
+
+ /******************************************
+ * Name: getData(cas)
+ * Description: Gets the data corresponding with the given cas number
+ * Parameters:
+	# cas [string]:	CAS number 
+ ******************************************/
 function getData(cas) {
 	var chems = document.getElementById("chems");
 	//Pre-load indicator
@@ -135,6 +245,8 @@ function getData(cas) {
 		}
 	});
 }
+
+/* ----Unused------
 function removeHiddenInput(form) {
 	var inputArr = form.childNodes;
 	console.log(inputArr[0].nodeType);
@@ -152,6 +264,19 @@ function hiddenInput(form, name, value) {
 	input.value=value;
 	form.appendChild(input);
 }
+*/
+
+ /******************************************
+ * Name: autofill(arr, multiple)
+ * Description: Fills update form inputs automatically based on chosen chemical.
+				Also sets session variables for current values. This ensures we can 
+				find the correct original record to update with new values
+ * Parameters:
+	# arr [array]: Array of values to insert into corresponding input fields
+	# multiple [boolean]: True/false value deciding whether there are multiple instances
+						  of the same chemical in the DB. This might occur when two of the
+						  same chemical are in different locations.
+ ******************************************/
 function autofill(arr, multiple) {
 	if(multiple) {
 		//When multiple options to choose from
@@ -193,7 +318,6 @@ function autofill(arr, multiple) {
 	});
 }
 function chemSelect(index) {
-	//console.log("index = " + index);
 	var arr = document.getElementById(index).childNodes;
 	autofill(arr, true);
 }
