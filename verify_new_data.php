@@ -73,7 +73,7 @@ If you are adding a duplicate chemical to a new location, press continue.
 Otherwise, enter a new chemical name</p>
 <form>
 <p><label>Use chemical: '$value'
-<input type="button" value="continue" onclick='deactivatePopup()'>
+<input type="button" value="continue" onclick='deactivatePopup(); autoFillMftr();'>
 </label></p>
 -OR-
 <p><label>Enter new chemical:

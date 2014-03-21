@@ -51,7 +51,9 @@ function verifyNewData(field, table, value, input) {
 		if(request.readyState == 4 && request.status == 200) {
 			var response = request.responseText;
 			//If response returns text, put in popup, otherwise do nothing
-			if(response != "") activatePopup(response);
+			if(response != "") {
+			activatePopup(response);
+			}
 		}
 	});
 }
@@ -237,4 +239,23 @@ function addMftr(mftr, exist) {
 	var manu = document.getElementById('manufacturer');
 	manu.value = mftr;
 	deactivatePopup();
+}
+function autoFillMftr() {
+	var chem = document.getElementById('chemical').value;
+	if (chem != "") {
+		//If a chemical name has been entered
+		//Pre-load indicator
+		var mftrLoader = document.getElementById('mftrLoader');
+		mftrLoader.innerHTML+="<img src='gfx/loader.gif'>";
+		ajaxRequest("get_mftr.php?chem="+chem, function() {
+			if(request.readyState == 4 && request.status == 200) {
+				//Remove laoder
+				loader = mftrLoader.getElementsByTagName("img")[0];
+				mftrLoader.removeChild(loader);
+				//Get response
+				var response = request.responseText;
+				document.getElementById('manufacturer').value=response;
+			}
+		});
+	}
 }

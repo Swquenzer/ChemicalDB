@@ -159,6 +159,7 @@ $message = "";
 				    <label id="chemicalsLbl">Chemical Name
 				    <span><input list="chemicals" name="chemical" id="chemical" placeholder="Acetone" onblur="verifyNewData('Name', 'chemical', this.value, 'chem')" required autofocus/></span>
 				    </label>
+					<span id="mftrLoader"></span>
 				    <label id="manufacturerLbl">Manufacturer
 				    <span><input list="manufacturers" name="manufacturer" id="manufacturer" tabinex="1" placeholder="Sigma" onblur="verifyNewData('Name', 'manufacturer', this.value, 'mftr')" /></span>
 				    </label>
@@ -212,6 +213,9 @@ $message = "";
 				    ?>
 			    </datalist>
 		    </form>
+			<script>
+			autoFillMftr();
+			</script>
 		<?php
 		}
 		?>
