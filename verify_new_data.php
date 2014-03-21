@@ -23,12 +23,14 @@
 	}
 	if (!$match) {
 		// The entry being checked is NOT already in the database
-		if($field == "Location") {
-			echo "	<p class='message'>Are you sure you want to add $field '$value'?</p>";
+		if($field == "Location" || $field == "Room") {
+			echo "	<span id='innerPopupWrapper'><h1>Are you sure?</h1>";
+			echo "	<p class='popupMessage'>The $field '$value' is not currently in the database.</p>";
 			echo "
 					<form>
-						<input type='button' value='Yes' onclick='javascriptfunction()'>
+						<input type='button' value='I understand' onclick='deactivatePopup()'>
 					</form>
+					</span><!--innerPopupWrapper-->
 				 ";
 		} elseif(isset($_GET['input']) && $_GET['input'] == "mftr") {
 			echo "	<span id='innerPopupWrapper'><h1>Are you sure?</h1>";

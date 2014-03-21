@@ -347,6 +347,7 @@ p.popupMsg {
     border-radius: 5px;
 }
 #popup form label {
+    padding: 20px 0;
     font-family: "Trebuchet MS", Helvetica, sans-serif;
     color: #11224F;
     text-align: left;

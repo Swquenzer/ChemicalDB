@@ -82,7 +82,7 @@ $message = "";
 						<span><input list="manufacturers" name="manufacturer" id="manufacturer" tabinex="1" placeholder="Sigma" onblur="verifyNewData('Name', 'manufacturer', this.value, 'mftr')" /></span>
 						</label>
 						<label id="roomLbl">Room
-						<span><input list="rooms" name="room" id="room" tabinex="2" placeholder="35b" required /></span>
+						<span><input list="rooms" name="room" id="room" tabinex="2" placeholder="35b" onblur="verifyNewData('Room', 'inventory', this.value)" required /></span>
 						</label>
 						<span id="roomsWrapper">
 							<?php
@@ -161,7 +161,7 @@ $message = "";
 				    <span><input list="manufacturers" name="manufacturer" id="manufacturer" tabinex="1" placeholder="Sigma" onblur="verifyNewData('Name', 'manufacturer', this.value, 'mftr')" /></span>
 				    </label>
 				    <label id="roomLbl">Room
-				    <span><input list="rooms" name="room" id="room" tabinex="2" placeholder="35b" required /></span>
+				    <span><input list="rooms" name="room" id="room" tabinex="2" placeholder="35b" onblur="verifyNewData('Room', 'inventory', this.value)" required /></span>
 				    </label>
 				    <span id="roomsWrapper">
 					    <?php
