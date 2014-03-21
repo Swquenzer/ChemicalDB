@@ -73,6 +73,14 @@ function changeQuantity(amount, field) {
 	//Why can't 'quant' be used here? 
 	document.getElementById(field).value = temp.toString(); 
 }
+function activateButtons(field) {
+	var buttonsWrapper = document.getElementsById(field);
+	buttonsWrapper.styles.display="auto";
+}
+function deactivateButtons(field) {
+	var buttonsWrapper = document.getElementById(field);
+	buttonsWrapper.style.display="none";
+}
 function getLocations(room) {
 	var locWrapper = document.getElementById('locWrapper');
 	//Pre-load indicator
@@ -88,13 +96,12 @@ function createLocations(room) {
 	//Add selected room to text input
 	document.getElementById('room').value = room;
 	getLocations(room);
-	var roomsWrapper = document.getElementById('roomsWrapper');
-	roomsWrapper.style.display="none";
+	deactivateButtons('roomsWrapper');
 	var locationsWrapper = document.getElementById('locWrapper');
 }
 function addLocation(loc) {
 	document.getElementById('loc').value=loc;
-	locWrapper.style.display="none";
+	deactivateButtons('locWrapper');
 }
 function activatePopup(message) {
 	var popupBG = document.getElementById('popupBG');
