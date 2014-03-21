@@ -1,4 +1,5 @@
-/******************************************
+/********************************************************
+*********************************************************
  * File: Scanner.js
  * Description: General purpose javascript methods for scanner.php
  * Author: Stephen Quenzer
@@ -10,16 +11,10 @@
 	# 
 	# 
 	# 
-  ****************************************/
-  
- /******************************************
- * Name: 
- * Description: 
- * Parameters:
-	# 
- ******************************************/
+********************************************************
+********************************************************
  
- //========================================//
+===========================================================================================*/
  
  /******************************************
  * Name: ajaxRequest(url, callback)
@@ -317,10 +312,29 @@ function autofill(arr, multiple) {
 		}
 	});
 }
+
+ /******************************************
+ * Name: chemSelect(index)
+ * Description: Finds array of chemicals to autofill in their respective input fields
+				based on id of chemical chosen (not cas number). Id's are created in 
+				index form (chem1, chem2, etc).
+ * Parameters:
+	# index [string]: Id of chemical chosen (not cas number)
+ ******************************************/
 function chemSelect(index) {
 	var arr = document.getElementById(index).childNodes;
 	autofill(arr, true);
 }
+
+ /******************************************
+ * Name: chemList(chem)
+ * Description: Sets up a list of chemicals if there are multiple chemical options with
+				the same name. If no duplicates, automatically fills in fields with values
+				corresponding to given chemical.
+ * Parameters:
+	# chem [string]: Name of chemical to query against
+ * Notes: Used for autofill feature in update form
+ ******************************************/
 function chemList(chem) {
 	var chemical = document.getElementById('chemical');
 	chemical.value=chem;
@@ -350,6 +364,17 @@ function chemList(chem) {
 		}
 	});
 }
+
+ /******************************************
+ * Name: addMftr(mftr, exist)
+ * Description: Adds a new manufacturer to database if user input(ed) manufacturer
+				doesn't exist yet.
+ * Parameters:
+	# mftr [string]: Name of manufacturer
+	# exist [boolean]: True/false value of whether the given manufacturer currently exists
+ * Notes: Method is called from verify_new_data.php, where user decides IF they want the
+		  new manufacturer to be added.
+ ******************************************/
 function addMftr(mftr, exist) {
 	if(!exist) {
 		//Add manufacturer to database
@@ -364,6 +389,14 @@ function addMftr(mftr, exist) {
 	manu.value = mftr;
 	deactivatePopup();
 }
+
+ /******************************************
+ * Name: autoFillMftr()
+ * Description: When user inputs a chemical name in 'add' form, if the
+				chemical is already in the database, and if the chemical has
+				a manufacturer, the manufacturer is automatically added
+				as a value into the manufacturer input field.
+ ******************************************/
 function autoFillMftr() {
 	var chem = document.getElementById('chemical').value;
 	if (chem != "") {
