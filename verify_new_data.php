@@ -41,6 +41,7 @@
 						<input type='button' value='Add' name='$value' onclick='addMftr(this.name, false)'>
 						</label>
 					</p>
+					-OR-
 					<p>
 					<label>Use an existing manufacturer:
 					<select multiple>
@@ -53,6 +54,10 @@
 				$result->close();
 			}
 			echo "	</select></label></p>
+					-OR-
+					<p><label>Add different manufacturer <br>
+					<input type='text' id='newMftr'>
+					<input type='button' value='Add' onclick='addMftr(document.getElementById(\"newMftr\").value, false)'>
 					</form>
 					</span><!--innerPopupWrapper-->
 				 ";

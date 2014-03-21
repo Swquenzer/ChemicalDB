@@ -217,7 +217,7 @@ $message = "";
 	<footer>
 	<span id="copy">&copy; EMU 2014</span>
 	</footer>	
-	<div id="popupBG" class="" onclick="deactivatePopup()">
+	<div id="popupBG" class="" onclick="">
 	</div><!--popupBG-->
 	<span class="center">
 		<div id="popup" class="">

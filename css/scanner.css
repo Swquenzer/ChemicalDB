@@ -357,6 +357,10 @@ p.popupMsg {
     margin-left: 20px;
     padding: 7px 30px;
 }
+#popup input[type="text"] {
+    margin-top: 7px;
+    padding: 10px;
+}
 #popup select {
     display: block;
     margin: 10px auto 0;
