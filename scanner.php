@@ -102,18 +102,20 @@ $message = "";
 						<label id="quantLbl">Quantity
 						<span><input type="number" name="quant" id="quant" tabinex="4" placeholder="4" value="0" required /></span>
 						</label>
-						<input type="button" class="changeQuant" value="-1" onclick="changeQuantity(this.value)">
-						<input type="button" class="changeQuant" value="-5" onclick="changeQuantity(this.value)">
-						<input type="button" class="changeQuant" value="-10" onclick="changeQuantity(this.value)">
-						<input type="button" class="changeQuant" value="-50" onclick="changeQuantity(this.value)">
+						<input type="button" class="changeQuant" value="-1" onclick="changeQuantity(this.value, 'quant')">
+						<input type="button" class="changeQuant" value="-5" onclick="changeQuantity(this.value, 'quant')">
+						<input type="button" class="changeQuant" value="-10" onclick="changeQuantity(this.value, 'quant')">
+						<input type="button" class="changeQuant" value="-50" onclick="changeQuantity(this.value, 'quant')">
 						<input type="button" class="changeQuant" value="Clear" onclick="document.getElementById('quant').value='0'">
 						<legend id="unitSizeLbl">Unit Size
 						<span id="unitSize"><input type="number" id="size" name="unitSize" tabinex="5" placeholder="200" required />
 						<input type="text" id="unit" name="unit" tabinex="6" placeholder="mg" required ></span>
 						</legend>
-						<!-- <label id="unitLbl">Unit of Measure
-						<span></span>
-						</label> -->
+						<input type="button" class="changeQuant" value="+1" onclick="changeQuantity(this.value, 'size')">
+						<input type="button" class="changeQuant" value="+5" onclick="changeQuantity(this.value, 'size')">
+						<input type="button" class="changeQuant" value="+10" onclick="changeQuantity(this.value, 'size')">
+						<input type="button" class="changeQuant" value="+50" onclick="changeQuantity(this.value, 'size')">
+						<input type="button" class="changeQuant" value="Clear" onclick="document.getElementById('size').value='0'">
 						<input type="submit" name="submit" class="submitButton" value="Update Chemical">
 					</div><!--lowerFieldsWrapper-->
 			    </p>
@@ -181,18 +183,20 @@ $message = "";
 				    <label id="quantLbl">Quantity
 				    <span><input type="number" name="quant" id="quant" tabinex="4" placeholder="4" value="0" required /></span>
 				    </label>
-				    <input type="button" class="changeQuant" value="+1" onclick="changeQuantity(this.value)">
-				    <input type="button" class="changeQuant" value="+5" onclick="changeQuantity(this.value)">
-				    <input type="button" class="changeQuant" value="+10" onclick="changeQuantity(this.value)">
-				    <input type="button" class="changeQuant" value="+50" onclick="changeQuantity(this.value)">
+				    <input type="button" class="changeQuant" value="+1" onclick="changeQuantity(this.value, 'quant')">
+				    <input type="button" class="changeQuant" value="+5" onclick="changeQuantity(this.value, 'quant')">
+				    <input type="button" class="changeQuant" value="+10" onclick="changeQuantity(this.value, 'quant')">
+				    <input type="button" class="changeQuant" value="+50" onclick="changeQuantity(this.value, 'quant')">
 				    <input type="button" class="changeQuant" value="Clear" onclick="document.getElementById('quant').value='0'">
 				    <legend id="unitSizeLbl">Unit Size
 				    <span id="unitSize"><input type="number" id="size" name="unitSize" tabinex="5" placeholder="200" required />
 				    <input type="text" id="unit" name="unit" tabinex="6" placeholder="mg" required ></span>
 				    </legend>
-				    <!-- <label id="unitLbl">Unit of Measure
-				    <span></span>
-				    </label> -->
+				    <input type="button" class="changeQuant" value="+1" onclick="changeQuantity(this.value, 'size')">
+				    <input type="button" class="changeQuant" value="+5" onclick="changeQuantity(this.value, 'size')">
+				    <input type="button" class="changeQuant" value="+10" onclick="changeQuantity(this.value, 'size')">
+				    <input type="button" class="changeQuant" value="+50" onclick="changeQuantity(this.value, 'size')">
+				    <input type="button" class="changeQuant" value="Clear" onclick="document.getElementById('size').value='0'">
 				    <input type="submit" name="submit" class="submitButton" value="Add Chemical">
 			    </p>
 		    

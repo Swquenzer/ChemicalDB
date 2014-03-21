@@ -55,13 +55,13 @@ function verifyNewData(field, table, value, input) {
 		}
 	});
 }
-function changeQuantity(amount) {
-	var quant = document.getElementById('quant').value;
+function changeQuantity(amount, field) {
+	var quant = document.getElementById(field).value;
 	//If no value in input, make value=0
 	if(isNaN(parseInt(quant))) {
-		document.getElementById('quant').value = "0";
+		document.getElementById(field).value = "0";
 	}
-	quant = document.getElementById('quant').value;
+	quant = document.getElementById(field).value;
 	// substr(0,1) grabs sign from front of value
 	// substr(1) removes sign from front of value 
 	if (amount.substr(0,1) == "+") {
@@ -71,7 +71,7 @@ function changeQuantity(amount) {
 	}
 	
 	//Why can't 'quant' be used here? 
-	document.getElementById('quant').value = temp.toString(); 
+	document.getElementById(field).value = temp.toString(); 
 }
 function getLocations(room) {
 	var locWrapper = document.getElementById('locWrapper');

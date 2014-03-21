@@ -4,7 +4,9 @@
 
 *.stackdump
 barcodes\*
-
+barcodes/*
+*.png
+css/scanner_temp.css
 #################
 ## Eclipse
 #################
@@ -220,3 +222,4 @@ pip-log.txt
 
 #Mr Developer
 .mr.developer.cfg
+
