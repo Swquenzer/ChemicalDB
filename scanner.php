@@ -66,7 +66,7 @@ $message = "";
 		    <form class="addInv" id="add" action="scanner_update.php" method="GET">
 			    <p>
 				    <label class="center">Chemical Abstract Registry Number</label>
-				    <input type="text" name="cas" id="cas" value="<?php echo $_GET['cas']; ?>" placeholder="Example CAS: 9000-01-5" disabled>
+				    <input type="text" name="cas" id="cas" value="<?php echo $_GET['cas']; ?>" placeholder="Example CAS: 9000-01-5" readonly>
 			    </p>
 			    <p>
 					<span id="chems">
@@ -152,7 +152,7 @@ $message = "";
 			    ?>
 			    <p>
 				    <label class="center">Chemical Abstract Registry Number</label>
-				    <input type="text" name="cas" id="cas" value="<?php echo $_GET['cas']; ?>" placeholder="Example CAS: 9000-01-5" disabled>
+				    <input type="text" name="cas" id="cas" value="<?php echo $_GET['cas']; ?>" placeholder="Example CAS: 9000-01-5" readonly>
 			    </p>
 			    <img id="barcodeLabel" src="barcode.php?codetype=code128&height=40&cas=<?php echo $_GET['cas']; ?>" style="display: block; margin: auto;" alt="<?php echo $_GET['cas']; ?>">
 			    <p>
