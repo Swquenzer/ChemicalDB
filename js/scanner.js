@@ -221,26 +221,6 @@ function deactivatePopup() {
 	popup.innerHTML="";
 }
 
- /******************************************
- * Name: getData(cas)
- * Description: Gets the data corresponding with the given cas number
- * Parameters:
-	# cas [string]:	CAS number 
- ******************************************/
-function getData(cas) {
-	var chems = document.getElementById("chems");
-	//Pre-load indicator
-	chems.innerHTML+="<img src='gfx/loader.gif'>";
-	ajaxRequest("get_data.php?option=getChemList&cas="+cas, function() {
-		if(request.readyState == 4 && request.status == 200) {
-			var loader = chems.getElementsByTagName("img")[0];
-			chems.removeChild(loader);
-			var response = request.responseText;
-			chems.getElementsByTagName("select")[0].innerHTML=response;
-		}
-	});
-}
-
 /* ----Unused------
 function removeHiddenInput(form) {
 	var inputArr = form.childNodes;
@@ -308,7 +288,6 @@ function autofill(arr, multiple) {
 	ajaxRequest("get_data.php?option=saveOrigValues&chem="+chem+"&room="+room+"&loc="+loc+"&quant="+quant+"&size="+unitSize+"&unit="+unit+"&mftr="+mftr, function() {
 		if(request.readyState == 4 && request.status == 200) {
 			var response = request.responseText;
-			console.log(response);
 		}
 	});
 }
@@ -328,8 +307,9 @@ function chemSelect(index) {
 
  /******************************************
  * Name: chemList(chem)
- * Description: Sets up a list of chemicals if there are multiple chemical options with
-				the same name. If no duplicates, automatically fills in fields with values
+ * Description: Sets up a POPUP list of chemicals (not the same as built-in selection list) 
+				if there are multiple chemical options with the same name. 
+				If no duplicates exist, automatically fills in fields with values
 				corresponding to given chemical.
  * Parameters:
 	# chem [string]: Name of chemical to query against
@@ -349,10 +329,11 @@ function chemList(chem) {
 			var returnMessage = "<h3>Choose chemical to update</h3><table><tr><th>Chemical</th><th>Room</th><th>Location</th><th>Quantity</th><th>Size</th><th>Unit</th><th>Mftr</th></tr>";
 			var popup = document.getElementById('popup');
 			if(splitArr.length == 2) {
-					//One option
-					queryArr = JSON.parse(splitArr[0]);
-					autofill(queryArr, false);
+				//One option
+				queryArr = JSON.parse(splitArr[0]);
+				autofill(queryArr, false);
 			} else {
+				//Multiple options
 				for (var i=0; i<splitArr.length-1; i++) {
 					queryArr = JSON.parse(splitArr[i]);
 					//queryArr now holds a single array with individual query results
@@ -360,6 +341,33 @@ function chemList(chem) {
 				}
 				returnMessage = returnMessage + "</table>";
 				activatePopup(returnMessage);
+			}
+		}
+	});
+}
+
+ /******************************************
+ * Name: getData(cas)
+ * Description: Gets the data corresponding with the given cas number
+ * Parameters:
+	# cas [string]:	CAS number 
+ ******************************************/
+function getData(cas) {
+	var chems = document.getElementById("chems");
+	//Pre-load indicator
+	chems.innerHTML+="<img src='gfx/loader.gif'>";
+	ajaxRequest("get_data.php?option=getChemList&cas="+cas, function() {
+		if(request.readyState == 4 && request.status == 200) {
+			var loader = chems.getElementsByTagName("img")[0];
+			chems.removeChild(loader);
+			var response = request.responseText;
+			var chemListTag = chems.getElementsByTagName("select")[0];
+			chemListTag.innerHTML=response;
+			//Check if only one options
+			// 2 ===> 1 for child node + 1 for inner text
+			if(chemListTag.childNodes.length == 2) {
+				chemList(chemListTag.childNodes[0].value);
+				chemListTag.parentNode.innerHTML="";
 			}
 		}
 	});
