@@ -22,24 +22,15 @@ function processDelete() {
     });
 }
 
-function addTableEvents() {
-	var searchrow = $('#chemical_spreadsheet thead tr:first-child')[0]
-	function fillSearch(event) {
-		var searchbox = searchrow.cells[this.cellIndex].firstChild;
-		if (searchbox.value == this.textContent) {
-			searchbox.value = "";
-		} else {
-			searchbox.value = this.textContent;
-		}
-		filterThem();
-	}
-
-	function filterThem() {
+function filterThem() {
+		var searchrow = $('#chemical_spreadsheet thead tr:first-child')[0]
+		var NUM_RECORDS = 6;
 		var rowsHidden = 0;
 		var rows = $('#chemical_spreadsheet tbody')[0].rows
 		for (var r = 0; r < rows.length; r++) {
 			rows[r].style.display = ""
-			for (var c=0; c < 5; c++) {
+			//
+			for (var c=0; c < NUM_RECORDS; c++) {
 				if (c == 2) continue;
 				var pattern = searchrow.cells[c].firstChild.value.replace(/^\s+/,"")
 				if (rows[r].cells[c].innerHTML.search(pattern, "i") < 0) {
@@ -50,6 +41,18 @@ function addTableEvents() {
 			}
 		}
 		$('#chemHiddenRowsMsg').text(rowsHidden > 0 ? "Entries not shown: " + rowsHidden : "");
+	}
+
+function addTableEvents() {
+	var searchrow = $('#chemical_spreadsheet thead tr:first-child')[0]
+	function fillSearch(event) {
+		var searchbox = searchrow.cells[this.cellIndex].firstChild;
+		if (searchbox.value == this.textContent) {
+			searchbox.value = "";
+		} else {
+			searchbox.value = this.textContent;
+		}
+		filterThem();
 	}
 
 	function fillTable(data) {

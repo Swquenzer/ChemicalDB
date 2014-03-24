@@ -80,12 +80,12 @@ $AccessLevel = @$_SESSION["AccessLevel"];
 		<table id="chemical_spreadsheet" class="tablesorter">
 			<thead>
 				<tr>
-					<td scope="col"><input type="search" name="roomsearch" title="Room Filter" size="6" list="roomList" /></td>
-					<td scope="col"><input type="search" name="locationsearch" title="Location Filter" list="locationList" /></td>
+					<td scope="col"><input type="search" name="roomsearch" title="Room Filter" size="6" list="roomList" onchange="filterThem()"/></td>
+					<td scope="col"><input type="search" name="locationsearch" title="Location Filter" list="locationList" onchange="filterThem()"/></td>
 					<td scope="col"><input type="button" name="clearsearch" value="‹ Clear All Filters ›"></td>
-					<td scope="col"><input type="search" name="namesearch" title="Chemical Name Filter" list="chemList" /></td>
-					<td scope="col"><input type="search" name="mfrsearch" title="Manufacturer Filter" list="mfrList" /></td>
-					<td scope="col"><input type="search" name="cassearch" title="CAS number filter" list="casList" /></td>
+					<td scope="col"><input type="search" name="namesearch" title="Chemical Name Filter" list="chemList" onchange="filterThem()"/></td>
+					<td scope="col"><input type="search" name="mfrsearch" title="Manufacturer Filter" list="mfrList" onchange="filterThem()"/></td>
+					<td scope="col"><input type="search" name="cassearch" title="CAS number filter" list="casList" onchange="filterThem()"/></td>
 				</tr>
 				<tr>
 					<th scope="col" id="th_left">Room </th>
@@ -134,7 +134,7 @@ $AccessLevel = @$_SESSION["AccessLevel"];
 				<label>Location: <span><input name="popupLocation" list="locationList" title="Type space to show standard locations."></span>
 		<datalist id="locationList">
 			<select>
-			<option value="" label="">
+			<!--Is empty option necessary? <option value="" label=""> -->
 			<?php if ($result = $db->query("SELECT DISTINCT Location FROM inventory")) {
 				while ($row = $result->fetch_row())
 					echo '<option value="' . $row[0] . '" label=" ' . $row[0] . '">';
@@ -146,7 +146,6 @@ $AccessLevel = @$_SESSION["AccessLevel"];
 				</p>
 			</form>
 		<datalist id="chemList">
-			<option value="" label="">
 			<?php if ($result = $db->query("SELECT DISTINCT Name FROM chemical")) {
 				while ($row = $result->fetch_row())
 					echo '<option value="' . $row[0] . '" label=" ' . $row[0] . '">';
@@ -154,10 +153,16 @@ $AccessLevel = @$_SESSION["AccessLevel"];
 			} ?>
 		</datalist>
 		<datalist id="mfrList">
-			<option value="" label="">
 			<?php if ($result = $db->query("SELECT DISTINCT Name FROM manufacturer")) {
 				while ($row = $result->fetch_row())
 					echo '<option value="' . $row[0] . '" label=" ' . $row[0] . '">';
+				$result->close();
+			} ?>
+		</datalist>
+		<datalist id="casList">
+			<?php if ($result = $db->query("SELECT DISTINCT CAS FROM chemical")) {
+				while ($row = $result->fetch_row())
+					echo '<option value="' .$row[0] . '" label=" ' . $row[0] . '">';
 				$result->close();
 			} ?>
 		</datalist>
