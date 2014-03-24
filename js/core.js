@@ -58,7 +58,7 @@ function addTableEvents() {
 		for (var i = 0; i < data.length; i++) {
 			var record = data[i];
 			rows.push("<tr id='item"+ record.ID +"'><td>");
-			rows.push([record.Room, record.Location,  "<span class='right'>" + record.ItemCount * record.Size + " " + record.Units + "</span>(" + record.ItemCount + " x " + record.Size + ")", record.Name, record.mfr].join("</td><td>"));
+			rows.push([record.Room, record.Location,  "<span class='right'>" + record.ItemCount * record.Size + " " + record.Units + "</span>(" + record.ItemCount + " x " + record.Size + ")", record.Name, record.mfr, record.CAS].join("</td><td>"));
 			rows.push("</td></tr>");
 		}
 		$('#chemical_spreadsheet_body').html(rows.join(""));

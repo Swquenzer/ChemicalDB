@@ -85,17 +85,19 @@ $AccessLevel = @$_SESSION["AccessLevel"];
 					<td scope="col"><input type="button" name="clearsearch" value="‹ Clear All Filters ›"></td>
 					<td scope="col"><input type="search" name="namesearch" title="Chemical Name Filter" list="chemList" /></td>
 					<td scope="col"><input type="search" name="mfrsearch" title="Manufacturer Filter" list="mfrList" /></td>
+					<td scope="col"><input type="search" name="cassearch" title="CAS number filter" list="casList" /></td>
 				</tr>
 				<tr>
 					<th scope="col" id="th_left">Room </th>
 					<th scope="col">Location </th>
 					<th scope="col">Amount </th>
 					<th scope="col">Name </th>
-					<th scope="col" id="th_right">Manufacturer </th>
+					<th scope="col">Manufacturer </th>
+					<th scope="col" id="th_right">CAS </th>
 				</tr>
 			</thead>
 			<tbody id="chemical_spreadsheet_body">
-				<tr><td></td><td></td><td></td><td></td><td></td></tr>
+				<tr><td></td><td></td><td></td><td></td><td></td><td></td></tr>
 			</tbody>
 		</table>
 		<div id="chemMsg">
@@ -159,7 +161,7 @@ $AccessLevel = @$_SESSION["AccessLevel"];
 				$result->close();
 			} ?>
 		</datalist>
-		</div></div>
+		</div></div><!--End Popup-->
 
 	<?php } else { // not logged in ?>
 		<div id="content">
