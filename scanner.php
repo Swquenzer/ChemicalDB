@@ -220,6 +220,7 @@ $message = "";
 		}
 		?>
 		</div><!--Form_Wrapper-->
+		<span class="center"><a href="spreadsheet.php" class="basicButton">Go to chemical database spreadsheet</a></span>
 	</section><!--main-->
 	<div id="barcode"></div>
 	<footer>

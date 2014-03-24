@@ -73,7 +73,7 @@ function addTableEvents() {
 	$('#chemical_spreadsheet thead').on("keyup", 'input[type=search]', filterThem);
 	$('#chemical_spreadsheet thead input[type=button]').on("click", function(event) { $('input[type=search]',searchrow).val(""); filterThem() });
 	$('#addChem').on("click", function(event) { 
-		location = "addChem.php";
+		location = "scanner.php";
 	});
 	$('#addMfr').on("click", function(event) { 
 		postJSON("fetch=all", fillTable);

@@ -403,6 +403,26 @@ footer {
     margin: 0 !important;
     clear: both !important;
 }
+/* ---Generic Button Styles--- */
+.basicButton {
+	display: block;
+    margin-top: 10px;
+    padding: 5px;
+    font-family: arial;
+	color:#ffffff;
+	font-size: 15px;
+	font-weight: bold;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #154682;
+}
+.basicButton:hover {
+    text-decoration: underline;
+}
+.basicButton:active {
+	position:relative;
+	top:1px;
+}
+
 /* ----- Utility styles ----- */
 .center {
     text-align: center !important;
