@@ -30,6 +30,8 @@ $cas 		= $_GET['cas'];
 $chemical 	= $_GET['chemical'];
 //Manufacturer is optional
 if($_GET['manufacturer'] != "") $mftr = $_GET['manufacturer'];
+//Set default mftrID value (corresponds to 'other')
+$mftrID = 1;
 $room		= $_GET['room'];
 $loc 		= $_GET['location'];
 $quant		= (int) $_GET['quant'];
@@ -38,36 +40,17 @@ $unit		= $_GET['unit'];
 #Get chemical id ( need to create better query with join later )
 #----- QUICKFIX: add manufacturer, chemical if not present ----#
 #Authors: Stephen Quenzer, Isaac Tice, Josiah Driver
-#Only add and get manufacturerID if chemical has a manufacturer!
+#First get MftrID if it exists
 if(isset($mftr)) {
 	$query = $db->prepare("SELECT ID FROM manufacturer WHERE Name=?");
 	$query->bind_param('s', $mftr);
 	$query->execute();
 	$query->store_result();
-	/*
-	#If manufacturer not in database insert it
-	#Do we need this? Mftr check in scanner.js should do it for us
-	if($query->num_rows() < 1 ) {
-		$query->close();
-		$query = $db->prepare("INSERT INTO manufacturer (Name) VALUES (?)");
-		$query->bind_param('s', $_POST['manufacturer']);
-		if ( !$query->execute() )
-			error_log($query->error);
-		$query->close();
-						
-		#Now fetch manufacturer ID 
-		$query = $db->prepare("SELECT ID FROM manufacturer WHERE Name=?");
-		$query->bind_param('s', $_POST['manufacturer']);
-		$query->execute();
-	}
-	*/
 	$query->bind_result($mftrID);
 	$query->fetch();
 	# $mftrID now holds the manufacturer ID
 	$query->close();
 }
-#if chemical has no mftr, set the $mftrID to null
-if(!isset($mftrID)) $mftrID = null;
 #Now, if chemical not in database insert it
 $query = $db->prepare("SELECT ID FROM chemical WHERE Name=?");
 $query->bind_param('s', $chemical);

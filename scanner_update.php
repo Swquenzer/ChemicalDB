@@ -6,6 +6,8 @@
 	$chemical 	= $_GET['chemical'];
 	//Manufacturer is optional
 	if($_GET['manufacturer'] != "") $mftr = $_GET['manufacturer'];
+	//Set default mftrID value (corresponds to 'other')
+	$mftrID = 1;
 	$room		= $_GET['room'];
 	$loc 		= $_GET['location'];
 	$quant		= (int) $_GET['quant'];
@@ -28,9 +30,21 @@
 	}
 	
 	//Update DB
-	$query = "	UPDATE inventory i JOIN chemical c
+	#First get MftrID if it exists
+	if(isset($mftr)) {
+	$query = $db->prepare("SELECT ID FROM manufacturer WHERE Name=?");
+	$query->bind_param('s', $mftr);
+	$query->execute();
+	$query->store_result();
+	$query->bind_result($mftrID);
+	$query->fetch();
+	# $mftrID now holds the manufacturer ID
+	$query->close();
+	}
+	#Now, update inventory and manufacturer
+	$query = "UPDATE inventory i JOIN chemical c
 				ON i.ChemicalID = c.ID
-				SET i.Room=?, i.Location=?, i.ItemCount=?, i.Size=?, i.Units=?
+				SET i.Room=?, i.Location=?, i.ItemCount=?, i.Size=?, i.Units=?, i.MftrID=?
 				WHERE i.Room=? && i.Location=? && i.ItemCount=? && i.Size=? && i.Units=? && c.Name=?
 			 ";
 	$stmt = $db->stmt_init();
@@ -39,7 +53,7 @@
 	} else {
 		$_SESSION['quant'] = (int) $_SESSION['quant'];
 		$_SESSION['size'] = (int) $_SESSION['size'];
-		$stmt->bind_param('ssiisssiiss', $room, $loc, $quant, $unitSize, $unit, $_SESSION['room'], $_SESSION['loc'], $_SESSION['quant'], $_SESSION['size'], $_SESSION['unit'], $_SESSION['chem']);
+		$stmt->bind_param('ssiisissiiss', $room, $loc, $quant, $unitSize, $unit, $mftrID, $_SESSION['room'], $_SESSION['loc'], $_SESSION['quant'], $_SESSION['size'], $_SESSION['unit'], $_SESSION['chem']);
 		$stmt->execute();
 		header ("Location: scanner.php?message=Chemical updated successfully!");
 	}
