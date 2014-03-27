@@ -32,7 +32,7 @@
 						INNER JOIN chemical
 						ON inventory.ChemicalID=chemical.ID
 						INNER JOIN manufacturer
-						ON chemical.MfrID=manufacturer.ID
+						ON inventory.MftrID=manufacturer.ID
 						WHERE chemical.Name=?
 					 ";
 			$stmt = $db->stmt_init();

@@ -76,9 +76,8 @@ $query->store_result();
 #If chemical not in database insert it
 if ($query->num_rows() < 1 ) {
 	$query->close();
-	tlog("manufacturerID, int or string: $mftrID");
-	$query = $db->prepare("INSERT INTO chemical (CAS, Name, MfrID) VALUES (?, ?, ?)");
-	$query->bind_param('sss', $cas, $chemical, $mftrID);
+	$query = $db->prepare("INSERT INTO chemical (CAS, Name) VALUES (?, ?)");
+	$query->bind_param('ss', $cas, $chemical);
 	if( !$query->execute() )
 		error_log($query->error);
 	$query->close();
@@ -95,9 +94,9 @@ $query->close();
 #----------------------- END OF QUICK FIX --------------------#
 			
 #Everything ready, now insert into database
-$query = $db->prepare("INSERT INTO inventory (Room, Location, ItemCount, ChemicalID, Size, Units, LastUpdated) VALUES (?, ?, ?, ?, ?, ?, ?)");
+$query = $db->prepare("INSERT INTO inventory (Room, Location, ItemCount, ChemicalID, Size, Units, MftrID, LastUpdated) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
 $currentDate = date("Y-m-d H:i:s");
-$query->bind_param('ssiiiss', $room, $loc, $quant, $chemID, $unitSize, $unit, $currentDate);
+$query->bind_param('ssiiisis', $room, $loc, $quant, $chemID, $unitSize, $unit, $mftrID, $currentDate);
 if (!$query->execute()) 
 	error_log('problem inserting data: ' . $db->error);
 else
