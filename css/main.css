@@ -294,7 +294,7 @@ span.right { float: right; margin-right: -5px }
 	margin: auto;
 	margin-top: 10px;
 }
-
+/* ----Amount Popup----- */
 #popup { display: none }
 #popup.active {
 	display: block;
@@ -346,4 +346,12 @@ span.right { float: right; margin-right: -5px }
 #popupPlace {
 	text-align: center;
 	font-size: 18px;
+}
+
+/* Utility Classes */
+.visible {
+	display: auto !important;
+}
+.invisible {
+	display: none !important;
 }

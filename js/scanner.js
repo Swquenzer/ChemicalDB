@@ -204,7 +204,7 @@ function addLocation(loc) {
 function activatePopup(message) {
 	var popupBG = document.getElementById('popupBG');
 	popupBG.className="active";
-	var popup = document.getElementById('popup');
+	var popup = document.getElementById('popup_main');
 	popup.className="active";
 	popup.innerHTML+="<span id='popupMessage'>"+message+"</span>";
 }

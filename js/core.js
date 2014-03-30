@@ -1,25 +1,72 @@
 //Created by Stephen Quenzer, Josiah Driver, Isaac Tice, Charles Cooley
+window.onload = function() {
+	$('#delete').on("click", function(event) {
+		deleteRecords();
+	});
+}
 $(addTableEvents);
 
 function postJSON(data, successFunction) {
 	$.post("json.php", data, successFunction, "json").fail(function(event, status, msg ) { alert(status + ": " + msg); });
 }
 
+function deactivateFilter() {
+	$('#chemical_spreadsheet tbody').off("click");
+	$('#chemical_spreadsheet tbody').on("click", "tr", function() {
+		var cb = $(this).find("input[type='checkbox']");
+		//Select or Deselect clicked checkbox depending on current state
+		cb.prop( "checked" ) ? cb.prop("checked", false) : cb.prop("checked", true)
+	});
+}
+function loadDelete() {
+	$("#chemical_spreadsheet tbody tr").each(function(index) {
+		var tr = $(this);
+		var cb = "<input type='checkbox' name='deleteBox' value='" + index + "' >";
+		//Select first element (td), and prepend the checkbox inside it
+		tr.children().first().prepend(cb);
+	});
+}
+function ajax_caller(ID) {
+	postJSON("delete=inventory&ID=" + ID, function() {
+		//Individual Successes
+	});
+}
 function processDelete() {
 	var ajax_calls = [];
     $('input[type=checkbox]').each(function () {
 		var cb = this;
-	if (this.checked) {
-			var row = cb.parentNode.parentNode.parentNode;
+		if (this.checked) {
+			var row = cb.parentNode.parentNode;
 			var num = row.id && row.id.substr(4)
 			if (num) {
 				ajax_calls.push(ajax_caller(num));
 				$.when.apply(this, ajax_calls).done(function() {
 					$(row).fadeOut(300, function() { $(this).remove(); });
+					$('#errorMessage span').html("<h1>Records successfully deleted!</h1>");
 				});
 			}
-        }
+     }
     });
+}
+function deleteRecords() {
+	//Remove '#delete' Button
+	$('#delete').removeClass("visible");
+	$('#delete').addClass("invisible");
+	//Add submit button for to-be-deleted records
+	$('#tableOps form').prepend("<input type='button' name='submitDelete' id='submitDelete' value='Delete Them!'>");
+	//Block filtering when row is selected
+	deactivateFilter();
+	//Load deletion checkboxes
+	loadDelete();
+	//On hover, rows become red
+	$("tbody tr").hover(function() {
+		//On mouseenter
+		$(this).children().filter("td").css("background-color", "#FF9999");
+	}, function() {
+		//On mouseleave
+		$(this).children().filter("td").css("background-color", "");
+	});
+	$("#submitDelete").on("click", processDelete);
 }
 
 function filterThem() {
@@ -75,10 +122,7 @@ function addTableEvents() {
 	$('#addChem').on("click", function(event) { 
 		location = "scanner.php";
 	});
-	$('#addMfr').on("click", function(event) { 
-		postJSON("fetch=all", fillTable);
-	});
-
+	
 	// Provides client-side table sorting. Must come after table loading
 	$.tablesorter.addParser({ id:"nums", is: function(s) { return false; }, format: function(s) { return parseFloat(s.replace(/^<span[^>]*>/,"")) }, type: 'numeric' });
 
@@ -167,6 +211,5 @@ function addTableEvents() {
 				$('#popup').toggleClass("active"); postJSON("fetch=all", fillTable);
 			});
 		}
-	});
-
+	});0
 }

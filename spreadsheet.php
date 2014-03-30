@@ -61,8 +61,7 @@ $AccessLevel = @$_SESSION["AccessLevel"];
 		<nav id="navMenu">
 			<form class="inputField" action="" method="POST">
 			<?php if ($AccessLevel > 0) {  // logged in ?>
-				<ul><li><input type="button" name="addChem" id="addChem" value="Add Chemicals"/></li><li>
-				<input type="button" name="addMfr" id="addMfr" value="Add Manufacturer"/></li>
+				<ul><li><input type="button" name="addChem" id="addChem" value="Add Chemicals"/></li>
 				<li><input name="Logout" value="Logout" type="submit" /></li></ul>
 			<?php } else {  // not logged in ?>
 				<input size="12" type="text" id="username" name="username" placeholder="Username" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Username'" 
@@ -73,7 +72,7 @@ $AccessLevel = @$_SESSION["AccessLevel"];
 			</form>
 		</nav>
 	</header>
-	<p id="errorMessage" class="center"><?php echo $errorMessage; ?></p>
+	<p id="errorMessage" class="center"><span><?php echo $errorMessage; ?></span></p>
 	<main>
 
 	<?php if ($AccessLevel > 0) { // logged in ?>
@@ -100,6 +99,12 @@ $AccessLevel = @$_SESSION["AccessLevel"];
 				<tr><td></td><td></td><td></td><td></td><td></td><td></td></tr>
 			</tbody>
 		</table>
+		<div id="tableOps">
+            <form>
+                <input type="button" class="visible" name="delete" id="delete" value="Delete Records">
+                <input type="button" class="visible" name="edit" id="edit" value="Edit Records">
+            </form>
+		</div>
 		<div id="chemMsg">
 			<div>Click on value in amount column to make changes.</div>
 			<div id="chemHiddenRowsMsg"></div>
@@ -195,10 +200,9 @@ $AccessLevel = @$_SESSION["AccessLevel"];
 	<?php } ?>
 
 	</main>
-        <footer id="footerContent">
-                <a href="http://www.emu.edu"><img src="gfx/emu.png" width="200px" height="80px"></a>
-        </footer>
-
+	<footer id="footerContent">
+					<a href="http://www.emu.edu"><img src="gfx/emu.png" width="200px" height="80px"></a>
+	</footer>
 </body>
 </html>
 

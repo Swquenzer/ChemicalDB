@@ -46,8 +46,6 @@ function fetch_all($handle) {
     return $rows;
 }
 
-
-
 require('admin/AcidRainDBLogin.php');
 
 if (@$_POST['fetch'] == "all") {
@@ -58,7 +56,7 @@ if (@$_POST['fetch'] == "all") {
 	exit(json_encode($data));
 
 } elseif (@$_POST['delete'] == "inventory") {
-	$ID = (int) $_POST['ID'];        
+	$ID = (int) $_POST['ID'];
 	$stmt = $db->prepare("DELETE FROM inventory WHERE ID=?")  OR fail($db->error);
 	$stmt->bind_param('i', $ID)  OR fail($stmt->error);
 	$stmt->execute()  OR fail($stmt->error);
