@@ -57,11 +57,12 @@ $AccessLevel = @$_SESSION["AccessLevel"];
 </head>
 <body>
 	<header class="center">
-		<h1><img src="gfx/head_icon.gif">Chemical Database</h1>
+		<img src="gfx/spreadsheet_header.png">
 		<nav id="navMenu">
 			<form class="inputField" action="" method="POST">
 			<?php if ($AccessLevel > 0) {  // logged in ?>
 				<ul><li><input type="button" name="addChem" id="addChem" value="Add Chemicals"/></li>
+				<li><input type="button" name="addMftr" id="addMftr" value="Add Manufacturer"/></li>
 				<li><input name="Logout" value="Logout" type="submit" /></li></ul>
 			<?php } else {  // not logged in ?>
 				<input size="12" type="text" id="username" name="username" placeholder="Username" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Username'" 
@@ -72,44 +73,44 @@ $AccessLevel = @$_SESSION["AccessLevel"];
 			</form>
 		</nav>
 	</header>
-	<p id="errorMessage" class="center"><span><?php echo $errorMessage; ?></span></p>
-	<main>
-
+	<main <?php if($AccessLevel===0) echo "class='splash'"; ?>>
 	<?php if ($AccessLevel > 0) { // logged in ?>
-		<table id="chemical_spreadsheet" class="tablesorter">
-			<thead>
-				<tr>
-					<td scope="col"><input type="search" name="roomsearch" title="Room Filter" size="6" list="roomList" onchange="filterThem()"/></td>
-					<td scope="col"><input type="search" name="locationsearch" title="Location Filter" list="locationList" onchange="filterThem()"/></td>
-					<td scope="col"><input type="button" name="clearsearch" value="‹ Clear All Filters ›"></td>
-					<td scope="col"><input type="search" name="namesearch" title="Chemical Name Filter" list="chemList" onchange="filterThem()"/></td>
-					<td scope="col"><input type="search" name="mfrsearch" title="Manufacturer Filter" list="mfrList" onchange="filterThem()"/></td>
-					<td scope="col"><input type="search" name="cassearch" title="CAS number filter" list="casList" onchange="filterThem()"/></td>
-				</tr>
-				<tr>
-					<th scope="col" id="th_left">Room </th>
-					<th scope="col">Location </th>
-					<th scope="col">Amount </th>
-					<th scope="col">Name </th>
-					<th scope="col">Manufacturer </th>
-					<th scope="col" id="th_right">CAS </th>
-				</tr>
-			</thead>
-			<tbody id="chemical_spreadsheet_body">
-				<tr><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-			</tbody>
-		</table>
-		<div id="tableOps">
-            <form>
-                <input type="button" class="visible" name="delete" id="delete" value="Delete Records">
-                <input type="button" class="visible" name="edit" id="edit" value="Edit Records">
-            </form>
-		</div>
-		<div id="chemMsg">
-			<div>Click on value in amount column to make changes.</div>
-			<div id="chemHiddenRowsMsg"></div>
-		</div>
-
+		<div id="table_wrapper">
+			<p id="errorMessage" class="center"><span><?php echo $errorMessage; ?></span></p>
+			<table id="chemical_spreadsheet" class="tablesorter">
+				<thead>
+					<tr>
+						<td scope="col"><input type="search" name="roomsearch" title="Room Filter" size="6" list="roomList" onchange="filterThem()"/></td>
+						<td scope="col"><input type="search" name="locationsearch" title="Location Filter" list="locationList" onchange="filterThem()"/></td>
+						<td scope="col"><input type="button" name="clearsearch" value="‹ Clear All Filters ›"></td>
+						<td scope="col"><input type="search" name="namesearch" title="Chemical Name Filter" list="chemList" onchange="filterThem()"/></td>
+						<td scope="col"><input type="search" name="mfrsearch" title="Manufacturer Filter" list="mfrList" onchange="filterThem()"/></td>
+						<td scope="col"><input type="search" name="cassearch" title="CAS number filter" list="casList" onchange="filterThem()"/></td>
+					</tr>
+					<tr>
+						<th scope="col" id="th_left">Room </th>
+						<th scope="col">Location </th>
+						<th scope="col">Amount </th>
+						<th scope="col">Name </th>
+						<th scope="col">Manufacturer </th>
+						<th scope="col" id="th_right">CAS </th>
+					</tr>
+				</thead>
+				<tbody id="chemical_spreadsheet_body">
+					<tr><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+				</tbody>
+			</table>
+			<div id="tableOps" class="center">
+							<form>
+									<input type="button" class="visible" name="delete" id="delete" value="Delete Records">
+									<input type="button" class="visible" name="edit" id="edit" value="Edit Records">
+							</form>
+			</div>
+			<div id="chemMsg">
+				<div>Click on value in amount column to make changes.</div>
+				<div id="chemHiddenRowsMsg"></div>
+			</div>
+		</div><!--End table_wrapper-->
 		<div id="popup"><div>
 			<p id="popupName"></p>
 			<p id="popupPlace"></p>
@@ -201,7 +202,7 @@ $AccessLevel = @$_SESSION["AccessLevel"];
 
 	</main>
 	<footer id="footerContent">
-					<a href="http://www.emu.edu"><img src="gfx/emu.png" width="200px" height="80px"></a>
+					<a href="http://www.emu.edu"><img src="gfx/emu_dark.png" width="200px" height="80px"></a>
 	</footer>
 </body>
 </html>

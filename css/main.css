@@ -5,7 +5,7 @@ body {
 	position: absolute;
 	min-width: 100%;
 	min-height: 100%;
-	background-image: url('../gfx/geometry.gif');
+	background: #1F3174;
 	margin: 0px;
 	font-size: 14px;
 }
@@ -14,9 +14,8 @@ datalist.fake { display: block; float: right; margin-top: -10px }
 
 
 header {
-	margin: 0px 0px 20px;
-	background: #1B291B;
-	border-bottom: solid grey 1px;
+	margin: 10px 0px 20px;
+	background: #1F3174;
 	
 }
 header h1 {
@@ -38,25 +37,71 @@ header h1 img {
 
 header #navMenu {
 	display: block;
-	padding: 1px;
+    position: relative;
+    margin: 0 auto;
+    padding-bottom: 10px;
+    width: 900px;
+    bottom: 5px;
 	font-size: 16px;
 	/* font-family: "Calisto MT", "Bookman Old Style", Bookman, "Goudy Old Style", Garamond, "Hoefler Text", "Bitstream Charter", Georgia, serif; */
 	color: #638566;
-	background: #DCE8DD;
+	background: #4E66C0;
 }
 header #navMenu ul {
 	display: block;
+    position: relative;
 	max-width: 800px;
-	margin: 0 auto;
-	padding: 8px 0;
+	margin: 0px auto;
+    bottom: 10px;
 	text-align: center; /* Causes child inline-block elements to be centered (even if not centered) */
 }
 header #navMenu li {
 	display: inline-block;
-	padding: 0 10px;
+    padding: 0 10px;
 	list-style-type: none;
 	font-weight: bold;
 	font-family: "Franklin Gothic Medium", "Franklin Gothic", "ITC Franklin Gothic", Arial, sans-serif;
+}
+
+header #navMenu input {
+    padding: 13px 16px !important;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    font-weight: bold;
+    color: #DBFFDB;
+    background: #1F3174;
+    cursor: pointer;
+    border: 0px none;
+    border-radius: 2px;
+    transition: all 0.3s ease 0s;
+}
+header #navMenu input[type="text"], 
+header #navMenu input[type="password"] {
+    font-weight: 100;
+    color: black;
+    background: #E6F1FE;
+    border: 0 none !important;
+}
+header #navMenu input[type="text"]:hover, 
+header #navMenu input[type="password"]:hover {
+    color: black;
+    background: white;
+    border: 0 none !important;
+}
+
+header #navMenu input[type="button"]:hover {
+    background: #2C418E;
+}
+header #navMenu input[type="button"]:focus {
+    transition: none;
+    background: #1F3174;
+}
+header #navMenu input[type="submit"]:hover {
+    background: #7286E0;
+}
+header #navMenu input[type="submit"]:focus {
+    transition: none;
+    background: #1F3174;
 }
 header #navMenu a {
 	text-decoration: none;
@@ -66,15 +111,19 @@ header #navMenu a:hover {
 	color: #3E523F;
 }
 input[type=search] {
-	border: 2px #638566 inset;
+    padding: 5px 0px 5px 2px;
+	border: 1px #638566 inset;
+    -webkit-box-shadow: inset 0px 0px 1px 0px #1D2E6D;
+	-moz-box-shadow:    inset 0px 0px 1px 0px #1D2E6D;
+    box-shadow:         inset 0px 0px 1px 0px #1D2E6D;
 }
 thead td input {
-	margin-bottom: 3px;
+	margin-bottom: 7px;
 	margin-left: 8px;
 }
 header #navMenu input[type=password],
 header #navMenu input[type=text] {
-	border: 2px #638566 inset;
+    border: 2px #638566 inset;
 }
 #errorMessage {
 	font-size: 20px;
@@ -83,17 +132,17 @@ header #navMenu input[type=text] {
 
 main {
 	display: block;
+    position: relative;
 	margin: auto;
 	height: auto;
 	padding: 25px;
 	max-width: 900px;
-	background: white;
-	-webkit-box-shadow: 	0px 0px 15px rgba(50, 50, 50, 0.5);
-	-moz-box-shadow:    	0px 0px 15px rgba(50, 50, 50, 0.5);
-	box-shadow:         	0px 0px 15px rgba(50, 50, 50, 0.5);
-	-webkit-border-radius: 	10px 10px 10px 10px;
-	border-radius: 		10px 10px 10px 10px;
-	border: 1px solid grey;
+    bottom: 27px;
+	background: #3B50A1;
+    border-top: 2px solid #6078D1;
+    -webkit-box-shadow: 	0px 0px 15px 0px #1D2E6D;
+	-moz-box-shadow:    	0px 0px 15px 0px #1D2E6D;
+	box-shadow:         	0px 0px 15px 0px #1D2E6D;
 }
 
 .inputField fieldset{
@@ -133,6 +182,15 @@ main {
 }
 
 /* CHEMICAL SPREADSHEET STYLES */
+#table_wrapper {
+    padding: 10px 20px 30px;
+    background: #EEFFED;
+    -webkit-box-shadow: 	0px 0px 9px 1px #1D2E6D;
+	-moz-box-shadow:    	0px 0px 9px 1px #1D2E6D;
+	box-shadow:         	0px 0px 9px 1px #1D2E6D;
+    -webkit-border-radius: 	10px 10px 10px 10px;
+	border-radius: 		10px 10px 10px 10px;
+}
 #chemical_spreadsheet {
 	margin: auto;
 	margin-bottom: 10px;
@@ -146,9 +204,8 @@ main {
 	color: #0E3B0D;
 	padding: 10px 10px 0px 10px;
 	background: #7EDC7E;
-	
-	border-bottom: 4px solid #61C261;
-    	cursor: pointer; 
+    border-bottom: 4px solid #61C261;
+    cursor: pointer; 
 }
 #chemical_spreadsheet #th_left {
 	-webkit-border-radius: 10px 0px 0px 0px;
@@ -158,6 +215,45 @@ main {
 #chemical_spreadsheet #th_right {
 	-webkit-border-radius: 0px 10px 0px 0px;
 	border-radius: 0px 10px 0px 0px;
+}
+#chemical_spreadsheet tbody td {
+	font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
+	font-size: 12px;
+	color: #146E14;
+	padding: 9px 10px;
+	border-top: 1px solid #95C995;
+    cursor: pointer;
+}
+#chemical_spreadsheet tbody tr:nth-child(odd) {
+    background: #DFFFDE;
+}
+#chemical_spreadsheet tbody tr:nth-child(even) {
+    background: #CCF9D1;
+}
+#chemical_spreadsheet tbody tr:hover td {
+	color: #0E3B0D;
+	background: #A3E09F;
+}
+#chemical_spreadsheet tbody td:nth-child(4) {
+    /font-weight: 600;
+}
+#chemical_spreadsheet tbody tr:hover td:nth-child(3):hover {
+	color: #0E3B0D;
+	background: #7EDC7E;
+}
+#chemical_spreadsheet tfoot {
+	text-align: center;
+}
+
+#chemMsg {
+	color: #146E14;
+	padding: 0 0 10px 0;
+}
+#chemMsg div {
+	display: inline-block;
+}
+#chemHiddenRowsMsg {
+	float: right;
 }
 #chemical_spreadsheet div.tablesorter-header-inner {
 	display: inline;
@@ -181,37 +277,6 @@ main {
 	background: #61C261 url(../gfx/sortDown.png) no-repeat 0; /* 100% 55%; */
 	/* background-position: right 5px center; */
 }
-#chemical_spreadsheet tbody td {
-	font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
-	font-size: 12px;
-	color: #146E14;
-	padding: 7px 10px;
-	border-top: 1px solid white;
-	background: #DFFFDE;
-    	cursor: pointer; 
-}
-#chemical_spreadsheet tbody tr:hover td {
-	color: #0E3B0D;
-	background: #C1F2BF;
-}
-#chemical_spreadsheet tbody tr:hover td:nth-child(3):hover {
-	color: #0E3B0D;
-	background: #7EDC7E;
-}
-#chemical_spreadsheet tfoot {
-	text-align: center;
-}
-
-#chemMsg {
-	color: #146E14;
-	padding: 0 0 10px 0;
-}
-#chemMsg div {
-	display: inline-block;
-}
-#chemHiddenRowsMsg {
-	float: right;
-}
 /* FOOTER */
 footer {
 	display: block;
@@ -220,14 +285,16 @@ footer {
 }
 #footerContent {
 	display: block;
-	margin: 10px auto 20px;
+    position: relative;
+	margin: 0px auto;
 	max-width: 800px;
+    right: 20px;
 	color: #445660;
 	overflow: auto;
 }
 footer img {
 	float: left;
-	margin: 0 60px 0 20px;
+	margin: 0 30px 0 0px;
 }
 footer ul {
 	list-style-type: none;
@@ -244,12 +311,13 @@ footer a:hover {
 }
 
 /* Formatting */
+
 h1 {
+    margin-top: 0px;
 	text-align: center;
-	font-size: 36px;
+	font-size: 24px;
 	font-weight: 100;
-	color: #1B291B;
-	margin-top: 0px;
+	color: #053A06;
 }
 h2 {
 	font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
@@ -346,6 +414,15 @@ span.right { float: right; margin-right: -5px }
 #popupPlace {
 	text-align: center;
 	font-size: 18px;
+}
+/* -----Alternate Splash Styles----- */
+.splash {
+    background: #DAEADB;
+}
+.splash #content p {
+    font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
+    font-size: 12px;
+    color: #07133A !important;
 }
 
 /* Utility Classes */
