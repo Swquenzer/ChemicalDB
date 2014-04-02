@@ -73,7 +73,7 @@ $AccessLevel = @$_SESSION["AccessLevel"];
 			</form>
 		</nav>
 	</header>
-	<main <?php if($AccessLevel===0) echo "class='splash'"; ?>>
+	<main <?php if(!isset($AccessLevel) || $AccessLevel===0) echo "class='splash'"; ?>>
 	<?php if ($AccessLevel > 0) { // logged in ?>
 		<div id="table_wrapper">
 			<p id="errorMessage" class="center"><span><?php echo $errorMessage; ?></span></p>

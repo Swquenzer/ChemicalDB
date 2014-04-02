@@ -3,20 +3,54 @@ window.onload = function() {
 	$('#delete').on("click", function(event) {
 		deleteRecords();
 	});
+	$('#edit').on("click", function(event) {
+		editRecords();
+	});
 }
 $(addTableEvents);
 
 function postJSON(data, successFunction) {
 	$.post("json.php", data, successFunction, "json").fail(function(event, status, msg ) { alert(status + ": " + msg); });
 }
+function processDelete() {
+	console.log(this);
+	console.log($(this));
+}
+function editRecords() {
+	//Remove edit button after it's clicked
+	$('#edit').removeClass("visible");
+	$('#edit').addClass("invisible");
+	deactivateFilter();
+	$("tbody tr").hover(function() {
+		//On mouseenter
+		$(this).children().filter("td").css("background-color", "#DDDD9D");
+	}, function() {
+		//On mouseleave
+		$(this).children().filter("td").css("background-color", "");
+	});
+	$('#chemical_spreadsheet tbody').on("click", "td", function() {
+		//Node Types
+		var NT_ELEMENT = 1;
+		var NT_TEXT		= 3;
+		var td = this;
+		//Node type and node name of inner value
+		nt = td.firstChild.nodeType;
+		nn = td.firstChild.nodeName;
+		//This will return the index of the value
+		//Based on its index as a child of its parent
+		var index = Array.prototype.indexOf.call(this.parentNode.childNodes, td);
+		var value = td.innerHTML;
+		if(nn == "#text") {
+			td.innerHTML = "<input type='text' id='editData' name='editData' value='"+value+"'>";
+			this.firstChild.select();
+		}
+		//ON SUCCESS:
+		//td.innerHTML = td.firstChild.innerHTML;
+	});
+}
 
 function deactivateFilter() {
 	$('#chemical_spreadsheet tbody').off("click");
-	$('#chemical_spreadsheet tbody').on("click", "tr", function() {
-		var cb = $(this).find("input[type='checkbox']");
-		//Select or Deselect clicked checkbox depending on current state
-		cb.prop( "checked" ) ? cb.prop("checked", false) : cb.prop("checked", true)
-	});
 }
 function loadDelete() {
 	$("#chemical_spreadsheet tbody tr").each(function(index) {
@@ -24,6 +58,11 @@ function loadDelete() {
 		var cb = "<input type='checkbox' name='deleteBox' value='" + index + "' >";
 		//Select first element (td), and prepend the checkbox inside it
 		tr.children().first().prepend(cb);
+	});
+	$('#chemical_spreadsheet tbody').on("click", "tr", function() {
+		var cb = $(this).find("input[type='checkbox']");
+		//Select or Deselect clicked checkbox depending on current state
+		cb.prop( "checked" ) ? cb.prop("checked", false) : cb.prop("checked", true)
 	});
 }
 function ajax_caller(ID) {

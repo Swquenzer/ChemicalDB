@@ -70,7 +70,6 @@ header #navMenu input {
     font-weight: bold;
     color: #DBFFDB;
     background: #1F3174;
-    cursor: pointer;
     border: 0px none;
     border-radius: 2px;
     transition: all 0.3s ease 0s;
@@ -419,9 +418,16 @@ span.right { float: right; margin-right: -5px }
 .splash {
     background: #DAEADB;
 }
+.splash #content {
+    padding: 0 50px;
+}
+.splash h2 {
+    font-family: sans-serif;
+    color: #1F3174;
+}
 .splash #content p {
-    font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
-    font-size: 12px;
+    font-family: "Lucida Grande", Sans-Serif;
+    font-size: 14px;
     color: #07133A !important;
 }
 
