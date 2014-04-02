@@ -16,6 +16,25 @@ function processDelete() {
 	console.log(this);
 	console.log($(this));
 }
+
+function changeRecord(data) {
+	var td = data.parentNode;
+	//ID of inventory record selected
+	var ID = data.parentNode.parentNode.id.substring(4);
+	//User input value
+	var value = data.value;
+	//Place (index) in table
+	var index = data.id;
+	//CAS number for current chemical
+	var CAS = td.parentNode.lastChild.innerHTML;
+	console.log(CAS);
+	console.log("Value: " + value);
+	console.log("Index: " + index);
+	console.log("ID: " + ID);
+	postJSON("update=individual&ID=" + ID + "&value=" + value + "&index=" + index + "&CAS=" + CAS, function() {
+		//On success
+	});
+}
 function editRecords() {
 	//Remove edit button after it's clicked
 	$('#edit').removeClass("visible");
@@ -41,7 +60,7 @@ function editRecords() {
 		var index = Array.prototype.indexOf.call(this.parentNode.childNodes, td);
 		var value = td.innerHTML;
 		if(nn == "#text") {
-			td.innerHTML = "<input type='text' id='editData' name='editData' value='"+value+"'>";
+			td.innerHTML = "<input type='text' id='"+ index +"' value='"+ value +"' onblur='changeRecord(this)'>";
 			this.firstChild.select();
 		}
 		//ON SUCCESS:

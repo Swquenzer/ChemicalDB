@@ -75,6 +75,71 @@ if (@$_POST['fetch'] == "all") {
 	$stmt->close();
 	exit("{}");
 
+} elseif(@$_POST['update'] == "individual") {
+	$ID 	 = (int) $_POST['ID'];
+	$index = $_POST['index'];
+	$value = $_POST['value'];
+	$CAS 	 = $_POST['CAS'];
+	switch ($index) {
+		case 0:
+			// Room
+			$query = "UPDATE inventory SET Room=? WHERE ID=?";
+			$stmt = $db->prepare($query) OR fail($db->error);
+			$stmt->bind_param('si', $value, $ID) OR fail($stmt->error);
+			break;
+		case 1:
+			// Location
+			$query = "UPDATE inventory SET Location=? WHERE ID=?";
+			$stmt = $db->prepare($query) OR fail($db->error);
+			$stmt->bind_param('si', $value, $ID) OR fail($stmt->error);
+			break;
+		case 2:
+			// Amount
+			break;
+		case 3:
+			// Chemical Name
+			//Get Chemical ID
+			$chemExists = false;
+			$query = "SELECT ID FROM chemical WHERE Name=?";
+			$stmt = $db->prepare($query) OR fail($db->error);
+			$stmt->bind_param('s', $value) OR fail($stmt->error);
+			$stmt->execute() OR fail($stmt->error);
+			if($stmt->num_rows > 0) $chemExists = true;
+			$stmt->bind_result($chemID);
+			$stmt->fetch();
+			$stmt->close();
+			if(!$chemExists) {
+				// If chemical does not yet exist
+				// Insert Chemical into database
+				$query = "INSERT INTO chemical (Name, CAS) VALUES (?,?)";
+				$stmt = $db->prepare($query) OR fail($db->error);
+				$stmt->bind_param('ss', $value, $CAS) OR fail($stmt->error);
+				$stmt->execute() OR fail($stmt->error);
+				// Then get chemical ID from newly inserted record
+				$query = "SELECT ID FROM chemical WHERE Name=?";
+				$stmt = $db->prepare($query) OR fail($db->error);
+				$stmt->bind_param('s', $value) OR fail($stmt->error);
+				$stmt->execute() OR fail($stmt->error);
+				$stmt->bind_result($chemID);
+				$stmt->fetch();
+				$stmt->close();
+			}
+			//Now use chemicalID to update the record
+			$query = "UPDATE inventory SET ChemicalID=? WHERE ID=?";
+			$stmt = $db->prepare($query) OR fail($db->error);
+			$stmt->bind_param('si', $chemID, $ID) OR fail($stmt->error);
+			break;
+		case 4:
+			// Manufacturer
+			break;
+		default:
+			fail("Unfortunately, an error has occurred. Please refresh the page and try again.");
+	}
+	$stmt->execute()  OR fail($stmt->error);
+	$stmt->affected_rows == 1  OR fail("No such records found for update.");
+	$stmt->close();
+	exit("{}");
+
 } elseif (@$_POST['transfer'] == "inventory") {
 	$ID = (int) $_POST['ID'];        
 	$quantity = (int) $_POST['quantity'];        
