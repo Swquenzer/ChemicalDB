@@ -12,10 +12,6 @@ $(addTableEvents);
 function postJSON(data, successFunction) {
 	$.post("json.php", data, successFunction, "json").fail(function(event, status, msg ) { alert(status + ": " + msg); });
 }
-function processDelete() {
-	console.log(this);
-	console.log($(this));
-}
 
 function changeRecord(data) {
 	var td = data.parentNode;
@@ -27,12 +23,10 @@ function changeRecord(data) {
 	var index = data.id;
 	//CAS number for current chemical
 	var CAS = td.parentNode.lastChild.innerHTML;
-	console.log(CAS);
-	console.log("Value: " + value);
-	console.log("Index: " + index);
-	console.log("ID: " + ID);
+	
 	postJSON("update=individual&ID=" + ID + "&value=" + value + "&index=" + index + "&CAS=" + CAS, function() {
-		//On success
+		//On Success
+		td.innerHTML = value;
 	});
 }
 function editRecords() {
@@ -63,8 +57,13 @@ function editRecords() {
 			td.innerHTML = "<input type='text' id='"+ index +"' value='"+ value +"' onblur='changeRecord(this)'>";
 			this.firstChild.select();
 		}
-		//ON SUCCESS:
-		//td.innerHTML = td.firstChild.innerHTML;
+		//If user presses 'ENTER', update value
+		//'keyup' so that only ONE function call is sent (otherwise held-down key will send multiple times)
+		$(td).on("keyup", function(k) {
+      if(k.which==13){
+				changeRecord(td.childNodes[0]);
+      }
+    });
 	});
 }
 

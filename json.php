@@ -131,11 +131,41 @@ if (@$_POST['fetch'] == "all") {
 			break;
 		case 4:
 			// Manufacturer
+			//Get Mftr ID
+			$mftrExists = false;
+			$query = "SELECT ID FROM manufacturer WHERE Name=?";
+			$stmt = $db->prepare($query) OR fail($db->error);
+			$stmt->bind_param('s', $value) OR fail($stmt->error);
+			$stmt->execute() OR fail($stmt->error);
+			if($stmt->num_rows > 0) $mftrExists = true;
+			$stmt->bind_result($mftrID);
+			$stmt->fetch();
+			$stmt->close();
+			if(!$mftrExists) {
+				// If manufacturer does not yet exist
+				// Insert Mftr into database
+				$query = "INSERT INTO manufacturer (Name) VALUES (?)";
+				$stmt = $db->prepare($query) OR fail($db->error);
+				$stmt->bind_param('s', $value) OR fail($stmt->error);
+				$stmt->execute() OR fail($stmt->error);
+				// Then get Mftr ID from newly inserted record
+				$query = "SELECT ID FROM manufacturer WHERE Name=?";
+				$stmt = $db->prepare($query) OR fail($db->error);
+				$stmt->bind_param('s', $value) OR fail($stmt->error);
+				$stmt->execute() OR fail($stmt->error);
+				$stmt->bind_result($mftrID);
+				$stmt->fetch();
+				$stmt->close();
+			}
+			//Now use MftrID to update the record
+			$query = "UPDATE inventory SET MftrID=? WHERE ID=?";
+			$stmt = $db->prepare($query) OR fail($db->error);
+			$stmt->bind_param('si', $mftrID, $ID) OR fail($stmt->error);
 			break;
 		default:
 			fail("Unfortunately, an error has occurred. Please refresh the page and try again.");
 	}
-	$stmt->execute()  OR fail($stmt->error);
+	$stmt->execute() OR fail($stmt->error);
 	$stmt->affected_rows == 1  OR fail("No such records found for update.");
 	$stmt->close();
 	exit("{}");
