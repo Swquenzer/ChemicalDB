@@ -102,6 +102,7 @@ $AccessLevel = @$_SESSION["AccessLevel"];
 			</table>
 			<div id="tableOps" class="center">
 							<form>
+									<input type="button" class="invisible" name="normal" id="normal" value="Back to Normal Mode">
 									<input type="button" class="visible" name="delete" id="delete" value="Delete Records">
 									<input type="button" class="visible" name="edit" id="edit" value="Edit Records">
 							</form>

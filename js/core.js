@@ -6,11 +6,33 @@ window.onload = function() {
 	$('#edit').on("click", function(event) {
 		editRecords();
 	});
+	$('#normal').on("click", function(event) {
+		normalMode();
+	});
 }
 $(addTableEvents);
 
 function postJSON(data, successFunction) {
 	$.post("json.php", data, successFunction, "json").fail(function(event, status, msg ) { alert(status + ": " + msg); });
+}
+
+//Revert to normal functionality of spreadsheet
+function normalMode() {
+	//change hover styles back to their normal state
+	$('tbody tr').off("hover");
+	//remove deletion checkboxes if they exist
+	$("#chemical_spreadsheet tbody tr").each(function(index) {
+		var cb = this.children[0].children[0];
+		//If checkbox node exists, remove it
+		if($(cb).length) cb.remove();
+	});
+	//remove 'normal mode' button at bottom of page
+	$('#normal').attr('class', 'invisible');
+	//remove 'delete them!' button if it exists
+	$('#submitDelete').attr('class', 'invisible');
+	//re-add 'delete' and 'edit' buttons at bottom of page
+	$('#edit').attr('class', 'visible');
+	$('#delete').attr('class', 'visible');
 }
 
 function changeRecord(data) {
@@ -27,21 +49,14 @@ function changeRecord(data) {
 	postJSON("update=individual&ID=" + ID + "&value=" + value + "&index=" + index + "&CAS=" + CAS, function() {
 		//On Success
 		td.innerHTML = value;
+		//Allow editing of other data again
+		onClickEdit();
 	});
 }
-function editRecords() {
-	//Remove edit button after it's clicked
-	$('#edit').removeClass("visible");
-	$('#edit').addClass("invisible");
-	deactivateFilter();
-	$("tbody tr").hover(function() {
-		//On mouseenter
-		$(this).children().filter("td").css("background-color", "#DDDD9D");
-	}, function() {
-		//On mouseleave
-		$(this).children().filter("td").css("background-color", "");
-	});
+function onClickEdit() {
 	$('#chemical_spreadsheet tbody').on("click", "td", function() {
+	//Can't edit multiple values simultaneously
+	$('#chemical_spreadsheet tbody').off("click");
 		//Node Types
 		var NT_ELEMENT = 1;
 		var NT_TEXT		= 3;
@@ -66,8 +81,26 @@ function editRecords() {
     });
 	});
 }
+function editRecords() {
+	//Remove edit button after it's clicked
+	$('#normal').attr('class', 'visible');
+	$('#edit').attr('class', 'invisible');
+	$('#delete').attr('class', 'invisible');
+	deactivateFilter();
+	$("tbody tr").on("hover", function() {
+		//On mouseenter
+		$(this).children().filter("td").css("background-color", "#DDDD9D");
+	}, function() {
+		//On mouseleave
+		$(this).children().filter("td").css("background-color", "");
+	});
+	onClickEdit();
+}
 
 function deactivateFilter() {
+	$('#chemical_spreadsheet tbody').off("click");
+}
+function activateFilter() {
 	$('#chemical_spreadsheet tbody').off("click");
 }
 function loadDelete() {
@@ -107,8 +140,9 @@ function processDelete() {
 }
 function deleteRecords() {
 	//Remove '#delete' Button
-	$('#delete').removeClass("visible");
-	$('#delete').addClass("invisible");
+	$('#normal').attr('class', 'visible');
+	$('#delete').attr('class', 'invisible');
+	$('#edit').attr('class', 'invisible');
 	//Add submit button for to-be-deleted records
 	$('#tableOps form').prepend("<input type='button' name='submitDelete' id='submitDelete' value='Delete Them!'>");
 	//Block filtering when row is selected
@@ -116,7 +150,7 @@ function deleteRecords() {
 	//Load deletion checkboxes
 	loadDelete();
 	//On hover, rows become red
-	$("tbody tr").hover(function() {
+	$("tbody tr").on("hover", function() {
 		//On mouseenter
 		$(this).children().filter("td").css("background-color", "#FF9999");
 	}, function() {

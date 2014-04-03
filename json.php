@@ -166,7 +166,6 @@ if (@$_POST['fetch'] == "all") {
 			fail("Unfortunately, an error has occurred. Please refresh the page and try again.");
 	}
 	$stmt->execute() OR fail($stmt->error);
-	$stmt->affected_rows == 1  OR fail("No such records found for update.");
 	$stmt->close();
 	exit("{}");
 
