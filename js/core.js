@@ -19,7 +19,7 @@ function postJSON(data, successFunction) {
 //Revert to normal functionality of spreadsheet
 function normalMode() {
 	//change hover styles back to their normal state
-	$('tbody tr').off("hover");
+	$('tbody tr').off("mouseenter");
 	//remove deletion checkboxes if they exist
 	$("#chemical_spreadsheet tbody tr").each(function(index) {
 		var cb = this.children[0].children[0];
@@ -87,12 +87,11 @@ function editRecords() {
 	$('#edit').attr('class', 'invisible');
 	$('#delete').attr('class', 'invisible');
 	deactivateFilter();
-	$("tbody tr").on("hover", function() {
-		//On mouseenter
-		$(this).children().filter("td").css("background-color", "#DDDD9D");
-	}, function() {
-		//On mouseleave
-		$(this).children().filter("td").css("background-color", "");
+	$("tbody tr").on("mouseenter", function() {
+			$(this).children().filter("td").css("background-color", "#DDDD9D");
+	});
+	$("tbody tr").on("mouseleave", function() {
+			$(this).children().filter("td").css("background-color", "");
 	});
 	onClickEdit();
 }
@@ -150,12 +149,11 @@ function deleteRecords() {
 	//Load deletion checkboxes
 	loadDelete();
 	//On hover, rows become red
-	$("tbody tr").on("hover", function() {
-		//On mouseenter
-		$(this).children().filter("td").css("background-color", "#FF9999");
-	}, function() {
-		//On mouseleave
-		$(this).children().filter("td").css("background-color", "");
+	$("tbody tr").on("mouseenter", function() {
+			$(this).children().filter("td").css("background-color", "#FF9999");
+	});
+	$("tbody tr").on("mouseleave", function() {
+			$(this).children().filter("td").css("background-color", "");
 	});
 	$("#submitDelete").on("click", processDelete);
 }
