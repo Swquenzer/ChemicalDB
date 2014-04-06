@@ -98,7 +98,7 @@ header img {
     margin-top: 15px;
 }
 .addInv#add .changeQuant {
-    width: 80px;
+    width: 70px;
     margin-bottom: 10px;
 }
 /* -----SPLASH----- */
@@ -403,24 +403,51 @@ footer {
     margin: 0 !important;
     clear: both !important;
 }
-/* ---Generic Button Styles--- */
+/* ---Generic Styles--- */
 .basicButton {
+    display: block;
+    margin: 0 2px !important;
+    padding: 9px 8px !important;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 12px;
+    font-weight: 100;
+    color: #256025;
+    background: #C4F2C4;
+    border: 1px solid #62AD5A;
+    border-radius: 4px;
+    -webkit-box-shadow: inset 0px -2px 0px 0 #123D04;
+    box-shadow: inset 0px -2px 0px 0 #296813;
+    
+}
+.basicButton:hover {
+    position: relative;
+    top: 1px;
+    padding: 8px 8px !important;
+    box-shadow: inset 0px -1px 0px 0 #123D04;
+    
+}
+.basicLink {
 	display: block;
     margin-top: 10px;
     padding: 5px;
     font-family: arial;
-	color:#ffffff;
+	color: #ffffff;
 	font-size: 15px;
 	font-weight: bold;
 	text-decoration:none;
 	text-shadow:0px 1px 0px #154682;
 }
-.basicButton:hover {
+.basicLink:hover {
     text-decoration: underline;
 }
-.basicButton:active {
+.basicLink:active {
 	position:relative;
 	top:1px;
+}
+hr {
+    width: 90%;
+    border: none;
+    border-top: 1px solid green;
 }
 
 /* ----- Utility styles ----- */
@@ -431,4 +458,7 @@ footer {
     display: block;
     text-align: center;
     color: red !important;
+}
+input[type="text"] {
+    border: clue;
 }
