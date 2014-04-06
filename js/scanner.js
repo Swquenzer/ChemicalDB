@@ -16,7 +16,7 @@
  
 ===========================================================================================*/
 function createSlider(quant) {
-	var slider = new dhtmlxSlider("updateSlider", 300);
+	var slider = new dhtmlxSlider("updateSlider", 270);
 	slider.linkTo('quant');
 	slider.init();
 	slider.setSkin("dhx_skyblue");

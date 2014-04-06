@@ -187,7 +187,7 @@ $message = "";
 				    <span><input type="number" name="quant" id="quant" tabinex="4" placeholder="4" value="0" required /></span>
 				    </label>
 				    <script>
-							var slider = new dhtmlxSlider(null, 300);
+							var slider = new dhtmlxSlider(null, 270);
 							slider.linkTo('quant');
 							slider.init();
 							slider.setSkin("dhx_skyblue");
