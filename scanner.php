@@ -26,18 +26,18 @@ $message = "";
 <html lang="en">
 <head>
   <meta charset="utf-8">
-
-  <title>Chemical Database Scanner</title>
-  <meta name="description" content="Chemical Database Scanner">
-  <meta name="author" content="Chemical Database">
-  <link rel="stylesheet" href="css/scanner.css">
-  <script src="js/scanner.js"></script>
 	<!--Slider Scripts-->
 	<script>window.dhx_globalImgPath = "slider/imgs/";</script>
 	<script  src="slider/dhtmlxcommon.js"></script>
 	<script  src="slider/dhtmlxslider.js"></script>
 	<script  src="slider/ext/dhtmlxslider_start.js"></script>
 	<link rel="stylesheet" type="text/css" href="slider/dhtmlxslider.css">
+	
+  <title>Chemical Database Scanner</title>
+  <meta name="description" content="Chemical Database Scanner">
+  <meta name="author" content="Chemical Database">
+  <link rel="stylesheet" href="css/scanner.css">
+  <script src="js/scanner.js"></script>
 </head>
 <body>
 	<header>
@@ -108,12 +108,7 @@ $message = "";
 						<label id="quantLbl">Quantity
 						<span><input type="text" type="number" name="quant" id="quant" tabinex="4" placeholder="4" value="0" required /></span>
 						</label>
-						<script>
-							var slider = new dhtmlxSlider(null, 300);
-							slider.linkTo('quant');
-							slider.init();
-							slider.setSkin("dhx_skyblue");
-						</script>
+						<div id="updateSlider"></div>
 						<legend id="unitSizeLbl">Unit Size
 						<span id="unitSize"><input type="number" id="size" name="unitSize" tabinex="5" placeholder="200" required />
 						<input type="text" id="unit" name="unit" tabinex="6" placeholder="mg" required ></span>
@@ -245,6 +240,9 @@ $message = "";
 			
 		</div><!--popup-->
 	</span><!--center-->
+	<script>
+		
+	</script>
 </body>
 </html>
 <?php $db->close(); ?>

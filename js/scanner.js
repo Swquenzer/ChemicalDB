@@ -15,7 +15,13 @@
 ********************************************************
  
 ===========================================================================================*/
- 
+function createSlider(quant) {
+	var slider = new dhtmlxSlider("updateSlider", 300);
+	slider.linkTo('quant');
+	slider.init();
+	slider.setSkin("dhx_skyblue");
+	slider.setValue(quant);
+}
  /******************************************
  * Name: ajaxRequest(url, callback)
  * Description: A general purpose ajax request callback function. 
@@ -276,6 +282,7 @@ function autofill(arr, multiple) {
 	document.getElementById('room').value = room;
 	document.getElementById('loc').value = loc;
 	document.getElementById('quant').value = quant;
+	createSlider(quant);
 	document.getElementById('size').value = unitSize;
 	document.getElementById('unit').value=unit;
 	document.getElementById('manufacturer').value=mftr;
