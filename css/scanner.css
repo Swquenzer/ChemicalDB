@@ -43,12 +43,9 @@ header img {
     text-align: left;
     font-size: 16px;
 }
-.addInv legend {
-    font-family: "Trebuchet MS", Helvetica, sans-serif;
-    color: #11224F;
-    text-align: left;
-    font-size: 16px;
-    cursor: default;
+.addInv label#unitTypeLbl {
+    float: left;
+    width: 200px !important;
 }
 .addInv input {
     display: block;
@@ -57,6 +54,8 @@ header img {
 }
 .addInv #roomsWrapper, .addInv #locWrapper {
     display: inline-block;
+    float: right;
+    margin-right: 8px;
 }
 .addInv #roomsWrapper input, .addInv #locWrapper input {
     width: auto !important;
@@ -74,24 +73,15 @@ header img {
     display: inline-block;
     float: right;
 }
-.addInv#add legend {
-    display: inline-block;
-    width: 400px;
-	margin: 5px 20px;
-}
-.addInv#add legend span {
-    display: inline-block;
-    float: right;
-}
 .addInv#add input {
     display: inline-block !important;
     width: 250px; 
 }
 .addInv#add #unitSize, .addInv#add #unit {
-    #float: left !important;
+    
 }
 .addInv#add #unitSize input, .addInv#add #unit input{
-    width: 106px !important; 
+    width: 50px !important; 
     margin-left: 20px;
 }
 .addInv#add input[type="submit"] {

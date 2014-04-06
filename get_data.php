@@ -27,7 +27,7 @@
 		case "getDistinctChemList":
 			$chem = $_GET['chemical'];
 			//Query for information based on specific chemical chosen
-			$query = "	SELECT chemical.Name, inventory.Room, inventory.location, inventory.ItemCount, inventory.Size, inventory.Units, manufacturer.Name
+			$query = "	SELECT chemical.Name, inventory.Room, inventory.location, inventory.ItemCount, inventory.Units, manufacturer.Name
 						FROM inventory
 						INNER JOIN chemical
 						ON inventory.ChemicalID=chemical.ID
@@ -60,7 +60,6 @@
 			$_SESSION['room'] = $_GET['room'];
 			$_SESSION['loc'] = $_GET['loc'];
 			$_SESSION['quant'] = $_GET['quant'];
-			$_SESSION['size'] = $_GET['size'];
 			$_SESSION['unit'] = $_GET['unit'];
 			$_SESSION['mftr'] = $_GET['mftr'];
 			echo "<pre>";

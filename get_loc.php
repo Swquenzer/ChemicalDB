@@ -12,7 +12,7 @@
 		if ($result = $stmt->get_result()) {
 			#Create buttons for each room
 			while ($row = $result->fetch_array(MYSQLI_BOTH)) {
-				echo "<input type='button' class='locBut' value='$row[0]' onclick='addLocation(this.value)'>";
+				echo "<input type='button' class='locBut basicButton' value='$row[0]' onclick='addLocation(this.value)'>";
 			}
 			$stmt->close();
 		} else {

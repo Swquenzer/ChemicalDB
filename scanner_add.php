@@ -16,7 +16,6 @@
 # $room: 		Room name 						{string}
 # $loc:			Location name					{string}
 # $quant:		Quantity of chemical			{int}
-# $unitSize:	Unit size of chemical			{int}
 # $unit:		Unit type (e.g. ml, g, etc)		{string}
 # $mftrID: 		Manufacturer ID (may be null)	{string | null}
 # $chemID:		Chemical ID						{string}
@@ -35,7 +34,6 @@ $mftrID = 1;
 $room		= $_GET['room'];
 $loc 		= $_GET['location'];
 $quant		= (int) $_GET['quant'];
-$unitSize	= (int) $_GET['unitSize'];
 $unit		= $_GET['unit'];
 #Get chemical id ( need to create better query with join later )
 #----- QUICKFIX: add manufacturer, chemical if not present ----#
@@ -77,9 +75,9 @@ $query->close();
 #----------------------- END OF QUICK FIX --------------------#
 			
 #Everything ready, now insert into database
-$query = $db->prepare("INSERT INTO inventory (Room, Location, ItemCount, ChemicalID, Size, Units, MftrID, LastUpdated) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+$query = $db->prepare("INSERT INTO inventory (Room, Location, ItemCount, ChemicalID,  Units, MftrID, LastUpdated) VALUES (?, ?, ?, ?, ?, ?, ?)");
 $currentDate = date("Y-m-d H:i:s");
-$query->bind_param('ssiiisis', $room, $loc, $quant, $chemID, $unitSize, $unit, $mftrID, $currentDate);
+$query->bind_param('ssiisis', $room, $loc, $quant, $chemID, $unit, $mftrID, $currentDate);
 if (!$query->execute()) 
 	error_log('problem inserting data: ' . $db->error);
 else

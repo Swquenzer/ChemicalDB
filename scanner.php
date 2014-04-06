@@ -109,15 +109,10 @@ $message = "";
 						<span><input type="text" type="number" name="quant" id="quant" tabinex="4" placeholder="4" value="0" required /></span>
 						</label>
 						<div id="updateSlider"></div>
-						<legend id="unitSizeLbl">Unit Size
-						<span id="unitSize"><input type="number" id="size" name="unitSize" tabinex="5" placeholder="200" required />
+						<label id="unitTypeLbl">Unit Type
+						<span id="unitSize">
 						<input type="text" id="unit" name="unit" tabinex="6" placeholder="mg" required ></span>
-						</legend>
-						<input type="button" class="changeQuant basicButton" value="-1" onclick="changeQuantity(this.value, 'size')">
-						<input type="button" class="changeQuant basicButton" value="-5" onclick="changeQuantity(this.value, 'size')">
-						<input type="button" class="changeQuant basicButton" value="-10" onclick="changeQuantity(this.value, 'size')">
-						<input type="button" class="changeQuant basicButton" value="-50" onclick="changeQuantity(this.value, 'size')">
-						<input type="button" class="changeQuant basicButton" value="Clear" onclick="document.getElementById('size').value='0'">
+						</label>
 						<input type="submit" name="submit" class="submitButton" value="Update Chemical">
 					</div><!--lowerFieldsWrapper-->
 			    </p>
@@ -196,15 +191,10 @@ $message = "";
 							slider.setMax(100);
 							slider.setValue(0);
 						</script>
-				    <legend id="unitSizeLbl">Unit Size
-				    <span id="unitSize"><input type="number" id="size" name="unitSize" tabinex="5" placeholder="200" required />
-				    <input type="text" id="unit" name="unit" tabinex="6" placeholder="mg" required ></span>
-				    </legend>
-				    <input type="button" class="changeQuant basicButton" value="+1" onclick="changeQuantity(this.value, 'size')">
-				    <input type="button" class="changeQuant basicButton" value="+5" onclick="changeQuantity(this.value, 'size')">
-				    <input type="button" class="changeQuant basicButton" value="+10" onclick="changeQuantity(this.value, 'size')">
-				    <input type="button" class="changeQuant basicButton" value="+50" onclick="changeQuantity(this.value, 'size')">
-				    <input type="button" class="changeQuant basicButton" value="Clear" onclick="document.getElementById('size').value='0'">
+				    <label id="unitTypeLbl">Unit Type
+						<span id="unitSize">
+						<input type="text" id="unit" name="unit" tabinex="6" placeholder="mg" required ></span>
+						</label>
 				    <input type="submit" name="submit" class="submitButton" value="Add Chemical">
 			    </p>
 		    

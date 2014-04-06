@@ -265,25 +265,25 @@ function autofill(arr, multiple) {
 		var room 	= arr[1].innerHTML;
 		var loc 	= arr[2].innerHTML;
 		var quant 	= arr[3].innerHTML;
-		var unitSize = arr[4].innerHTML;
-		var unit 	= arr[5].innerHTML;
-		var mftr 	= arr[6].innerHTML;
+		//var unitSize = arr[4].innerHTML;
+		var unit 	= arr[4].innerHTML;
+		var mftr 	= arr[5].innerHTML;
 	} else {
 		//When only one option to choose from
 		var chem 	= arr[0];
 		var room 	= arr[1];
 		var loc 	= arr[2];
 		var quant 	= arr[3];
-		var unitSize = arr[4];
-		var unit 	= arr[5];
-		var mftr 	= arr[6];
+		//var unitSize = arr[4];
+		var unit 	= arr[4];
+		var mftr 	= arr[5];
 	}
 	document.getElementById('chemical').value = chem;
 	document.getElementById('room').value = room;
 	document.getElementById('loc').value = loc;
 	document.getElementById('quant').value = quant;
 	createSlider(quant);
-	document.getElementById('size').value = unitSize;
+	//document.getElementById('size').value = unitSize;
 	document.getElementById('unit').value=unit;
 	document.getElementById('manufacturer').value=mftr;
 	deactivatePopup();
@@ -292,7 +292,7 @@ function autofill(arr, multiple) {
 	document.getElementById('lowerFieldsWrapper').style.display = "";
 	console.log("Display Changed");
 	//Add session variables for original values
-	ajaxRequest("get_data.php?option=saveOrigValues&chem="+chem+"&room="+room+"&loc="+loc+"&quant="+quant+"&size="+unitSize+"&unit="+unit+"&mftr="+mftr, function() {
+	ajaxRequest("get_data.php?option=saveOrigValues&chem="+chem+"&room="+room+"&loc="+loc+"&quant="+quant+"&unit="+unit+"&mftr="+mftr, function() {
 		if(request.readyState == 4 && request.status == 200) {
 			var response = request.responseText;
 		}
@@ -333,7 +333,7 @@ function chemList(chem) {
 			var splitArr = response.split("|");
 			//Loop through each array - each array is a query result
 			var queryArr = new Array();
-			var returnMessage = "<h3>Choose chemical to update</h3><table><tr><th>Chemical</th><th>Room</th><th>Location</th><th>Quantity</th><th>Size</th><th>Unit</th><th>Mftr</th></tr>";
+			var returnMessage = "<h3>Choose chemical to update</h3><table><tr><th>Chemical</th><th>Room</th><th>Location</th><th>Quantity</th><th>Unit</th><th>Mftr</th></tr>";
 			var popup = document.getElementById('popup');
 			if(splitArr.length == 2) {
 				//One option
@@ -344,7 +344,7 @@ function chemList(chem) {
 				for (var i=0; i<splitArr.length-1; i++) {
 					queryArr = JSON.parse(splitArr[i]);
 					//queryArr now holds a single array with individual query results
-					returnMessage = returnMessage + "<tr onclick='chemSelect(this.id)' id='chem"+[i]+"'><td>"+queryArr[0]+"</td><td>"+queryArr[1]+"</td><td>"+queryArr[2]+"</td><td>"+queryArr[3]+"</td><td>"+queryArr[4]+"</td><td>"+queryArr[5]+"</td><td>"+queryArr[6]+"</td></tr>";
+					returnMessage = returnMessage + "<tr onclick='chemSelect(this.id)' id='chem"+[i]+"'><td>"+queryArr[0]+"</td><td>"+queryArr[1]+"</td><td>"+queryArr[2]+"</td><td>"+queryArr[3]+"</td><td>"+queryArr[5]+"</td><td>"+queryArr[6]+"</td></tr>";
 				}
 				returnMessage = returnMessage + "</table>";
 				activatePopup(returnMessage);
