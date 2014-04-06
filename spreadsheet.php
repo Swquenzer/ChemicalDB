@@ -82,7 +82,7 @@ $AccessLevel = @$_SESSION["AccessLevel"];
 					<tr>
 						<td scope="col"><input type="search" name="roomsearch" title="Room Filter" size="6" list="roomList" onchange="filterThem()"/></td>
 						<td scope="col"><input type="search" name="locationsearch" title="Location Filter" list="locationList" onchange="filterThem()"/></td>
-						<td scope="col"><input type="button" name="clearsearch" value="‹ Clear All Filters ›"></td>
+						<td scope="col"><input type="button" name="clearsearch" id="clearsearch" value="‹ Clear Filters ›"></td>
 						<td scope="col"><input type="search" name="namesearch" title="Chemical Name Filter" list="chemList" onchange="filterThem()"/></td>
 						<td scope="col"><input type="search" name="mfrsearch" title="Manufacturer Filter" list="mfrList" onchange="filterThem()"/></td>
 						<td scope="col"><input type="search" name="cassearch" title="CAS number filter" list="casList" onchange="filterThem()"/></td>
@@ -102,13 +102,12 @@ $AccessLevel = @$_SESSION["AccessLevel"];
 			</table>
 			<div id="tableOps" class="center">
 							<form>
-									<input type="button" class="invisible" name="normal" id="normal" value="Back to Normal Mode">
-									<input type="button" class="visible" name="delete" id="delete" value="Delete Records">
-									<input type="button" class="visible" name="edit" id="edit" value="Edit Records">
+									<input type="button" class="invisible basicButton bgNormal" name="normal" id="normal" value="Back to Normal Mode">
+									<input type="button" class="visible basicButton bgDelete" name="delete" id="delete" value="Delete Records">
+									<input type="button" class="visible basicButton bgEdit" name="edit" id="edit" value="Edit Records">
 							</form>
 			</div>
 			<div id="chemMsg">
-				<div>Click on value in amount column to make changes.</div>
 				<div id="chemHiddenRowsMsg"></div>
 			</div>
 		</div><!--End table_wrapper-->

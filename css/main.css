@@ -118,7 +118,7 @@ input[type=search] {
 }
 thead td input {
 	margin-bottom: 7px;
-	margin-left: 8px;
+	margin-left: 2px;
 }
 header #navMenu input[type=password],
 header #navMenu input[type=text] {
@@ -235,10 +235,6 @@ main {
 }
 #chemical_spreadsheet tbody td:nth-child(4) {
     /font-weight: 600;
-}
-#chemical_spreadsheet tbody tr:hover td:nth-child(3):hover {
-	color: #0E3B0D;
-	background: #7EDC7E;
 }
 #chemical_spreadsheet tfoot {
 	text-align: center;
@@ -430,7 +426,36 @@ span.right { float: right; margin-right: -5px }
     font-size: 14px;
     color: #07133A !important;
 }
-
+/* Generic Styles */
+.basicButton {
+    margin: 0 10px;
+    padding: 13px 16px !important;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    font-weight: bold;
+    color: #2F722A;
+    background: #A3E09F;
+    border: 0px none;
+    border-radius: 2px;
+    transition: all 0.2s ease 0s;
+}
+.basicButton:hover {
+    background: #85BF80;
+}
+.bgDeleteWarning {
+    background: #EA8A8A !important;
+    color: #662222 !important;
+}
+.basicButton.bgEdit:hover {
+    background: #F4F1AD !important;
+    color: #A3883E !important;
+}
+.basicButton.bgDelete:hover {
+    background: #EDAAAA !important;
+    color: #A04646 !important;
+}
+.basicButton.bgNormal:hover {
+}
 /* Utility Classes */
 .visible {
 	display: auto !important;

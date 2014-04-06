@@ -182,8 +182,8 @@ if (@$_POST['fetch'] == "all") {
 	$data = $data[0];
 	$ID == $data['ID']  OR fail("Failed to find matching record.");
 	$stmt->close();
-	$stmt = $db->prepare("CALL Add_New_Inventory(?, ?, ?, ?, ?, ?)")  OR fail($db->error);
-	$stmt->bind_param('issiis', $data['ChemicalID'], $_POST['room'], $_POST['location'], $quantity, $data['Size'], $data['Units'])  OR fail($stmt->error);
+	$stmt = $db->prepare("CALL Add_New_Inventory(?, ?, ?, ?, ?)")  OR fail($db->error);
+	$stmt->bind_param('issis', $data['ChemicalID'], $_POST['room'], $_POST['location'], $quantity, $data['Units'])  OR fail($stmt->error);
 	$stmt->execute()  OR fail($stmt->error);
 	$stmt->affected_rows == 1  OR fail("Unable to transfer to new location."); 
 	$stmt->close();

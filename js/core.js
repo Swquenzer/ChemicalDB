@@ -31,8 +31,8 @@ function normalMode() {
 	//remove 'delete them!' button if it exists
 	$('#submitDelete').attr('class', 'invisible');
 	//re-add 'delete' and 'edit' buttons at bottom of page
-	$('#edit').attr('class', 'visible');
-	$('#delete').attr('class', 'visible');
+	$('#edit').attr('class', 'visible basicButton bgEdit');
+	$('#delete').attr('class', 'visible basicButton bgDelete');
 }
 
 function changeRecord(data) {
@@ -83,15 +83,15 @@ function onClickEdit() {
 }
 function editRecords() {
 	//Remove edit button after it's clicked
-	$('#normal').attr('class', 'visible');
+	$('#normal').attr('class', 'visible basicButton bgNormal');
 	$('#edit').attr('class', 'invisible');
 	$('#delete').attr('class', 'invisible');
 	deactivateFilter();
-	$("tbody tr").on("mouseenter", function() {
-			$(this).children().filter("td").css("background-color", "#DDDD9D");
+	$("tbody tr td").on("mouseenter", function() {
+			$(this).css("background-color", "#DDDD9D");
 	});
-	$("tbody tr").on("mouseleave", function() {
-			$(this).children().filter("td").css("background-color", "");
+	$("tbody tr td").on("mouseleave", function() {
+			$(this).css("background-color", "");
 	});
 	onClickEdit();
 }
@@ -139,11 +139,11 @@ function processDelete() {
 }
 function deleteRecords() {
 	//Remove '#delete' Button
-	$('#normal').attr('class', 'visible');
+	$('#normal').attr('class', 'visible basicButton bgNormal');
 	$('#delete').attr('class', 'invisible');
 	$('#edit').attr('class', 'invisible');
 	//Add submit button for to-be-deleted records
-	$('#tableOps form').prepend("<input type='button' name='submitDelete' id='submitDelete' value='Delete Them!'>");
+	$('#tableOps form').prepend("<input type='button' class='basicButton bgDeleteWarning bgDelete' name='submitDelete' id='submitDelete' value='Delete Them!'>");
 	//Block filtering when row is selected
 	deactivateFilter();
 	//Load deletion checkboxes
@@ -197,7 +197,7 @@ function addTableEvents() {
 		for (var i = 0; i < data.length; i++) {
 			var record = data[i];
 			rows.push("<tr id='item"+ record.ID +"'><td>");
-			rows.push([record.Room, record.Location,  "<span class='right'>" + record.ItemCount * record.Size + " " + record.Units + "</span>(" + record.ItemCount + " x " + record.Size + ")", record.Name, record.mfr, record.CAS].join("</td><td>"));
+			rows.push([record.Room, record.Location, record.ItemCount + " " + record.Units, record.Name, record.mfr, record.CAS].join("</td><td>"));
 			rows.push("</td></tr>");
 		}
 		$('#chemical_spreadsheet_body').html(rows.join(""));
