@@ -46,7 +46,7 @@ function changeRecord(data) {
 	//CAS number for current chemical
 	var CAS = td.parentNode.lastChild.innerHTML;
 	
-	postJSON("update=individual&ID=" + ID + "&value=" + value + "&index=" + index + "&CAS=" + CAS, function() {
+	postJSON("update=individual&ID=" + ID + "&value=" + value + "&index=" + index + "&CAS=" + CAS, function(data) {
 		//On Success
 		td.innerHTML = value;
 		//Allow editing of other data again

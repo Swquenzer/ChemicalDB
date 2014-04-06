@@ -32,6 +32,12 @@ $message = "";
   <meta name="author" content="Chemical Database">
   <link rel="stylesheet" href="css/scanner.css">
   <script src="js/scanner.js"></script>
+	<!--Slider Scripts-->
+	<script>window.dhx_globalImgPath = "slider/imgs/";</script>
+	<script  src="slider/dhtmlxcommon.js"></script>
+	<script  src="slider/dhtmlxslider.js"></script>
+	<script  src="slider/ext/dhtmlxslider_start.js"></script>
+	<link rel="stylesheet" type="text/css" href="slider/dhtmlxslider.css">
 </head>
 <body>
 	<header>
@@ -76,46 +82,47 @@ $message = "";
 					</span>
 					<div id="lowerFieldsWrapper" class="center" style="display:none;">
 						<label id="chemicalsLbl">Chemical Name
-						<span><input list="chemicals" id="chemical" name="chemical" placeholder="Acetone" required autofocus/></span>
+						<span><input type="text" list="chemicals" id="chemical" name="chemical" placeholder="Acetone" required autofocus/></span>
 						</label>
 						<label id="manufacturerLbl">Manufacturer
-						<span><input list="manufacturers" name="manufacturer" id="manufacturer" tabinex="1" placeholder="Sigma" onblur="verifyNewData('Name', 'manufacturer', this.value, 'mftr')" /></span>
+						<span><input type="text" list="manufacturers" name="manufacturer" id="manufacturer" tabinex="1" placeholder="Sigma" onblur="verifyNewData('Name', 'manufacturer', this.value, 'mftr')" /></span>
 						</label>
 						<label id="roomLbl">Room
-						<span><input list="rooms" name="room" id="room" tabinex="2" placeholder="35b" onblur="verifyNewData('Room', 'inventory', this.value)" required /></span>
+						<span><input type="text" list="rooms" name="room" id="room" tabinex="2" placeholder="35b" onblur="verifyNewData('Room', 'inventory', this.value)" required /></span>
 						</label>
 						<span id="roomsWrapper">
 							<?php
 								if ($result = $db->query("SELECT DISTINCT Room FROM inventory")) {
 									while ($row = $result->fetch_row()) {
-										echo "<input type='button' value='$row[0]' class='roomBut' onclick='createLocations(this.value)'>";
+										echo "<input type='button' value='$row[0]' class='basicButton' onclick='createLocations(this.value)'>";
 									}
 									$result->close();
 								}
 							?>
 						</span>
 						<label id="locationLbl">Location
-						<span><input list="location" name="location" id="loc" tabinex="3" placeholder="Storeroom Front" onblur="verifyNewData('Location', 'inventory', this.value)"  required /></span>
+						<span><input type="text" list="location" name="location" id="loc" tabinex="3" placeholder="Storeroom Front" onblur="verifyNewData('Location', 'inventory', this.value)"  required /></span>
 						</label>
 						<span id="locWrapper">
 						</span>
 						<label id="quantLbl">Quantity
-						<span><input type="number" name="quant" id="quant" tabinex="4" placeholder="4" value="0" required /></span>
+						<span><input type="text" type="number" name="quant" id="quant" tabinex="4" placeholder="4" value="0" required /></span>
 						</label>
-						<input type="button" class="changeQuant" value="-1" onclick="changeQuantity(this.value, 'quant')">
-						<input type="button" class="changeQuant" value="-5" onclick="changeQuantity(this.value, 'quant')">
-						<input type="button" class="changeQuant" value="-10" onclick="changeQuantity(this.value, 'quant')">
-						<input type="button" class="changeQuant" value="-50" onclick="changeQuantity(this.value, 'quant')">
-						<input type="button" class="changeQuant" value="Clear" onclick="document.getElementById('quant').value='0'">
+						<script>
+							var slider = new dhtmlxSlider(null, 300);
+							slider.linkTo('quant');
+							slider.init();
+							slider.setSkin("dhx_skyblue");
+						</script>
 						<legend id="unitSizeLbl">Unit Size
 						<span id="unitSize"><input type="number" id="size" name="unitSize" tabinex="5" placeholder="200" required />
 						<input type="text" id="unit" name="unit" tabinex="6" placeholder="mg" required ></span>
 						</legend>
-						<input type="button" class="changeQuant" value="-1" onclick="changeQuantity(this.value, 'size')">
-						<input type="button" class="changeQuant" value="-5" onclick="changeQuantity(this.value, 'size')">
-						<input type="button" class="changeQuant" value="-10" onclick="changeQuantity(this.value, 'size')">
-						<input type="button" class="changeQuant" value="-50" onclick="changeQuantity(this.value, 'size')">
-						<input type="button" class="changeQuant" value="Clear" onclick="document.getElementById('size').value='0'">
+						<input type="button" class="changeQuant basicButton" value="-1" onclick="changeQuantity(this.value, 'size')">
+						<input type="button" class="changeQuant basicButton" value="-5" onclick="changeQuantity(this.value, 'size')">
+						<input type="button" class="changeQuant basicButton" value="-10" onclick="changeQuantity(this.value, 'size')">
+						<input type="button" class="changeQuant basicButton" value="-50" onclick="changeQuantity(this.value, 'size')">
+						<input type="button" class="changeQuant basicButton" value="Clear" onclick="document.getElementById('size').value='0'">
 						<input type="submit" name="submit" class="submitButton" value="Update Chemical">
 					</div><!--lowerFieldsWrapper-->
 			    </p>
@@ -170,7 +177,7 @@ $message = "";
 					    <?php
 						    if ($result = $db->query("SELECT DISTINCT Room FROM inventory")) {
 							    while ($row = $result->fetch_row()) {
-								    echo "<input type='button' value='$row[0]' class='roomBut' onclick='createLocations(this.value)'>";
+								    echo "<input type='button' value='$row[0]' class='basicButton' onclick='createLocations(this.value)'>";
 							    }
 							    $result->close();
 						    }
@@ -184,20 +191,25 @@ $message = "";
 				    <label id="quantLbl">Quantity
 				    <span><input type="number" name="quant" id="quant" tabinex="4" placeholder="4" value="0" required /></span>
 				    </label>
-				    <input type="button" class="changeQuant" value="+1" onclick="changeQuantity(this.value, 'quant')">
-				    <input type="button" class="changeQuant" value="+5" onclick="changeQuantity(this.value, 'quant')">
-				    <input type="button" class="changeQuant" value="+10" onclick="changeQuantity(this.value, 'quant')">
-				    <input type="button" class="changeQuant" value="+50" onclick="changeQuantity(this.value, 'quant')">
-				    <input type="button" class="changeQuant" value="Clear" onclick="document.getElementById('quant').value='0'">
+				    <script>
+							var slider = new dhtmlxSlider(null, 300);
+							slider.linkTo('quant');
+							slider.init();
+							slider.setSkin("dhx_skyblue");
+							slider.setStep(1);
+							slider.setMin(0);
+							slider.setMax(100);
+							slider.setValue(0);
+						</script>
 				    <legend id="unitSizeLbl">Unit Size
 				    <span id="unitSize"><input type="number" id="size" name="unitSize" tabinex="5" placeholder="200" required />
 				    <input type="text" id="unit" name="unit" tabinex="6" placeholder="mg" required ></span>
 				    </legend>
-				    <input type="button" class="changeQuant" value="+1" onclick="changeQuantity(this.value, 'size')">
-				    <input type="button" class="changeQuant" value="+5" onclick="changeQuantity(this.value, 'size')">
-				    <input type="button" class="changeQuant" value="+10" onclick="changeQuantity(this.value, 'size')">
-				    <input type="button" class="changeQuant" value="+50" onclick="changeQuantity(this.value, 'size')">
-				    <input type="button" class="changeQuant" value="Clear" onclick="document.getElementById('size').value='0'">
+				    <input type="button" class="changeQuant basicButton" value="+1" onclick="changeQuantity(this.value, 'size')">
+				    <input type="button" class="changeQuant basicButton" value="+5" onclick="changeQuantity(this.value, 'size')">
+				    <input type="button" class="changeQuant basicButton" value="+10" onclick="changeQuantity(this.value, 'size')">
+				    <input type="button" class="changeQuant basicButton" value="+50" onclick="changeQuantity(this.value, 'size')">
+				    <input type="button" class="changeQuant basicButton" value="Clear" onclick="document.getElementById('size').value='0'">
 				    <input type="submit" name="submit" class="submitButton" value="Add Chemical">
 			    </p>
 		    
@@ -220,7 +232,7 @@ $message = "";
 		}
 		?>
 		</div><!--Form_Wrapper-->
-		<span class="center"><a href="spreadsheet.php" class="basicButton">Go to chemical database spreadsheet</a></span>
+		<span class="center"><a href="spreadsheet.php" class="basicLink">Go to chemical database spreadsheet</a></span>
 	</section><!--main-->
 	<div id="barcode"></div>
 	<footer>

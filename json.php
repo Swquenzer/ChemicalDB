@@ -104,7 +104,9 @@ if (@$_POST['fetch'] == "all") {
 			$stmt = $db->prepare($query) OR fail($db->error);
 			$stmt->bind_param('s', $value) OR fail($stmt->error);
 			$stmt->execute() OR fail($stmt->error);
-			if($stmt->num_rows > 0) $chemExists = true;
+			if($stmt->num_rows > 0) {
+				$chemExists = true;
+			}
 			$stmt->bind_result($chemID);
 			$stmt->fetch();
 			$stmt->close();
