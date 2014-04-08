@@ -15,13 +15,7 @@
 ********************************************************
  
 ===========================================================================================*/
-function createSlider(quant) {
-	var slider = new dhtmlxSlider("updateSlider", 270);
-	slider.linkTo('quant');
-	slider.init();
-	slider.setSkin("dhx_skyblue");
-	slider.setValue(quant);
-}
+
  /******************************************
  * Name: ajaxRequest(url, callback)
  * Description: A general purpose ajax request callback function. 
@@ -430,4 +424,12 @@ function autoFillMftr() {
 			}
 		});
 	}
+}
+
+function createSlider(quant) {
+	var slider = new dhtmlxSlider("updateSlider", 270);
+	slider.linkTo('quant');
+	slider.init();
+	slider.setSkin("dhx_skyblue");
+	slider.setValue(quant);
 }

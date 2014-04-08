@@ -62,7 +62,6 @@ $AccessLevel = @$_SESSION["AccessLevel"];
 			<form class="inputField" action="" method="POST">
 			<?php if ($AccessLevel > 0) {  // logged in ?>
 				<ul><li><input type="button" name="addChem" id="addChem" value="Add Chemicals"/></li>
-				<li><input type="button" name="addMftr" id="addMftr" value="Add Manufacturer"/></li>
 				<li><input name="Logout" value="Logout" type="submit" /></li></ul>
 			<?php } else {  // not logged in ?>
 				<input size="12" type="text" id="username" name="username" placeholder="Username" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Username'" 
@@ -103,6 +102,7 @@ $AccessLevel = @$_SESSION["AccessLevel"];
 			<div id="tableOps" class="center">
 							<form>
 									<input type="button" class="invisible basicButton bgNormal" name="normal" id="normal" value="Back to Normal Mode">
+									<input type="button" class="visible basicButton bgNormal" name="barcode" id="barcode" value="Get Barcodes">
 									<input type="button" class="visible basicButton bgDelete" name="delete" id="delete" value="Delete Records">
 									<input type="button" class="visible basicButton bgEdit" name="edit" id="edit" value="Edit Records">
 							</form>

@@ -9,28 +9,59 @@ window.onload = function() {
 	$('#normal').on("click", function(event) {
 		normalMode();
 	});
+	$('#barcode').on("click", function(event) {
+		getBarcodes();
+	});
 }
+
 $(addTableEvents);
 
 function postJSON(data, successFunction) {
 	$.post("json.php", data, successFunction, "json").fail(function(event, status, msg ) { alert(status + ": " + msg); });
 }
 
+function getBarcodes() {
+	//add 'normal mode' button
+	$('#normal').attr('class', 'visible basicButton bgNormal');
+	//remove 'barcodes' button if it exists
+	$('#barcode').attr('class', 'invisible');
+	//remove 'delete them!' button if it exists
+	$('#submitDelete').attr('class', 'invisible');
+	//remove 'edit' button if it exists
+	$('#edit').attr('class', 'invisible');
+	//remove 'delete' button if it exists
+	$('#delete').attr('class', 'invisible');
+	$('tbody tr').each(function() {
+		var td = this.childNodes[5];
+		var value = td.innerHTML;
+		td.innerHTML = "<img src='barcodes/"+value+".png'>";
+	});
+}
 //Revert to normal functionality of spreadsheet
 function normalMode() {
 	//change hover styles back to their normal state
 	$('tbody tr').off("mouseenter");
+	$('tbody tr td').off("mouseenter");
 	//remove deletion checkboxes if they exist
 	$("#chemical_spreadsheet tbody tr").each(function(index) {
 		var cb = this.children[0].children[0];
 		//If checkbox node exists, remove it
 		if($(cb).length) cb.remove();
 	});
+	//revert barcode images to text if possible
+	//if last column hold image elements
+	if($('tbody tr td')[5].lastChild.nodeName == "IMG") {
+		$('tbody tr').each(function() {
+			var cas = this.lastChild.outerHTML.match(/[0-9]{2,6}-[0-9]{2}-[0-9]/g)[0];
+			this.lastChild.innerHTML = cas;
+		});
+	}
 	//remove 'normal mode' button at bottom of page
 	$('#normal').attr('class', 'invisible');
 	//remove 'delete them!' button if it exists
 	$('#submitDelete').attr('class', 'invisible');
 	//re-add 'delete' and 'edit' buttons at bottom of page
+	$('#barcode').attr('class', 'visible basicButton bgNormal');
 	$('#edit').attr('class', 'visible basicButton bgEdit');
 	$('#delete').attr('class', 'visible basicButton bgDelete');
 }
@@ -84,6 +115,7 @@ function onClickEdit() {
 function editRecords() {
 	//Remove edit button after it's clicked
 	$('#normal').attr('class', 'visible basicButton bgNormal');
+	$('#barcode').attr('class', 'invisible');
 	$('#edit').attr('class', 'invisible');
 	$('#delete').attr('class', 'invisible');
 	deactivateFilter();
@@ -140,6 +172,7 @@ function processDelete() {
 function deleteRecords() {
 	//Remove '#delete' Button
 	$('#normal').attr('class', 'visible basicButton bgNormal');
+	$('#barcode').attr('class', 'invisible');
 	$('#delete').attr('class', 'invisible');
 	$('#edit').attr('class', 'invisible');
 	//Add submit button for to-be-deleted records
@@ -183,10 +216,17 @@ function addTableEvents() {
 	var searchrow = $('#chemical_spreadsheet thead tr:first-child')[0]
 	function fillSearch(event) {
 		var searchbox = searchrow.cells[this.cellIndex].firstChild;
-		if (searchbox.value == this.textContent) {
+		var searchContent = this.textContent;
+		//If filtering by barcode (as img tag)
+		if(this.firstChild.localName == "img") {
+			//take cas number out of image tag
+			var cas = this.firstChild.outerHTML.match(/[0-9]{2,6}-[0-9]{2}-[0-9]/g)[0];
+			searchContent = cas;
+		}
+		if (searchbox.value == searchContent) {
 			searchbox.value = "";
 		} else {
-			searchbox.value = this.textContent;
+			searchbox.value = searchContent;
 		}
 		filterThem();
 	}
@@ -242,7 +282,7 @@ function addTableEvents() {
 		$('#popup').toggleClass("active");
 	});
 
-	$('#popup div').click(function(event) { 
+	$('#popup div').click(function(event) {
 		return false;
 	});
 
