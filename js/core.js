@@ -85,7 +85,7 @@ function changeRecord(data) {
 	});
 }
 function onClickEdit() {
-	$('#chemical_spreadsheet tbody').on("click", "td", function() {
+	$('#chemical_spreadsheet tbody').on("click", "td:not(:nth-child(6))", function() {
 	//Can't edit multiple values simultaneously
 	$('#chemical_spreadsheet tbody').off("click");
 		//Node Types
@@ -119,10 +119,10 @@ function editRecords() {
 	$('#edit').attr('class', 'invisible');
 	$('#delete').attr('class', 'invisible');
 	deactivateFilter();
-	$("tbody tr td").on("mouseenter", function() {
+	$("tbody tr td:not(:nth-child(6))").on("mouseenter", function() {
 			$(this).css("background-color", "#DDDD9D");
 	});
-	$("tbody tr td").on("mouseleave", function() {
+	$("tbody tr td:not(:nth-child(6))").on("mouseleave", function() {
 			$(this).css("background-color", "");
 	});
 	onClickEdit();
