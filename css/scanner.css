@@ -55,7 +55,7 @@ header img {
 .addInv #roomsWrapper, .addInv #locWrapper {
     display: inline-block;
     float: right;
-    margin-right: 8px;
+    margin-right: 23px;
 }
 .addInv #roomsWrapper input, .addInv #locWrapper input {
     width: auto !important;

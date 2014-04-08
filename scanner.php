@@ -189,7 +189,7 @@ $message = "";
 							slider.setStep(1);
 							slider.setMin(0);
 							slider.setMax(100);
-							slider.setValue(0);
+							slider.setValue(100);
 						</script>
 				    <label id="unitTypeLbl">Unit Type
 						<span id="unitSize">
