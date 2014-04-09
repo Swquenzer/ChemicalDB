@@ -5,7 +5,11 @@
 		case "getChemList":
 			$cas = $_GET['cas'];
 			//Query for locations based on $room
-			$query = "SELECT Name FROM `chemical` WHERE CAS=?";
+			$query = "SELECT chemical.name
+								FROM chemical 
+								JOIN inventory
+								ON chemical.ID=inventory.ChemicalID
+								WHERE chemical.CAS=?";
 			$stmt = $db->stmt_init();
 			if(!$stmt->prepare($query)) {
 				echo("get_loc.php: getChemList: Error preparing query");

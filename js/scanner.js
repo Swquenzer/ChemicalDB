@@ -364,7 +364,7 @@ function getData(cas) {
 			var response = request.responseText;
 			var chemListTag = chems.getElementsByTagName("select")[0];
 			chemListTag.innerHTML=response;
-			//Check if only one options
+			//Check if only one option
 			// 2 ===> 1 for child node + 1 for inner text
 			if(chemListTag.childNodes.length == 2) {
 				chemList(chemListTag.childNodes[0].value);
