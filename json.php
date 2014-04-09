@@ -95,6 +95,19 @@ if (@$_POST['fetch'] == "all") {
 			break;
 		case 2:
 			// Amount
+			$query = "UPDATE inventory SET ItemCount=? WHERE ID=?";
+			$stmt = $db->prepare($query) OR fail($db->error);
+			$stmt->bind_param('si', $value, $ID) OR fail($stmt->error);
+			$stmt->execute() OR fail($stmt->error);
+			$stmt->close();
+			$query = "SELECT Units FROM inventory WHERE ID=?";
+			$stmt = $db->prepare($query) OR fail($db->error);
+			$stmt->bind_param('i', $ID) OR fail($stmt->error);
+			$stmt->execute() OR fail($stmt->error);
+			//$stmt->bind_result($lbl);
+			$output = fetch_all($stmt);
+			$stmt->close();
+			exit(json_encode($output));
 			break;
 		case 3:
 			// Chemical Name

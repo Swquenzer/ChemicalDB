@@ -72,14 +72,22 @@ function changeRecord(data) {
 	var ID = data.parentNode.parentNode.id.substring(4);
 	//User input value
 	var value = data.value;
+	//If user inputs unit, remove-- we only want to send numeric value
+	value = value.replace(/[ a-zA-Z]+$/,"");
 	//Place (index) in table
 	var index = data.id;
 	//CAS number for current chemical
 	var CAS = td.parentNode.lastChild.innerHTML;
 	
-	postJSON("update=individual&ID=" + ID + "&value=" + value + "&index=" + index + "&CAS=" + CAS, function(data) {
+	postJSON("update=individual&ID=" + ID + "&value=" + value + "&index=" + index + "&CAS=" + CAS, function(label) {
 		//On Success
-		td.innerHTML = value;
+		//If editing amount column:
+		if(td.cellIndex == 2) {
+			td.innerHTML.replace(/[a-zA-Z]/,"");
+			td.innerHTML = value + " " + label[0].Units;
+		} else {
+			td.innerHTML = value;
+		}
 		//Allow editing of other data again
 		onClickEdit();
 	});
@@ -100,6 +108,12 @@ function onClickEdit() {
 		var index = Array.prototype.indexOf.call(this.parentNode.childNodes, td);
 		var value = td.innerHTML;
 		if(nn == "#text") {
+			//If editing quantity column
+			if(td.cellIndex == 2) {
+				//Remove unit (mg, grams, etc) from value
+				value = value.replace(/[a-zA-Z]+$/,"");
+				td.innerHTML = "<input type='text' id='"+ index +"' value='"+ value +"' onblur='changeRecord(this)'>"+td.innerHTML;
+			}
 			td.innerHTML = "<input type='text' id='"+ index +"' value='"+ value +"' onblur='changeRecord(this)'>";
 			this.firstChild.select();
 		}
@@ -264,6 +278,7 @@ function addTableEvents() {
 		}
 		return popupFields["popup" + name].value
 	}
+	/*
 	var popupData = { }
 	$('#chemical_spreadsheet tbody').on("click", "td:nth-child(3)", function(event) {
 		var vals = this.textContent.match(/(\d+)\s(\w+)\D+(\d+)\D+(\d+)/);
@@ -285,7 +300,7 @@ function addTableEvents() {
 	$('#popup div').click(function(event) {
 		return false;
 	});
-
+	*/
 
 	// faking the datalist feature by showing the select box!
   	if (!document.createElement('datalist') || !window.HTMLDataListElement) {
