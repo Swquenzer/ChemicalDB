@@ -188,7 +188,7 @@ $message = "";
 							slider.setSkin("dhx_skyblue");
 							slider.setStep(1);
 							slider.setMin(0);
-							slider.setMax(100);
+							slider.setMax(1000);
 							slider.setValue(100);
 						</script>
 				    <label id="unitTypeLbl">Unit Type

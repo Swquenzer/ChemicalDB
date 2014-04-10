@@ -438,5 +438,8 @@ function createSlider(quant) {
 	slider.linkTo('quant');
 	slider.init();
 	slider.setSkin("dhx_skyblue");
+	slider.setStep(1);
+	slider.setMin(0);
+	slider.setMax(1000);
 	slider.setValue(quant);
 }
