@@ -276,6 +276,7 @@ function autofill(arr, multiple) {
 	document.getElementById('room').value = room;
 	document.getElementById('loc').value = loc;
 	document.getElementById('quant').value = quant;
+	//Create a slider control for quantity
 	createSlider(quant);
 	//document.getElementById('size').value = unitSize;
 	document.getElementById('unit').value=unit;
@@ -426,7 +427,13 @@ function autoFillMftr() {
 	}
 }
 
+//Create a slider control for quantity
 function createSlider(quant) {
+	//If slider already exists, delete it and create a new one
+	var sliderWrapper = document.getElementById('updateSlider');
+	if(sliderWrapper.innerHTML !== "")	{
+			sliderWrapper.innerHTML = "";
+		}
 	var slider = new dhtmlxSlider("updateSlider", 270);
 	slider.linkTo('quant');
 	slider.init();
