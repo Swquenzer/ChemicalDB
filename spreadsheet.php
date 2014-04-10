@@ -41,8 +41,8 @@ $AccessLevel = @$_SESSION["AccessLevel"];
 <html lang="en">
 <head>
 	<meta charset="utf-8">
-	<title>Project Acid Rain</title>
-	<meta name="description" content="Project Acid Rain">
+	<title>Chemical Database | Eastern Mennonite University</title>
+	<meta name="description" content="Chemical Database">
 	<meta name="author" content="Stephen Quenzer">
 	<link rel="stylesheet" href="css/main.css">
 	<!-- <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script> -->
