@@ -1,5 +1,6 @@
 <?php
 session_start();
+require 'logger.php';
 
 // Don't proceed unless the user is logged in!
 
@@ -117,11 +118,10 @@ if (@$_POST['fetch'] == "all") {
 			$stmt = $db->prepare($query) OR fail($db->error);
 			$stmt->bind_param('s', $value) OR fail($stmt->error);
 			$stmt->execute() OR fail($stmt->error);
-			if($stmt->num_rows > 0) {
-				$chemExists = true;
-			}
-			$stmt->bind_result($chemID);
-			$stmt->fetch();
+			$result = $stmt->get_result();
+			if($result->num_rows > 0) $chemExists = true;
+			$row = $result->fetch_row();
+			$chemID = $row[0];
 			$stmt->close();
 			if(!$chemExists) {
 				// If chemical does not yet exist
@@ -152,9 +152,10 @@ if (@$_POST['fetch'] == "all") {
 			$stmt = $db->prepare($query) OR fail($db->error);
 			$stmt->bind_param('s', $value) OR fail($stmt->error);
 			$stmt->execute() OR fail($stmt->error);
-			if($stmt->num_rows > 0) $mftrExists = true;
-			$stmt->bind_result($mftrID);
-			$stmt->fetch();
+			$result = $stmt->get_result();
+			if($result->num_rows > 0) $mftrExists = true;
+			$row = $result->fetch_row();
+			$mftrID = $row[0];
 			$stmt->close();
 			if(!$mftrExists) {
 				// If manufacturer does not yet exist

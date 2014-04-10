@@ -427,7 +427,13 @@ function autoFillMftr() {
 	}
 }
 
-//Create a slider control for quantity
+ /******************************************
+ * Name: createSlider(quant)
+ * Description: Creates a new, highly customizable quantity slider control
+ * Parameters:
+	# quant [integer]: Current quantity of selected chemical 
+ * Notes: If a slider already exists, the first will be deleted and a new one will be added
+ ******************************************/
 function createSlider(quant) {
 	//If slider already exists, delete it and create a new one
 	var sliderWrapper = document.getElementById('updateSlider');

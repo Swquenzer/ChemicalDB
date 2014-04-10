@@ -72,8 +72,11 @@ function changeRecord(data) {
 	var ID = data.parentNode.parentNode.id.substring(4);
 	//User input value
 	var value = data.value;
-	//If user inputs unit, remove-- we only want to send numeric value
-	value = value.replace(/[ a-zA-Z]+$/,"");
+	//If user is updating quantity
+	if(td.cellIndex == 2) {
+		//If user inputs unit, remove-- we only want to send numeric value
+		value = value.replace(/[ a-zA-Z]+$/,"");
+	}
 	//Place (index) in table
 	var index = data.id;
 	//CAS number for current chemical
@@ -232,7 +235,7 @@ function addTableEvents() {
 		var searchbox = searchrow.cells[this.cellIndex].firstChild;
 		var searchContent = this.textContent;
 		//If filtering by barcode (as img tag)
-		if(this.firstChild.localName == "img") {
+		if(this.firstChild != null && this.firstChild.localName == "img") {
 			//take cas number out of image tag
 			var cas = this.firstChild.outerHTML.match(/[0-9]{2,6}-[0-9]{2}-[0-9]/g)[0];
 			searchContent = cas;

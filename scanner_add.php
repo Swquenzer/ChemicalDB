@@ -8,18 +8,18 @@
 ########################
 ########################
 # Variable list in file (not including $GET's or query variables)
-# NAME:			DESCRIPTION:					 TYPE:				
-# $db:			Database Handle 				{msqli object}
-# $cas: 		Chemical CAS numbers 			{string}
-# $chemical: 	Chemical name 					{string}
-# $mftr: 		Manufacturer name [optional]	{string}
-# $room: 		Room name 						{string}
-# $loc:			Location name					{string}
-# $quant:		Quantity of chemical			{int}
-# $unit:		Unit type (e.g. ml, g, etc)		{string}
-# $mftrID: 		Manufacturer ID (may be null)	{string | null}
-# $chemID:		Chemical ID						{string}
-# $currentDate:	Current date					{string in 'date()' format}
+# NAME:				DESCRIPTION:					 					TYPE:				
+# $db:				Database Handle 								{msqli object}
+# $cas: 			Chemical CAS numbers 						{string}
+# $chemical: 	Chemical name 									{string}
+# $mftr: 			Manufacturer name [optional]		{string}
+# $room: 			Room name 											{string}
+# $loc:				Location name										{string}
+# $quant:			Quantity of chemical						{int}
+# $unit:			Unit type (e.g. ml, g, etc)			{string}
+# $mftrID: 		Manufacturer ID (may be null)		{string | null}
+# $chemID:		Chemical ID											{string}
+# $currentDate:	Current date									{string in 'date()' format}
 ########################
 ########################
 session_start();
