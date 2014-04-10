@@ -5,7 +5,7 @@
 		case "getChemList":
 			$cas = $_GET['cas'];
 			//Query for locations based on $room
-			$query = "SELECT chemical.name
+			$query = "SELECT DISTINCT chemical.name
 								FROM chemical 
 								JOIN inventory
 								ON chemical.ID=inventory.ChemicalID

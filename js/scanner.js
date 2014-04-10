@@ -339,7 +339,7 @@ function chemList(chem) {
 				for (var i=0; i<splitArr.length-1; i++) {
 					queryArr = JSON.parse(splitArr[i]);
 					//queryArr now holds a single array with individual query results
-					returnMessage = returnMessage + "<tr onclick='chemSelect(this.id)' id='chem"+[i]+"'><td>"+queryArr[0]+"</td><td>"+queryArr[1]+"</td><td>"+queryArr[2]+"</td><td>"+queryArr[3]+"</td><td>"+queryArr[5]+"</td><td>"+queryArr[6]+"</td></tr>";
+					returnMessage = returnMessage + "<tr onclick='chemSelect(this.id)' id='chem"+[i]+"'><td>"+queryArr[0]+"</td><td>"+queryArr[1]+"</td><td>"+queryArr[2]+"</td><td>"+queryArr[3]+"</td><td>"+queryArr[4]+"</td><td>"+queryArr[5]+"</td></tr>";
 				}
 				returnMessage = returnMessage + "</table>";
 				activatePopup(returnMessage);
