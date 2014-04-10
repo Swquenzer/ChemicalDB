@@ -61,7 +61,7 @@ $AccessLevel = @$_SESSION["AccessLevel"];
 		<nav id="navMenu">
 			<form class="inputField" action="" method="POST">
 			<?php if ($AccessLevel > 0) {  // logged in ?>
-				<ul><li><input type="button" name="addChem" id="addChem" value="Add Chemicals"/></li>
+				<ul><li><input type="button" name="addChem" id="addChem" value="Add Chemicals (Scanner)"/></li>
 				<li><input name="Logout" value="Logout" type="submit" /></li></ul>
 			<?php } else {  // not logged in ?>
 				<input size="12" type="text" id="username" name="username" placeholder="Username" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Username'" 
@@ -76,12 +76,20 @@ $AccessLevel = @$_SESSION["AccessLevel"];
 	<?php if ($AccessLevel > 0) { // logged in ?>
 		<div id="table_wrapper">
 			<p id="errorMessage" class="center"><span><?php echo $errorMessage; ?></span></p>
+			<div id="tableOps" class="center">
+							<form>
+									<input type="button" class="invisible basicButton bgNormal" name="normal" id="normal" value="Back to Normal Mode">
+									<input type="button" class="visible basicButton bgNormal" name="barcode" id="barcode" value="Get Barcodes">
+									<input type="button" class="visible basicButton bgDelete" name="delete" id="delete" value="Delete Records">
+									<input type="button" class="visible basicButton bgEdit" name="edit" id="edit" value="Edit Records">
+							</form>
+			</div>
 			<table id="chemical_spreadsheet" class="tablesorter">
 				<thead>
 					<tr>
 						<td scope="col"><input type="search" name="roomsearch" title="Room Filter" size="6" list="roomList" onchange="filterThem()"/></td>
 						<td scope="col"><input type="search" name="locationsearch" title="Location Filter" list="locationList" onchange="filterThem()"/></td>
-						<td scope="col"><input type="button" name="clearsearch" id="clearsearch" value="‹ Clear Filters ›"></td>
+						<td scope="col"><input type="button" name="clearsearch" id="clearsearch" class="basicButton" value="‹ Clear Filters ›"></td>
 						<td scope="col"><input type="search" name="namesearch" title="Chemical Name Filter" list="chemList" onchange="filterThem()"/></td>
 						<td scope="col"><input type="search" name="mfrsearch" title="Manufacturer Filter" list="mfrList" onchange="filterThem()"/></td>
 						<td scope="col"><input type="search" name="cassearch" title="CAS number filter" list="casList" onchange="filterThem()"/></td>
@@ -99,14 +107,6 @@ $AccessLevel = @$_SESSION["AccessLevel"];
 					<tr><td></td><td></td><td></td><td></td><td></td><td></td></tr>
 				</tbody>
 			</table>
-			<div id="tableOps" class="center">
-							<form>
-									<input type="button" class="invisible basicButton bgNormal" name="normal" id="normal" value="Back to Normal Mode">
-									<input type="button" class="visible basicButton bgNormal" name="barcode" id="barcode" value="Get Barcodes">
-									<input type="button" class="visible basicButton bgDelete" name="delete" id="delete" value="Delete Records">
-									<input type="button" class="visible basicButton bgEdit" name="edit" id="edit" value="Edit Records">
-							</form>
-			</div>
 			<div id="chemMsg">
 				<div id="chemHiddenRowsMsg"></div>
 			</div>

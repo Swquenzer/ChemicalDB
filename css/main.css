@@ -124,6 +124,17 @@ header #navMenu input[type=password],
 header #navMenu input[type=text] {
     border: 2px #638566 inset;
 }
+#clearsearch {
+    position: relative;
+    bottom: 3px;
+    padding: 6px 2px !important;
+    margin: 0 5px !important;
+    color: white;
+    background: #4E66C0;
+}
+#clearsearch:hover {
+    background: #6C83D8;
+}
 #errorMessage {
 	font-size: 20px;
 	color: #3E523F;
@@ -168,12 +179,13 @@ main {
 	padding: 7px;
 	margin: 5px;
 }
-
 #addInv p{
 	text-align: left;
 	padding-left: 30px;
 }
-
+#tableOps {
+    margin-bottom: 10px;
+}
 #spreadsheetError {
 	text-align: center;
 	font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
@@ -188,7 +200,7 @@ main {
 	-moz-box-shadow:    	0px 0px 9px 1px #1D2E6D;
 	box-shadow:         	0px 0px 9px 1px #1D2E6D;
     -webkit-border-radius: 	10px 10px 10px 10px;
-	border-radius: 		10px 10px 10px 10px;
+	border-radius: 		    10px 10px 10px 10px;
 }
 #chemical_spreadsheet {
 	margin: auto;
@@ -241,8 +253,9 @@ main {
 }
 
 #chemMsg {
+    margin-right: 55px;
+	padding: 10px 0 10px 0;
 	color: #146E14;
-	padding: 0 0 10px 0;
 }
 #chemMsg div {
 	display: inline-block;
@@ -428,8 +441,8 @@ span.right { float: right; margin-right: -5px }
 }
 /* Generic Styles */
 .basicButton {
-    margin: 0 10px;
-    padding: 13px 16px !important;
+    margin: 0 15px;
+    padding: 13px 16px;
     font-family: Arial, sans-serif;
     font-size: 14px;
     font-weight: bold;
