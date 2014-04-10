@@ -57,7 +57,7 @@ $AccessLevel = @$_SESSION["AccessLevel"];
 </head>
 <body>
 	<header class="center">
-		<img src="gfx/spreadsheet_header.png">
+		<img id="banner" src="gfx/spreadsheet_header.png">
 		<nav id="navMenu">
 			<form class="inputField" action="" method="POST">
 			<?php if ($AccessLevel > 0) {  // logged in ?>
@@ -80,8 +80,8 @@ $AccessLevel = @$_SESSION["AccessLevel"];
 							<form>
 									<input type="button" class="invisible basicButton bgNormal" name="normal" id="normal" value="Back to Normal Mode">
 									<input type="button" class="visible basicButton bgNormal" name="barcode" id="barcode" value="Get Barcodes">
-									<input type="button" class="visible basicButton bgDelete" name="delete" id="delete" value="Delete Records">
 									<input type="button" class="visible basicButton bgEdit" name="edit" id="edit" value="Edit Records">
+									<input type="button" class="visible basicButton bgDelete" name="delete" id="delete" value="Delete Records">
 							</form>
 			</div>
 			<table id="chemical_spreadsheet" class="tablesorter">

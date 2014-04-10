@@ -265,9 +265,8 @@ function addTableEvents() {
 	$('#chemical_spreadsheet tbody').on("click", 'td:not(:nth-child(3))', fillSearch);
 	$('#chemical_spreadsheet thead').on("keyup", 'input[type=search]', filterThem);
 	$('#chemical_spreadsheet thead input[type=button]').on("click", function(event) { $('input[type=search]',searchrow).val(""); filterThem() });
-	$('#addChem').on("click", function(event) { 
-		location = "scanner.php";
-	});
+	$('#addChem').on("click", function(event) { location = "scanner.php";	});
+	$('#banner').on("click", function(event) { location = "spreadsheet.php";	});
 	
 	// Provides client-side table sorting. Must come after table loading
 	$.tablesorter.addParser({ id:"nums", is: function(s) { return false; }, format: function(s) { return parseFloat(s.replace(/^<span[^>]*>/,"")) }, type: 'numeric' });

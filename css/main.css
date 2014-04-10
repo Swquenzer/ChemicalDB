@@ -35,6 +35,10 @@ header h1 img {
 	margin-right: 20px;
 }
 
+img#banner {
+    cursor: pointer;
+}
+
 header #navMenu {
 	display: block;
     position: relative;
@@ -468,6 +472,7 @@ span.right { float: right; margin-right: -5px }
     color: #A04646 !important;
 }
 .basicButton.bgNormal:hover {
+    
 }
 /* Utility Classes */
 .visible {
